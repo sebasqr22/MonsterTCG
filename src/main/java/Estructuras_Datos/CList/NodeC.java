@@ -1,4 +1,4 @@
-package Estructuras_Datos;
+package Estructuras_Datos.CList;
 
 public class NodeC {
 
