@@ -5,9 +5,15 @@
  */
 package Visual;
 
+
+import Estructuras_Datos.CList.CircularList;
+import Estructuras_Datos.Cola.Cola;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,9 +23,27 @@ import javax.swing.*;
  *
  * @author sebas
  */
-public class MenuInicial extends javax.swing.JFrame {
-    
+public class MenuInicial extends JFrame implements Observer {
+    //variables del user
+    String username;
     int miPuerto = Puerto();
+    String miIP;
+    {
+        try {
+            miIP = InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //variables del oponente
+    String opUs;
+    int opPort;
+    String opIP;
+
+    //variables del mazo
+    Cola mazo = new Cola();
+    CircularList mano = new CircularList();
 
     /**
      * Creates new form MenuInicial
@@ -93,7 +117,7 @@ public class MenuInicial extends javax.swing.JFrame {
         puertoText.setBackground(new java.awt.Color(102, 204, 0));
         puertoText.setFont(nombreText.getFont());
         puertoText.setForeground(new java.awt.Color(12, 122, 16));
-        puertoText.setText("Tu número de puerto");
+        puertoText.setText("Tu nÃºmero de puerto");
 
         nombreText.setBackground(new java.awt.Color(102, 204, 0));
         nombreText.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 24)); // NOI18N
@@ -480,7 +504,7 @@ public class MenuInicial extends javax.swing.JFrame {
 
     private void salirBoton_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_menuActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "Â¿EstÃ¡s seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -492,7 +516,7 @@ public class MenuInicial extends javax.swing.JFrame {
 
     private void salirBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_unirseActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "Â¿EstÃ¡s seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -504,7 +528,7 @@ public class MenuInicial extends javax.swing.JFrame {
 
     private void salirBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_lobbyActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "Â¿EstÃ¡s seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -599,6 +623,10 @@ public class MenuInicial extends javax.swing.JFrame {
         }
         
         return puerto;
+    }
+    @Override
+    public void update(Observable o, Object arg) {
+
     }
 }
 
