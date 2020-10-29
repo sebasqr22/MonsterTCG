@@ -5,6 +5,7 @@
  */
 package Visual;
 
+
 import Estructuras_Datos.CList.CircularList;
 import Estructuras_Datos.Cola.Cola;
 
@@ -43,8 +44,6 @@ public class MenuInicial extends JFrame implements Observer {
     //variables del mazo
     Cola mazo = new Cola();
     CircularList mano = new CircularList();
-
-
 
     /**
      * Creates new form MenuInicial
@@ -118,7 +117,7 @@ public class MenuInicial extends JFrame implements Observer {
         puertoText.setBackground(new java.awt.Color(102, 204, 0));
         puertoText.setFont(nombreText.getFont());
         puertoText.setForeground(new java.awt.Color(12, 122, 16));
-        puertoText.setText("Tu número de puerto");
+        puertoText.setText("Tu nÃºmero de puerto");
 
         nombreText.setBackground(new java.awt.Color(102, 204, 0));
         nombreText.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 24)); // NOI18N
@@ -505,7 +504,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirBoton_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_menuActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "Â¿EstÃ¡s seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -517,7 +516,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_unirseActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "Â¿EstÃ¡s seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -529,7 +528,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_lobbyActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "Â¿EstÃ¡s seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -625,7 +624,6 @@ public class MenuInicial extends JFrame implements Observer {
         
         return puerto;
     }
-
     @Override
     public void update(Observable o, Object arg) {
 
