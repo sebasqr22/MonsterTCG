@@ -59,8 +59,8 @@ public class MenuInicial extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jugadoresConectadosPanel = new javax.swing.JPanel();
         jugadoresConectadosText = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jugadoresConectadosTextArea = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jugadoresConectadosTextArea_lobby = new javax.swing.JTextArea();
         monsterName_lobby = new javax.swing.JLabel();
         lobbyText_lobby = new javax.swing.JLabel();
         ipField_lobby = new javax.swing.JTextField();
@@ -290,12 +290,12 @@ public class MenuInicial extends javax.swing.JFrame {
         jugadoresConectadosText.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 14)); // NOI18N
         jugadoresConectadosText.setText("Jugadores conectados:");
 
-        jugadoresConectadosTextArea.setEditable(false);
-        jugadoresConectadosTextArea.setBackground(jugadoresConectadosPanel.getBackground());
-        jugadoresConectadosTextArea.setColumns(20);
-        jugadoresConectadosTextArea.setFont(jugadoresConectadosText.getFont());
-        jugadoresConectadosTextArea.setRows(5);
-        jScrollPane1.setViewportView(jugadoresConectadosTextArea);
+        jugadoresConectadosTextArea_lobby.setEditable(false);
+        jugadoresConectadosTextArea_lobby.setBackground(jPanel2.getBackground());
+        jugadoresConectadosTextArea_lobby.setColumns(20);
+        jugadoresConectadosTextArea_lobby.setFont(jugadoresConectadosText.getFont());
+        jugadoresConectadosTextArea_lobby.setRows(5);
+        jScrollPane2.setViewportView(jugadoresConectadosTextArea_lobby);
 
         javax.swing.GroupLayout jugadoresConectadosPanelLayout = new javax.swing.GroupLayout(jugadoresConectadosPanel);
         jugadoresConectadosPanel.setLayout(jugadoresConectadosPanelLayout);
@@ -305,16 +305,16 @@ public class MenuInicial extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jugadoresConectadosText, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         jugadoresConectadosPanelLayout.setVerticalGroup(
             jugadoresConectadosPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jugadoresConectadosPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jugadoresConectadosText)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(421, Short.MAX_VALUE))
         );
 
         monsterName_lobby.setFont(new java.awt.Font("Viner Hand ITC", 3, 55)); // NOI18N
@@ -391,7 +391,7 @@ public class MenuInicial extends javax.swing.JFrame {
                                     .addComponent(ipText_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(136, 136, 136)
                                     .addComponent(puertoText_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jugadoresConectadosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -399,7 +399,7 @@ public class MenuInicial extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jugadoresConectadosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(monsterName_lobby)
@@ -560,10 +560,10 @@ public class MenuInicial extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel jugadoresConectadosPanel;
     private javax.swing.JLabel jugadoresConectadosText;
-    private javax.swing.JTextArea jugadoresConectadosTextArea;
+    private javax.swing.JTextArea jugadoresConectadosTextArea_lobby;
     private javax.swing.JButton lobbyBoton;
     private javax.swing.JLabel lobbyText_lobby;
     private javax.swing.JLabel monsterName_lobby;
