@@ -60,10 +60,10 @@ public class Server extends Observable implements Runnable {
 
                     in = new DataInputStream(client.getInputStream());// create DataInputStream
 
-                    String msg = in.readUTF();//read message to send to client
+                    String input = in.readUTF();//read message to send to client
 
                     this.setChanged();
-                    this.notifyObservers(msg);//notify observers(client)
+                    this.notifyObservers(input);//notify observers(client)
                     this.clearChanged();// clear
 
                     client.close();// close client

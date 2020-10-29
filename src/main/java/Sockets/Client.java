@@ -17,16 +17,16 @@ public class Client implements Runnable {
      * port es puerto de cliente y msg el mensaje.
      */
     int port;
-    String objeto;
+    String output;
 
     /**
      * Constructor de cliente.
      * @param port puerto a donde se quiere mandar.
-     * @param objeto mensaje que se quiere mandar.
+     * @param output mensaje que se quiere mandar.
      */
-    public Client(int port,String objeto){
+    public Client(int port,String output){
         this.port = port;
-        this.objeto = objeto;
+        this.output = output;
     }
 
     /**
@@ -44,7 +44,7 @@ public class Client implements Runnable {
 
             out = new DataOutputStream(client.getOutputStream());//create DataOutputStream
 
-            out.writeUTF(objeto);//send message (msg)
+            out.writeUTF(output);//send message (msg)
 
             client.close();//close client
 
