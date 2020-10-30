@@ -1,4 +1,4 @@
-package Visual;
+package Sockets;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

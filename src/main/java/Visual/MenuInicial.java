@@ -9,6 +9,9 @@ package Visual;
 import Estructuras_Datos.CList.CircularList;
 import Estructuras_Datos.Cola.Cola;
 import JsonPackage.Json;
+import Sockets.Client;
+import Sockets.Mensaje;
+import Sockets.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -46,10 +49,7 @@ public class MenuInicial extends JFrame implements Observer {
     Cola mazo = new Cola();
     CircularList mano = new CircularList();
     
-    //Atributos 
-    Server servidor;
-    
-    Thread serverT;
+
 
     /**
      * Creates new form MenuInicial
@@ -102,7 +102,6 @@ public class MenuInicial extends JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pantallas.setBackground(new java.awt.Color(147, 82, 83));
 
@@ -186,14 +185,14 @@ public class MenuInicial extends JFrame implements Observer {
                 .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreText)
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addComponent(unirseBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84)
                 .addComponent(salirBoton_menu)
                 .addGap(56, 56, 56))
             .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuInicialLayout.createSequentialGroup()
-                    .addContainerGap(413, Short.MAX_VALUE)
+                    .addContainerGap(414, Short.MAX_VALUE)
                     .addComponent(lobbyBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(163, 163, 163)))
         );
@@ -283,7 +282,7 @@ public class MenuInicial extends JFrame implements Observer {
                     .addComponent(puertoLobbyText_unirse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(115, 115, 115)
                 .addComponent(unirseBoton_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salirMenuBoton_unirse)
                     .addComponent(salirBoton_unirse))
@@ -407,7 +406,7 @@ public class MenuInicial extends JFrame implements Observer {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jugadoresConectadosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(monsterName_lobby)
@@ -451,12 +450,23 @@ public class MenuInicial extends JFrame implements Observer {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 623, Short.MAX_VALUE)
         );
 
         pantallas.addTab("tab4", jPanel1);
 
-        getContentPane().add(pantallas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 650));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 800, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -479,8 +489,9 @@ public class MenuInicial extends JFrame implements Observer {
         }
         else{
             pantallas.setSelectedIndex(2);
-            this.servidor = new Server();
-            this.serverT = new Thread(servidor);
+            Server servidor = new Server();
+            servidor.addObserver(this);
+            Thread serverT = new Thread(servidor);
             serverT.start();
             this.miPuerto = servidor.getPort();
             puertoField_lobby.setText(String.valueOf(this.miPuerto));
@@ -509,7 +520,7 @@ public class MenuInicial extends JFrame implements Observer {
     private void salirMenuBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_lobbyActionPerformed
         // TODO add your handling code here:
         pantallas.setSelectedIndex(0);
-        serverT.stop();
+
         System.out.println("Lobby thread cerrado");
     }//GEN-LAST:event_salirMenuBoton_lobbyActionPerformed
 
@@ -624,23 +635,30 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JButton unirseBoton_unirse;
     // End of variables declaration//GEN-END:variables
     @Override
-    public void update(Observable o, Object arg) {
+    public void update(Observable o, Object arg){
         System.out.println("llamo");
+        
+
+
+        /*JsonNode mensaje = null;
         try {
-            JsonNode mensaje = Json.parse(String.valueOf(arg));
-            System.out.println(mensaje.get("username").asText());
-            if(mensaje.get("id").asText() == "1"){
+            mensaje = Json.parse(String.valueOf(arg));
+            //System.out.println(mensaje.get("username").asText());
+
+            if(mensaje.get("id").asText().equals("1")){
                 Mensaje recibido = LeerJsonMensaje(mensaje);
-                jugadoresConectadosTextArea_lobby.append(recibido.getUsername());
+                this.jugadoresConectadosTextArea_lobby.append(recibido.getUsername());
                 System.out.println(recibido.getUsername() + "se concectó");
                 this.opIP = recibido.getIp();
                 this.opPort = recibido.getPort();
 
             }
-
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        }
+        }*/
+
+
+
     }
     public static int puerto(){
 
@@ -665,8 +683,9 @@ public class MenuInicial extends JFrame implements Observer {
             e.printStackTrace();
         }
     }
-    public Mensaje LeerJsonMensaje(JsonNode envio) throws JsonProcessingException {
-        Mensaje conectar = Json.fromJason(envio.get("Mensaje"), Mensaje.class);
+    public Mensaje LeerJsonMensaje(JsonNode node) throws JsonProcessingException {
+        Mensaje conectar = Json.fromJsonNode(node.get("Mensaje"), Mensaje.class);
+        System.out.println(conectar.username);
         return conectar;
     }
 }

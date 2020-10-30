@@ -1,4 +1,4 @@
-package Visual;
+package Sockets;
 
 import java.io.DataInputStream;
 import java.io.DataInputStream;
@@ -91,8 +91,8 @@ public class Server extends Observable implements Runnable {
 
         Random port_r = new Random();// create random class
         int port = 0;
-        while(port <= 9009){ // buscar port hasta que sea mayor que 1500
-            port = port_r.nextInt(11999);
+        while(port <= 3000){ // buscar port hasta que sea mayor que 1500
+            port = port_r.nextInt(8000);
         }
         return port;
     }

@@ -1,4 +1,4 @@
-package Visual;
+package Sockets;
 
 public class Mensaje {
     //atributos
