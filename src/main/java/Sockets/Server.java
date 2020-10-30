@@ -21,6 +21,7 @@ public class Server extends Observable implements Runnable {
      * port es el puerto del servidor.
      */
     int port; // puerto que el servidor va a utilizar
+    public ServerSocket server = null;
 
     /**
      *Constructor del servidor donde crea un puerto random
@@ -43,7 +44,6 @@ public class Server extends Observable implements Runnable {
     @Override
     public void run() {
         //instanciar clases necesarias
-        ServerSocket server = null;
         Socket client = null;
         DataInputStream in;
 
@@ -53,6 +53,9 @@ public class Server extends Observable implements Runnable {
             try {
 
                 server = new ServerSocket(this.port);//create server socket
+
+                System.out.println("Lobby creado con exito");
+                System.out.println(String.valueOf(this.port));
 
                 while (true) { // loop para tener el server corriendo
 
@@ -74,6 +77,9 @@ public class Server extends Observable implements Runnable {
             }
         }
     }
+    public int getPort(){
+        return this.port;
+    }
 
     /**
      * Se encarga de buscar un puerto para el server
@@ -83,8 +89,8 @@ public class Server extends Observable implements Runnable {
 
         Random port_r = new Random();// create random class
         int port = 0;
-        while(port < 1500){ // buscar port hasta que sea mayor que 1500
-            port = port_r.nextInt(6000);
+        while(port <= 9009){ // buscar port hasta que sea mayor que 1500
+            port = port_r.nextInt(11999);
         }
         return port;
     }
