@@ -9,9 +9,6 @@ package Visual;
 import Estructuras_Datos.CList.CircularList;
 import Estructuras_Datos.Cola.Cola;
 import JsonPackage.Json;
-import Sockets.Client;
-import Sockets.Mensaje;
-import Sockets.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -21,8 +18,6 @@ import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -501,16 +496,8 @@ public class MenuInicial extends JFrame implements Observer {
             this.opPort = Integer.parseInt(puertoField_unirse.getText());
             this.miPuerto = puerto();
             Mensaje conectar = new Mensaje(this.miIP, this.miPuerto, nombreField.getText());
-            Json envio = new Json();
-            JsonNode mensajeNode = envio.toJsonNode(conectar);
-            try {
-                String mensajeCompleto = envio.generateString(mensajeNode, false);
-                Client cliente = new Client(this.opPort, mensajeCompleto, ipField_unirse.getText());
-                Thread clienteT = new Thread(cliente);
-                clienteT.start();
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
+            EnvioJson(conectar);
+
         }
     }//GEN-LAST:event_unirseBoton_unirseActionPerformed
 
@@ -638,7 +625,22 @@ public class MenuInicial extends JFrame implements Observer {
     // End of variables declaration//GEN-END:variables
     @Override
     public void update(Observable o, Object arg) {
+        System.out.println("llamo");
+        try {
+            JsonNode mensaje = Json.parse(String.valueOf(arg));
+            System.out.println(mensaje.get("username").asText());
+            if(mensaje.get("id").asText() == "1"){
+                Mensaje recibido = LeerJsonMensaje(mensaje);
+                jugadoresConectadosTextArea_lobby.append(recibido.getUsername());
+                System.out.println(recibido.getUsername() + "se concectó");
+                this.opIP = recibido.getIp();
+                this.opPort = recibido.getPort();
 
+            }
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
     public static int puerto(){
 
@@ -648,6 +650,24 @@ public class MenuInicial extends JFrame implements Observer {
             port = port_r.nextInt(11999);
         }
         return port;
+    }
+
+    public void EnvioJson(Object envio){
+        JsonNode mensajeNode = Json.toJsonNode(envio);
+        System.out.println(mensajeNode);
+
+        try {
+            String mensajeCompleto = Json.generateString(mensajeNode, false);
+            Client cliente = new Client(this.opPort, mensajeCompleto, ipField_unirse.getText());
+            Thread clienteT = new Thread(cliente);
+            clienteT.start();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+    public Mensaje LeerJsonMensaje(JsonNode envio) throws JsonProcessingException {
+        Mensaje conectar = Json.fromJason(envio.get("Mensaje"), Mensaje.class);
+        return conectar;
     }
 }
 
