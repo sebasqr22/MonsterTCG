@@ -18,13 +18,14 @@ public class Client implements Runnable {
      */
     int port;
     String output;
+    String ip;
 
     /**
      * Constructor de cliente.
      * @param port puerto a donde se quiere mandar.
      * @param output mensaje que se quiere mandar.
      */
-    public Client(int port,String output){
+    public Client(int port,String output, String ip){
         this.port = port;
         this.output = output;
     }
@@ -40,13 +41,15 @@ public class Client implements Runnable {
         //try para prevenir problemas con la creacion del socket
         try{
 
-            Socket client = new Socket(Host,port);//Create socket
+            Socket client = new Socket(ip,port);//Create socket
 
             out = new DataOutputStream(client.getOutputStream());//create DataOutputStream
 
             out.writeUTF(output);//send message (msg)
 
             client.close();//close client
+
+            System.out.println("Se envio mensaje: " + output + "hacia ip: "+ "\n" + ip + "puerto: " + port);
 
         }catch (IOException ex){
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE,null, ex);
