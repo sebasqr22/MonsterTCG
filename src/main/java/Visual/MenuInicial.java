@@ -8,6 +8,12 @@ package Visual;
 
 import Estructuras_Datos.CList.CircularList;
 import Estructuras_Datos.Cola.Cola;
+import JsonPackage.Json;
+import Sockets.Client;
+import Sockets.Mensaje;
+import Sockets.Server;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -26,7 +32,7 @@ import javax.swing.*;
 public class MenuInicial extends JFrame implements Observer {
     //variables del user
     String username;
-    int miPuerto = Puerto();
+    int miPuerto;
     String miIP;
     {
         try {
@@ -44,6 +50,11 @@ public class MenuInicial extends JFrame implements Observer {
     //variables del mazo
     Cola mazo = new Cola();
     CircularList mano = new CircularList();
+    
+    //Atributos 
+    Server servidor;
+    
+    Thread serverT;
 
     /**
      * Creates new form MenuInicial
@@ -65,8 +76,6 @@ public class MenuInicial extends JFrame implements Observer {
         javax.swing.JPanel MenuInicial = new javax.swing.JPanel();
         monsterName_menu = new javax.swing.JLabel();
         nombreField = new javax.swing.JTextField();
-        puertoField = new javax.swing.JTextField();
-        puertoText = new javax.swing.JLabel();
         nombreText = new javax.swing.JLabel();
         unirseBoton = new javax.swing.JButton();
         lobbyBoton = new javax.swing.JButton();
@@ -110,14 +119,11 @@ public class MenuInicial extends JFrame implements Observer {
         monsterName_menu.setText("MONSTER TECG");
 
         nombreField.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 14)); // NOI18N
-
-        puertoField.setEditable(false);
-        puertoField.setFont(nombreField.getFont());
-
-        puertoText.setBackground(new java.awt.Color(102, 204, 0));
-        puertoText.setFont(nombreText.getFont());
-        puertoText.setForeground(new java.awt.Color(12, 122, 16));
-        puertoText.setText("Tu número de puerto");
+        nombreField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreFieldActionPerformed(evt);
+            }
+        });
 
         nombreText.setBackground(new java.awt.Color(102, 204, 0));
         nombreText.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 24)); // NOI18N
@@ -163,18 +169,12 @@ public class MenuInicial extends JFrame implements Observer {
                         .addComponent(monsterName_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(MenuInicialLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MenuInicialLayout.createSequentialGroup()
-                                .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nombreText, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MenuInicialLayout.createSequentialGroup()
-                                .addComponent(puertoField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(puertoText, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(salirBoton_menu))
                     .addGroup(MenuInicialLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(salirBoton_menu)))
+                        .addGap(26, 26, 26)
+                        .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nombreText, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(86, Short.MAX_VALUE))
             .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(MenuInicialLayout.createSequentialGroup()
@@ -187,15 +187,11 @@ public class MenuInicial extends JFrame implements Observer {
             .addGroup(MenuInicialLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(monsterName_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombreText))
-                .addGap(63, 63, 63)
-                .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(puertoField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(puertoText))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                .addGap(75, 75, 75)
+                .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombreText)
+                    .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 194, Short.MAX_VALUE)
                 .addComponent(unirseBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84)
                 .addComponent(salirBoton_menu)
@@ -207,8 +203,6 @@ public class MenuInicial extends JFrame implements Observer {
                     .addGap(163, 163, 163)))
         );
 
-        puertoField.setText(String.valueOf(miPuerto));
-
         pantallas.addTab("tab1", MenuInicial);
 
         jPanel2.setBackground(new java.awt.Color(147, 82, 83));
@@ -216,10 +210,6 @@ public class MenuInicial extends JFrame implements Observer {
         monsterName_unirse.setFont(monsterName_menu.getFont());
         monsterName_unirse.setForeground(monsterName_menu.getForeground());
         monsterName_unirse.setText("MONSTER TECG");
-
-        ipField_unirse.setFont(puertoField.getFont());
-
-        puertoField_unirse.setFont(puertoField.getFont());
 
         ipLobbyText_unirse.setFont(nombreText.getFont());
         ipLobbyText_unirse.setText("Escriba iP del Lobby");
@@ -351,10 +341,10 @@ public class MenuInicial extends JFrame implements Observer {
         lobbyText_lobby.setText("LOBBY");
 
         ipField_lobby.setEditable(false);
-        ipField_lobby.setFont(puertoField.getFont());
+        ipField_lobby.setFont(nombreField.getFont());
 
         puertoField_lobby.setEditable(false);
-        puertoField_lobby.setFont(puertoField_unirse.getFont());
+        puertoField_lobby.setFont(nombreField.getFont());
 
         ipText_lobby.setFont(nombreText.getFont());
         ipText_lobby.setText("iP del Lobby");
@@ -404,17 +394,16 @@ public class MenuInicial extends JFrame implements Observer {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(206, 206, 206)
                                 .addComponent(iniciarBoton_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(salirMenuBoton_lobby)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(salirBoton_lobby))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                    .addGap(45, 45, 45)
-                                    .addComponent(ipText_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(136, 136, 136)
-                                    .addComponent(puertoText_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(salirMenuBoton_lobby)
+                                .addGap(371, 371, 371)
+                                .addComponent(salirBoton_lobby))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(ipText_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(108, 108, 108)
+                                .addComponent(puertoText_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jugadoresConectadosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -480,16 +469,49 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void unirseBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unirseBotonActionPerformed
         // TODO add your handling code here:
-        pantallas.setSelectedIndex(1);
+        if("".equals(nombreField.getText())){
+            JOptionPane.showMessageDialog(pantallas, "Por favor introducir su nombre..." );
+        }
+        else{
+            pantallas.setSelectedIndex(1);
+        }
     }//GEN-LAST:event_unirseBotonActionPerformed
 
     private void lobbyBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lobbyBotonActionPerformed
         // TODO add your handling code here:
-        pantallas.setSelectedIndex(2);
+        if ("".equals(nombreField.getText())){
+            JOptionPane.showMessageDialog(pantallas, "Por favor introducir su nombre..." );
+        }
+        else{
+            pantallas.setSelectedIndex(2);
+            this.servidor = new Server();
+            this.serverT = new Thread(servidor);
+            serverT.start();
+            this.miPuerto = servidor.getPort();
+            puertoField_lobby.setText(String.valueOf(this.miPuerto));
+        }
     }//GEN-LAST:event_lobbyBotonActionPerformed
 
     private void unirseBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unirseBoton_unirseActionPerformed
         // TODO add your handling code here:
+        if("".equals(puertoField_unirse.getText()) || "".equals(ipField_unirse.getText())){
+            JOptionPane.showMessageDialog(pantallas, "Por favor introducir iP y puerto del Lobby");
+        }
+        else{
+            this.opPort = Integer.parseInt(puertoField_unirse.getText());
+            this.miPuerto = puerto();
+            Mensaje conectar = new Mensaje(this.miIP, this.miPuerto, nombreField.getText());
+            Json envio = new Json();
+            JsonNode mensajeNode = envio.toJsonNode(conectar);
+            try {
+                String mensajeCompleto = envio.generateString(mensajeNode, false);
+                Client cliente = new Client(this.opPort, mensajeCompleto, ipField_unirse.getText());
+                Thread clienteT = new Thread(cliente);
+                clienteT.start();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_unirseBoton_unirseActionPerformed
 
     private void salirMenuBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_unirseActionPerformed
@@ -500,6 +522,8 @@ public class MenuInicial extends JFrame implements Observer {
     private void salirMenuBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_lobbyActionPerformed
         // TODO add your handling code here:
         pantallas.setSelectedIndex(0);
+        serverT.stop();
+        System.out.println("Lobby thread cerrado");
     }//GEN-LAST:event_salirMenuBoton_lobbyActionPerformed
 
     private void salirBoton_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_menuActionPerformed
@@ -537,6 +561,10 @@ public class MenuInicial extends JFrame implements Observer {
                 break;
         }
     }//GEN-LAST:event_salirBoton_lobbyActionPerformed
+
+    private void nombreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -596,11 +624,9 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JTextField nombreField;
     private javax.swing.JLabel nombreText;
     private javax.swing.JTabbedPane pantallas;
-    private javax.swing.JTextField puertoField;
     private javax.swing.JTextField puertoField_lobby;
     private javax.swing.JTextField puertoField_unirse;
     private javax.swing.JLabel puertoLobbyText_unirse;
-    private javax.swing.JLabel puertoText;
     private javax.swing.JLabel puertoText_lobby;
     private javax.swing.JButton salirBoton_lobby;
     private javax.swing.JButton salirBoton_menu;
@@ -610,23 +636,18 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JButton unirseBoton;
     private javax.swing.JButton unirseBoton_unirse;
     // End of variables declaration//GEN-END:variables
-
-    public int Puerto(){
-        
-        Random puertoNuevo = new Random();
-        
-        int puerto = 0;
-        
-        while(puerto <= 9010){
-            
-            puerto = puertoNuevo.nextInt(11789);
-        }
-        
-        return puerto;
-    }
     @Override
     public void update(Observable o, Object arg) {
 
+    }
+    public static int puerto(){
+
+        Random port_r = new Random();// create random class
+        int port = 0;
+        while(port <= 9009){ // buscar port hasta que sea mayor que 1500
+            port = port_r.nextInt(11999);
+        }
+        return port;
     }
 }
 

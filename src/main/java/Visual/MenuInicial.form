@@ -75,22 +75,13 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="nombreField" min="-2" pref="172" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="nombreText" min="-2" pref="255" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="puertoField" min="-2" pref="172" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="puertoText" min="-2" pref="267" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="salirBoton_menu" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="salirBoton_menu" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="nombreField" min="-2" pref="172" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="nombreText" min="-2" pref="255" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="86" max="32767" attributes="0"/>
@@ -109,17 +100,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="monsterName_menu" min="-2" pref="91" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="nombreField" min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="nombreText" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="nombreText" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="nombreField" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="puertoField" min="-2" pref="33" max="-2" attributes="0"/>
-                          <Component id="puertoText" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="162" max="32767" attributes="0"/>
+                      <EmptySpace pref="194" max="32767" attributes="0"/>
                       <Component id="unirseBoton" min="-2" pref="46" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
                       <Component id="salirBoton_menu" min="-2" max="-2" attributes="0"/>
@@ -153,31 +139,9 @@
                   <Font name="Microsoft YaHei UI Light" size="14" style="3"/>
                 </Property>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="puertoField">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection component="nombreField" name="font" type="property"/>
-                </Property>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="puertoField.setText(String.valueOf(miPuerto));"/>
-              </AuxValues>
-            </Component>
-            <Component class="javax.swing.JLabel" name="puertoText">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="cc" red="66" type="rgb"/>
-                </Property>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection component="nombreText" name="font" type="property"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="10" green="7a" red="c" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Tu n&#xfa;mero de puerto"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nombreFieldActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="nombreText">
               <Properties>
@@ -425,19 +389,17 @@
                                       <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
                                       <Component id="iniciarBoton_lobby" min="-2" pref="160" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="salirMenuBoton_lobby" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="salirBoton_lobby" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                          <Component id="ipText_lobby" min="-2" pref="157" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
-                                          <Component id="puertoText_lobby" min="-2" pref="219" max="-2" attributes="0"/>
-                                      </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="salirMenuBoton_lobby" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="371" max="-2" attributes="0"/>
+                                      <Component id="salirBoton_lobby" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                      <Component id="ipText_lobby" min="-2" pref="157" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
+                                      <Component id="puertoText_lobby" min="-2" pref="219" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
@@ -574,7 +536,7 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection component="puertoField" name="font" type="property"/>
+                  <Connection component="nombreField" name="font" type="property"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -585,7 +547,7 @@
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection component="puertoField_unirse" name="font" type="property"/>
+                  <Connection component="nombreField" name="font" type="property"/>
                 </Property>
               </Properties>
               <AuxValues>
