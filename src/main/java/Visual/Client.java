@@ -1,4 +1,4 @@
-package Sockets;
+package Visual;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -27,6 +27,7 @@ public class Client implements Runnable {
      */
     public Client(int port,String output, String ip){
         this.port = port;
+        this.ip = ip;
         this.output = output;
     }
 

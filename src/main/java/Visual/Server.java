@@ -1,4 +1,4 @@
-package Sockets;
+package Visual;
 
 import java.io.DataInputStream;
 import java.io.DataInputStream;
@@ -64,6 +64,8 @@ public class Server extends Observable implements Runnable {
                     in = new DataInputStream(client.getInputStream());// create DataInputStream
 
                     String input = in.readUTF();//read message to send to client
+
+                    System.out.println(input);
 
                     this.setChanged();
                     this.notifyObservers(input);//notify observers(client)
