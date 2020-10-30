@@ -8,7 +8,12 @@ package Visual;
 
 import Estructuras_Datos.CList.CircularList;
 import Estructuras_Datos.Cola.Cola;
+import JsonPackage.Json;
+import Sockets.Client;
+import Sockets.Mensaje;
 import Sockets.Server;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -464,21 +469,49 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void unirseBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unirseBotonActionPerformed
         // TODO add your handling code here:
-        pantallas.setSelectedIndex(1);
+        if("".equals(nombreField.getText())){
+            JOptionPane.showMessageDialog(pantallas, "Por favor introducir su nombre..." );
+        }
+        else{
+            pantallas.setSelectedIndex(1);
+        }
     }//GEN-LAST:event_unirseBotonActionPerformed
 
     private void lobbyBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lobbyBotonActionPerformed
         // TODO add your handling code here:
-        pantallas.setSelectedIndex(2);
-        this.servidor = new Server();
-        this.serverT = new Thread(servidor);
-        serverT.start();
-        this.miPuerto = servidor.getPort();
-        puertoField_lobby.setText(String.valueOf(this.miPuerto));
+        if ("".equals(nombreField.getText())){
+            JOptionPane.showMessageDialog(pantallas, "Por favor introducir su nombre..." );
+        }
+        else{
+            pantallas.setSelectedIndex(2);
+            this.servidor = new Server();
+            this.serverT = new Thread(servidor);
+            serverT.start();
+            this.miPuerto = servidor.getPort();
+            puertoField_lobby.setText(String.valueOf(this.miPuerto));
+        }
     }//GEN-LAST:event_lobbyBotonActionPerformed
 
     private void unirseBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unirseBoton_unirseActionPerformed
         // TODO add your handling code here:
+        if("".equals(puertoField_unirse.getText()) || "".equals(ipField_unirse.getText())){
+            JOptionPane.showMessageDialog(pantallas, "Por favor introducir iP y puerto del Lobby");
+        }
+        else{
+            this.opPort = Integer.parseInt(puertoField_unirse.getText());
+            this.miPuerto = puerto();
+            Mensaje conectar = new Mensaje(this.miIP, this.miPuerto, nombreField.getText());
+            Json envio = new Json();
+            JsonNode mensajeNode = envio.toJsonNode(conectar);
+            try {
+                String mensajeCompleto = envio.generateString(mensajeNode, false);
+                Client cliente = new Client(this.opPort, mensajeCompleto, ipField_unirse.getText());
+                Thread clienteT = new Thread(cliente);
+                clienteT.start();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_unirseBoton_unirseActionPerformed
 
     private void salirMenuBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_unirseActionPerformed
@@ -606,6 +639,15 @@ public class MenuInicial extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
 
+    }
+    public static int puerto(){
+
+        Random port_r = new Random();// create random class
+        int port = 0;
+        while(port <= 9009){ // buscar port hasta que sea mayor que 1500
+            port = port_r.nextInt(11999);
+        }
+        return port;
     }
 }
 
