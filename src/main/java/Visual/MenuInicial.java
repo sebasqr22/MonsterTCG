@@ -33,6 +33,7 @@ public class MenuInicial extends JFrame implements Observer {
     int miPuerto;
     String miIP;
     int usuariosConectados = 0;
+
     {
         try {
             miIP = InetAddress.getLocalHost().getHostAddress();
@@ -57,7 +58,16 @@ public class MenuInicial extends JFrame implements Observer {
      */
     public MenuInicial() {
         initComponents();
+
+        Server servidor = new Server();
+        servidor.addObserver(this);
+        Thread serverT = new Thread(servidor);
+        serverT.start();
+        this.miPuerto = servidor.getPort();
+        puertoField_lobby.setText(String.valueOf(this.miPuerto));
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -490,6 +500,7 @@ public class MenuInicial extends JFrame implements Observer {
         }
         else{
             pantallas.setSelectedIndex(1);
+            this.username = nombreField.getText();
         }
     }//GEN-LAST:event_unirseBotonActionPerformed
 
@@ -499,17 +510,10 @@ public class MenuInicial extends JFrame implements Observer {
             JOptionPane.showMessageDialog(pantallas, "Por favor introducir su nombre..." );
         }
         else{
-            iniciarBoton_lobby.setVisible(true);
-            Server servidor = new Server();
-            servidor.addObserver(this);
-            Thread serverT = new Thread(servidor);
-            serverT.start();
-            this.miPuerto = servidor.getPort();
-            puertoField_lobby.setText(String.valueOf(this.miPuerto));
             pantallas.setSelectedIndex(2);
-            usuariosConectados ++;
-            jugadoresConectadosTextArea_lobby.append(nombreField.getText() + " (host)");
-        }
+
+            this.username = nombreField.getText();
+
     }//GEN-LAST:event_lobbyBotonActionPerformed
 
     private void unirseBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unirseBoton_unirseActionPerformed
@@ -519,10 +523,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
         else{
             this.opPort = Integer.parseInt(puertoField_unirse.getText());
-            this.miPuerto = puerto();
-            Mensaje conectar = new Mensaje(this.miIP, this.miPuerto, nombreField.getText());
-            EnvioJson(conectar);
+            this.opIP = ipField_unirse.getText();
+            Mensaje conectar = new Mensaje(this.miIP, this.miPuerto, this.username,1,true);
 
+            EnvioJson(conectar);
         }
     }//GEN-LAST:event_unirseBoton_unirseActionPerformed
 
@@ -538,7 +542,6 @@ public class MenuInicial extends JFrame implements Observer {
         iniciarBoton_lobby.setVisible(false);
         jugadoresConectadosTextArea_lobby.setText("");
         pantallas.setSelectedIndex(0);
-        System.out.println("Lobby thread cerrado");
     }//GEN-LAST:event_salirMenuBoton_lobbyActionPerformed
 
     private void salirBoton_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_menuActionPerformed
@@ -620,6 +623,8 @@ public class MenuInicial extends JFrame implements Observer {
                 new MenuInicial().setVisible(true);
             }
         });
+
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -664,11 +669,20 @@ public class MenuInicial extends JFrame implements Observer {
             mensaje = Json.parse(String.valueOf(arg));
 
             if(mensaje.get("id").asText().equals("1")){
+                System.out.println(mensaje);
                 Mensaje recibido = LeerJsonMensaje(mensaje);
                 this.jugadoresConectadosTextArea_lobby.append("\n" + recibido.getUsername());
                 this.opIP = recibido.getIp();
                 this.opPort = recibido.getPort();
 
+                if (recibido.host){
+                    Mensaje conexion = new Mensaje(this.miIP,this.miPuerto,this.username,1,false);
+                    System.out.println("Ip devuelta: "+conexion.ip);
+                    System.out.println("Port devuelta: "+conexion.port);
+                    System.out.println("Username devuelta: "+conexion.username);
+                    System.out.println("host devuelta: "+conexion.host);
+                    EnvioJson(conexion);
+                }
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -687,10 +701,11 @@ public class MenuInicial extends JFrame implements Observer {
     public void EnvioJson(Object envio){
         JsonNode mensajeNode = Json.toJsonNode(envio);
         System.out.println(mensajeNode);
-
+        System.out.println();
         try {
             String mensajeCompleto = Json.generateString(mensajeNode, false);
-            Client cliente = new Client(this.opPort, mensajeCompleto, ipField_unirse.getText());
+
+            Client cliente = new Client(this.opPort, mensajeCompleto, this.opIP);
             Thread clienteT = new Thread(cliente);
             clienteT.start();
         } catch (JsonProcessingException e) {
@@ -699,8 +714,19 @@ public class MenuInicial extends JFrame implements Observer {
     }
     public Mensaje LeerJsonMensaje(JsonNode node) throws JsonProcessingException {
         Mensaje conectar = new Mensaje(node.get("ip").asText(),node.get("port").asInt(),
-                node.get("username").asText());
+                node.get("username").asText(),1,node.get("host").asBoolean());
         return conectar;
     }
+
+    private void setMazo(Cola mazo) {
+
+
+
+
+    }
+
+
+
+
 }
 
