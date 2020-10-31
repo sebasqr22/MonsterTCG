@@ -33,7 +33,6 @@ public class MenuInicial extends JFrame implements Observer {
     int miPuerto;
     String miIP;
     int usuariosConectados = 0;
-
     {
         try {
             miIP = InetAddress.getLocalHost().getHostAddress();
@@ -216,10 +215,6 @@ public class MenuInicial extends JFrame implements Observer {
         monsterName_unirse.setForeground(monsterName_menu.getForeground());
         monsterName_unirse.setText("MONSTER TECG");
 
-        ipField_unirse.setFont(nombreField.getFont());
-
-        puertoField_unirse.setFont(nombreField.getFont());
-
         ipLobbyText_unirse.setFont(nombreText.getFont());
         ipLobbyText_unirse.setText("Escriba iP del Lobby");
 
@@ -363,11 +358,6 @@ public class MenuInicial extends JFrame implements Observer {
 
         iniciarBoton_lobby.setFont(unirseBoton.getFont());
         iniciarBoton_lobby.setText("Iniciar Partida");
-        iniciarBoton_lobby.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                iniciarBoton_lobbyActionPerformed(evt);
-            }
-        });
 
         salirMenuBoton_lobby.setFont(salirMenuBoton_unirse.getFont());
         salirMenuBoton_lobby.setText("Menu Principal");
@@ -457,7 +447,6 @@ public class MenuInicial extends JFrame implements Observer {
             e.getMessage();
         }
         puertoField_lobby.setText(String.valueOf(miPuerto));
-        iniciarBoton_lobby.setVisible(false);
 
         pantallas.addTab("tab3", jPanel3);
 
@@ -480,7 +469,7 @@ public class MenuInicial extends JFrame implements Observer {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pantallas)
+            .addComponent(pantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -511,9 +500,14 @@ public class MenuInicial extends JFrame implements Observer {
         }
         else{
             pantallas.setSelectedIndex(2);
-
             this.username = nombreField.getText();
-
+            Server servidor = new Server();
+            servidor.addObserver(this);
+            Thread serverT = new Thread(servidor);
+            serverT.start();
+            this.miPuerto = servidor.getPort();
+            puertoField_lobby.setText(String.valueOf(this.miPuerto));
+        }
     }//GEN-LAST:event_lobbyBotonActionPerformed
 
     private void unirseBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unirseBoton_unirseActionPerformed
@@ -537,11 +531,8 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirMenuBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_lobbyActionPerformed
         // TODO add your handling code here:
-        this.opIP = null;
-        this.opPort = 0;
-        iniciarBoton_lobby.setVisible(false);
-        jugadoresConectadosTextArea_lobby.setText("");
         pantallas.setSelectedIndex(0);
+        System.out.println("Lobby thread cerrado");
     }//GEN-LAST:event_salirMenuBoton_lobbyActionPerformed
 
     private void salirBoton_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_menuActionPerformed
@@ -583,10 +574,6 @@ public class MenuInicial extends JFrame implements Observer {
     private void nombreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreFieldActionPerformed
-
-    private void iniciarBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarBoton_lobbyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_iniciarBoton_lobbyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -663,7 +650,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg){
-        System.out.println("llamo");
+
         JsonNode mensaje = null;
         try {
             mensaje = Json.parse(String.valueOf(arg));
@@ -671,7 +658,7 @@ public class MenuInicial extends JFrame implements Observer {
             if(mensaje.get("id").asText().equals("1")){
                 System.out.println(mensaje);
                 Mensaje recibido = LeerJsonMensaje(mensaje);
-                this.jugadoresConectadosTextArea_lobby.append("\n" + recibido.getUsername());
+                this.jugadoresConectadosTextArea_lobby.append(recibido.getUsername());
                 this.opIP = recibido.getIp();
                 this.opPort = recibido.getPort();
 
@@ -687,6 +674,9 @@ public class MenuInicial extends JFrame implements Observer {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+
+
+
     }
     public static int puerto(){
 
