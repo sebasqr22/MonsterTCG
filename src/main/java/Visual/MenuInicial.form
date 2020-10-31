@@ -24,7 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="pantallas" alignment="0" pref="800" max="32767" attributes="0"/>
+          <Component id="pantallas" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -293,14 +293,14 @@
             <Component class="javax.swing.JTextField" name="ipField_unirse">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection component="puertoField" name="font" type="property"/>
+                  <Connection component="nombreField" name="font" type="property"/>
                 </Property>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="puertoField_unirse">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection component="puertoField" name="font" type="property"/>
+                  <Connection component="nombreField" name="font" type="property"/>
                 </Property>
               </Properties>
             </Component>
