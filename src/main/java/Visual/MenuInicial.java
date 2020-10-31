@@ -634,28 +634,24 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JButton unirseBoton;
     private javax.swing.JButton unirseBoton_unirse;
     // End of variables declaration//GEN-END:variables
+
     @Override
     public void update(Observable o, Object arg){
-        System.out.println("llamo");
-        
 
-
-        /*JsonNode mensaje = null;
+        JsonNode mensaje = null;
         try {
             mensaje = Json.parse(String.valueOf(arg));
-            //System.out.println(mensaje.get("username").asText());
 
             if(mensaje.get("id").asText().equals("1")){
                 Mensaje recibido = LeerJsonMensaje(mensaje);
                 this.jugadoresConectadosTextArea_lobby.append(recibido.getUsername());
-                System.out.println(recibido.getUsername() + "se concectó");
                 this.opIP = recibido.getIp();
                 this.opPort = recibido.getPort();
 
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        }*/
+        }
 
 
 
@@ -684,8 +680,8 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }
     public Mensaje LeerJsonMensaje(JsonNode node) throws JsonProcessingException {
-        Mensaje conectar = Json.fromJsonNode(node.get("Mensaje"), Mensaje.class);
-        System.out.println(conectar.username);
+        Mensaje conectar = new Mensaje(node.get("ip").asText(),node.get("port").asInt(),
+                node.get("username").asText());
         return conectar;
     }
 }
