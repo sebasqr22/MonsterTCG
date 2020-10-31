@@ -5,12 +5,15 @@ public class Mensaje {
     public String ip;
     public int port;
     public String username;
-    public int id = 1;
+    public int id;
+    public boolean host;
 
-    public Mensaje(String ip, int port, String username) {
+    public Mensaje(String ip, int port, String username, int id, boolean host) {
         this.ip = ip;
         this.port = port;
         this.username = username;
+        this.id = id;
+        this.host = host;
     }
 
     public int getId(){

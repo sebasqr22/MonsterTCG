@@ -50,7 +50,9 @@ public class Client implements Runnable {
 
             client.close();//close client
 
-            System.out.println("Se envio mensaje: " + output + "hacia ip: "+ "\n" + ip + "puerto: " + port);
+            System.out.println("Ip enviado: " + this.ip);
+            System.out.println("Puerto enviado: " + this.port);
+            System.out.println("Mensaje enviado: "+ this.output);
 
         }catch (IOException ex){
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE,null, ex);
