@@ -511,7 +511,7 @@ public class MenuInicial extends JFrame implements Observer {
         else{
 
             pantallas.setSelectedIndex(2);
-
+            
         }
     }//GEN-LAST:event_lobbyBotonActionPerformed
 
