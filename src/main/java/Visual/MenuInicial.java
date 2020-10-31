@@ -500,6 +500,7 @@ public class MenuInicial extends JFrame implements Observer {
         }
         else{
             pantallas.setSelectedIndex(1);
+            this.username = nombreField.getText();
         }
     }//GEN-LAST:event_unirseBotonActionPerformed
 
@@ -509,10 +510,10 @@ public class MenuInicial extends JFrame implements Observer {
             JOptionPane.showMessageDialog(pantallas, "Por favor introducir su nombre..." );
         }
         else{
-
             pantallas.setSelectedIndex(2);
 
-        }
+            this.username = nombreField.getText();
+
     }//GEN-LAST:event_lobbyBotonActionPerformed
 
     private void unirseBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unirseBoton_unirseActionPerformed
@@ -523,7 +524,7 @@ public class MenuInicial extends JFrame implements Observer {
         else{
             this.opPort = Integer.parseInt(puertoField_unirse.getText());
             this.opIP = ipField_unirse.getText();
-            Mensaje conectar = new Mensaje(this.miIP, this.miPuerto, nombreField.getText(),1,true);
+            Mensaje conectar = new Mensaje(this.miIP, this.miPuerto, this.username,1,true);
 
             EnvioJson(conectar);
         }
@@ -541,7 +542,6 @@ public class MenuInicial extends JFrame implements Observer {
         iniciarBoton_lobby.setVisible(false);
         jugadoresConectadosTextArea_lobby.setText("");
         pantallas.setSelectedIndex(0);
-        System.out.println("Lobby thread cerrado");
     }//GEN-LAST:event_salirMenuBoton_lobbyActionPerformed
 
     private void salirBoton_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_menuActionPerformed
