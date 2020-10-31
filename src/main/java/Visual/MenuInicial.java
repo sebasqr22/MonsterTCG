@@ -33,6 +33,7 @@ public class MenuInicial extends JFrame implements Observer {
     int miPuerto;
     String miIP;
     int usuariosConectados = 0;
+    Boolean cliente;
     {
         try {
             miIP = InetAddress.getLocalHost().getHostAddress();
@@ -215,6 +216,10 @@ public class MenuInicial extends JFrame implements Observer {
         monsterName_unirse.setForeground(monsterName_menu.getForeground());
         monsterName_unirse.setText("MONSTER TECG");
 
+        ipField_unirse.setFont(nombreField.getFont());
+
+        puertoField_unirse.setFont(nombreField.getFont());
+
         ipLobbyText_unirse.setFont(nombreText.getFont());
         ipLobbyText_unirse.setText("Escriba iP del Lobby");
 
@@ -358,6 +363,7 @@ public class MenuInicial extends JFrame implements Observer {
 
         iniciarBoton_lobby.setFont(unirseBoton.getFont());
         iniciarBoton_lobby.setText("Iniciar Partida");
+        iniciarBoton_lobby.setVisible(false);
 
         salirMenuBoton_lobby.setFont(salirMenuBoton_unirse.getFont());
         salirMenuBoton_lobby.setText("Menu Principal");
@@ -469,7 +475,7 @@ public class MenuInicial extends JFrame implements Observer {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(pantallas)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,6 +495,7 @@ public class MenuInicial extends JFrame implements Observer {
         }
         else{
             pantallas.setSelectedIndex(1);
+            this.cliente = true;
             this.username = nombreField.getText();
         }
     }//GEN-LAST:event_unirseBotonActionPerformed
@@ -499,14 +506,13 @@ public class MenuInicial extends JFrame implements Observer {
             JOptionPane.showMessageDialog(pantallas, "Por favor introducir su nombre..." );
         }
         else{
-            pantallas.setSelectedIndex(2);
+            iniciarBoton_lobby.setVisible(true);
+            this.cliente = false;
             this.username = nombreField.getText();
-            Server servidor = new Server();
-            servidor.addObserver(this);
-            Thread serverT = new Thread(servidor);
-            serverT.start();
-            this.miPuerto = servidor.getPort();
-            puertoField_lobby.setText(String.valueOf(this.miPuerto));
+            usuariosConectados ++;
+            System.out.println("Cantidad de jugadores conectados : " + usuariosConectados);
+            pantallas.setSelectedIndex(2);
+            jugadoresConectadosTextArea_lobby.append(this.username + " (host)" + "\n");
         }
     }//GEN-LAST:event_lobbyBotonActionPerformed
 
@@ -519,8 +525,10 @@ public class MenuInicial extends JFrame implements Observer {
             this.opPort = Integer.parseInt(puertoField_unirse.getText());
             this.opIP = ipField_unirse.getText();
             Mensaje conectar = new Mensaje(this.miIP, this.miPuerto, this.username,1,true);
+            jugadoresConectadosTextArea_lobby.append(this.username + "\n");
 
             EnvioJson(conectar);
+            pantallas.setSelectedIndex(2);
         }
     }//GEN-LAST:event_unirseBoton_unirseActionPerformed
 
@@ -531,8 +539,29 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirMenuBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_lobbyActionPerformed
         // TODO add your handling code here:
-        pantallas.setSelectedIndex(0);
-        System.out.println("Lobby thread cerrado");
+        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres desconectarte?");
+        switch(salir){
+            case JOptionPane.YES_OPTION:
+                if(cliente == true){
+                    Mensaje desconectar = new Mensaje(null, 0, null, 2, false);
+                    EnvioJson(desconectar);
+                    jugadoresConectadosTextArea_lobby.setText("");
+                    pantallas.setSelectedIndex(0);
+                    this.opIP = null;
+                    this.opPort = 0;
+                }
+                else{
+                    jugadoresConectadosTextArea_lobby.setText("");
+                    iniciarBoton_lobby.setVisible(false);
+                    usuariosConectados = 0;
+                    pantallas.setSelectedIndex(0);
+                    this.opIP = null;
+                    this.opPort = 0;
+                }
+
+            case JOptionPane.NO_OPTION:
+                break;
+        }
     }//GEN-LAST:event_salirMenuBoton_lobbyActionPerformed
 
     private void salirBoton_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_menuActionPerformed
@@ -658,18 +687,28 @@ public class MenuInicial extends JFrame implements Observer {
             if(mensaje.get("id").asText().equals("1")){
                 System.out.println(mensaje);
                 Mensaje recibido = LeerJsonMensaje(mensaje);
-                this.jugadoresConectadosTextArea_lobby.append(recibido.getUsername());
+                this.jugadoresConectadosTextArea_lobby.append(recibido.getUsername() + "\n");
+                this.usuariosConectados ++;
+                System.out.println("Cantidad de jugadores conectados : " + usuariosConectados);
                 this.opIP = recibido.getIp();
                 this.opPort = recibido.getPort();
 
                 if (recibido.host){
-                    Mensaje conexion = new Mensaje(this.miIP,this.miPuerto,this.username,1,false);
+                    Mensaje conexion = new Mensaje(this.miIP,this.miPuerto,this.username + " (host)",1,false);
                     System.out.println("Ip devuelta: "+conexion.ip);
                     System.out.println("Port devuelta: "+conexion.port);
                     System.out.println("Username devuelta: "+conexion.username);
                     System.out.println("host devuelta: "+conexion.host);
                     EnvioJson(conexion);
                 }
+            }
+            else if(mensaje.get("id").asText().equals("2")){
+                Mensaje recibido = LeerJsonMensaje(mensaje);
+                this.jugadoresConectadosTextArea_lobby.setText(this.username + " (host)" + "\n");
+                this.usuariosConectados -= 1;
+                this.opPort = 0;
+                this.opIP = null;
+                System.out.println("Se desconecto un cliente" + ", cantidad jugadores conectados = " + usuariosConectados);
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
