@@ -554,6 +554,8 @@ public class MenuInicial extends JFrame implements Observer {
                     jugadoresConectadosTextArea_lobby.setText("");
                     iniciarBoton_lobby.setVisible(false);
                     usuariosConectados = 0;
+                    Mensaje desconectar = new Mensaje(null, 0, null, 3, false);
+                    EnvioJson(desconectar);
                     pantallas.setSelectedIndex(0);
                     this.opIP = null;
                     this.opPort = 0;
@@ -709,6 +711,15 @@ public class MenuInicial extends JFrame implements Observer {
                 this.opPort = 0;
                 this.opIP = null;
                 System.out.println("Se desconecto un cliente" + ", cantidad jugadores conectados = " + usuariosConectados);
+            }
+            else if (mensaje.get("id").asText().equals("3")){
+                Mensaje recibido = LeerJsonMensaje(mensaje);
+                JOptionPane.showMessageDialog(pantallas, "El host se desconectó, usted será enviado al menu principal");
+                pantallas.setSelectedIndex(0);
+                this.jugadoresConectadosTextArea_lobby.setText("");
+                this.usuariosConectados = 0;
+                this.opPort = 0;
+                this.opIP = null;
             }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
