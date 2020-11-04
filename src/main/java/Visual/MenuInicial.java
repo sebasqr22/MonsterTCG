@@ -843,7 +843,9 @@ public class MenuInicial extends JFrame implements Observer {
         try {
             mensaje = Json.parse(String.valueOf(arg));
 
-            if(mensaje.get("id").asText().equals("1")){
+            int id = mensaje.get("id").asInt();
+            if(id == 1){
+
                 System.out.println(mensaje);
                 Mensaje recibido = LeerJsonMensaje(mensaje);
                 this.jugadoresConectadosTextArea_lobby.append(recibido.getUsername() + "\n");
@@ -860,7 +862,8 @@ public class MenuInicial extends JFrame implements Observer {
                     EnvioJson(conexion);
                 }
             }
-            else if(mensaje.get("id").asText().equals("2")){
+            else if(id == 2){
+
                 Mensaje recibido = LeerJsonMensaje(mensaje);
                 this.jugadoresConectadosTextArea_lobby.setText(this.username + " (host)" + "\n");
                 this.usuariosConectados -= 1;
@@ -868,7 +871,8 @@ public class MenuInicial extends JFrame implements Observer {
                 this.opIP = null;
                 JOptionPane.showMessageDialog(pantallas, "Se deconecto un jugador");
             }
-            else if (mensaje.get("id").asText().equals("3")){
+            else if (id == 3){
+
                 Mensaje recibido = LeerJsonMensaje(mensaje);
                 JOptionPane.showMessageDialog(pantallas, "El host se desconectado, usted sera enviado al menu principal");
                 pantallas.setSelectedIndex(0);
@@ -877,17 +881,20 @@ public class MenuInicial extends JFrame implements Observer {
                 this.opPort = 0;
                 this.opIP = null;
             }
-            else if (mensaje.get("id").asText().equals("4")){
+            else if (id == 4){
+
                 Mensaje recibido = LeerJsonMensaje(mensaje);
                 pantallas.setSelectedIndex(3);
                 JOptionPane.showMessageDialog(pantallas, "Es el turno de: " + mensaje.get("username").asText());
             }
 
-            else if (mensaje.get("id").asText().equals("5")){
+            else if (id == 5){
+
                 Mensaje recibido = LeerJsonMensaje(mensaje);
                 JOptionPane.showMessageDialog(pantallas, "Es tu turno");
                 setTurno(true);
             }
+
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
