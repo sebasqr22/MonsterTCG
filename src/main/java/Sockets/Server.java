@@ -54,7 +54,6 @@ public class Server extends Observable implements Runnable {
 
                 server = new ServerSocket(this.port);//create server socket
 
-
                 while (true) { // loop para tener el server corriendo
 
                     client = server.accept();// accept client input
@@ -62,8 +61,6 @@ public class Server extends Observable implements Runnable {
                     in = new DataInputStream(client.getInputStream());// create DataInputStream
 
                     String input = in.readUTF();//read message to send to client
-
-                    System.out.println(input);
 
                     this.setChanged();
                     this.notifyObservers(input);//notify observers(client)
