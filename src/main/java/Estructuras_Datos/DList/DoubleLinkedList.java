@@ -1,5 +1,8 @@
 package Estructuras_Datos.DList;
 
+import Assets.Carta;
+import Estructuras_Datos.CList.Node;
+
 public class DoubleLinkedList {
 
     private Node head;
@@ -20,7 +23,7 @@ public class DoubleLinkedList {
         return size;
     }
 
-    public void insertHead(Object data){
+    public void insertHead(Carta data){
 
         Node newNode = new Node(data);
 
@@ -33,7 +36,7 @@ public class DoubleLinkedList {
         this.size++;
     }
 
-    public void insertLast(Object data){
+    public void insertLast(Carta data){
 
         Node newNode = new Node(data);
 

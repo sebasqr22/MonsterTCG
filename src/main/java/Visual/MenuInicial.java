@@ -6,7 +6,9 @@
 package Visual;
 
 
+import Assets.CartasTotal;
 import Estructuras_Datos.CList.CircularList;
+import Estructuras_Datos.CList.Node;
 import Estructuras_Datos.Cola.Cola;
 import JsonPackage.Json;
 import Sockets.Client;
@@ -48,15 +50,17 @@ public class MenuInicial extends JFrame implements Observer {
     String opIP;
 
     //variables del mazo
+    CartasTotal cartasTotal = new CartasTotal();
     Cola mazo = new Cola();
     CircularList mano = new CircularList();
+    Node cartaSelec;
     
 
 
     /**
      * Creates new form MenuInicial
      */
-    public MenuInicial() {
+    public MenuInicial(){
         initComponents();
 
         Server servidor = new Server();
@@ -65,6 +69,11 @@ public class MenuInicial extends JFrame implements Observer {
         serverT.start();
         this.miPuerto = servidor.getPort();
         puertoField_lobby.setText(String.valueOf(this.miPuerto));
+        try {
+            cargarCartas();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -818,9 +827,7 @@ public class MenuInicial extends JFrame implements Observer {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
-
-
+        
     }
     public static int puerto(){
 
@@ -852,15 +859,34 @@ public class MenuInicial extends JFrame implements Observer {
         return conectar;
     }
 
-    private void setMazo(Cola mazo) {
-
-
-
-
+    public void setMazo(CartasTotal cartas) {
+        
+        Random random = new Random();
+        int index = 0;
+        for (int i = 0; i < 6 ;i++ ){
+            index = random.nextInt(cartas.getCartastotal().length-1);
+            this.mazo.enQueue(cartas.getCartastotal()[index]);
+        }
+        this.mazo.print();
+        crearMano();
     }
 
+    public void cargarCartas() throws IOException {
 
+        this.cartasTotal = Json.initializeCartas();
+        for(int i = 0; i < this.cartasTotal.getCartastotal().length;i++) {
+            System.out.println(this.cartasTotal.getCartastotal()[i].toString());
+        }
+        setMazo(this.cartasTotal);
+    }
 
+    public void crearMano(){
+        for(int i = 0; i < 6;i++){
+            this.mano.insert(this.mazo.deQueue().getObject());
+        }
+        System.out.println("--------------");
+        this.mano.printList();
+    }
 
 }
 

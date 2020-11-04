@@ -1,0 +1,29 @@
+{
+  "cartastotal": [
+    {
+      "Type": "e",
+      "Id": 1,
+      "Nombre": "Zombie",
+      "Ataque": 10,
+      "Mana": 200
+    },{
+      "Type": "e",
+      "Id": 2,
+      "Nombre": "CR7",
+      "Ataque": 20,
+      "Mana": 10
+    },{
+      "Type": "e",
+      "Id": 3,
+      "Nombre": "Caballero",
+      "Ataque": 30,
+      "Mana": 25
+    },{
+      "Type": "e",
+      "Id": 4,
+      "Nombre": "Golem",
+      "Ataque": 100,
+      "Mana": 68
+    }
+  ]
+}

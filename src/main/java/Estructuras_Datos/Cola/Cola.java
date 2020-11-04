@@ -1,8 +1,11 @@
 package Estructuras_Datos.Cola;
 
+import Assets.Carta;
+import Estructuras_Datos.CList.Node;
+
 public class Cola {
-    NodeQ front;
-    NodeQ rear;
+    Node front;
+    Node rear;
 
     public Cola(){
         this.front = null;
@@ -13,8 +16,8 @@ public class Cola {
         return this.rear == null;
     }
 
-    public void enQueue(Object data){
-        NodeQ tmp = new NodeQ(data);
+    public void enQueue(Carta data){
+        Node tmp = new Node(data);
 
         if(this.isEmpty()){
             this.front = tmp;
@@ -25,14 +28,14 @@ public class Cola {
         }
     }
 
-    public NodeQ deQueue(){
+    public Node deQueue(){
 
         if (this.isEmpty()){
             return null;
         }else{
 
-            NodeQ tmp = this.front;
-            this.front = this.front.next;
+            Node tmp = this.front;
+            this.front = this.front.getNext();
             if(this.front == null){
                 this.rear = null;
             }
@@ -44,10 +47,10 @@ public class Cola {
         if(isEmpty()){
             System.out.println("Vacia");
         }else{
-            NodeQ tmp = this.front;
+            Node tmp = this.front;
             System.out.println("----------------");
             while(tmp != null){
-                System.out.println("|"+tmp.getData()+"|");
+                System.out.println("|"+tmp.getObject()+"|");
                 tmp = tmp.getNext();
             }
         }
