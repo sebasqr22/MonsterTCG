@@ -1,10 +1,15 @@
 package JsonPackage;
 
+import Assets.Carta;
+import Assets.CartasTotal;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Json {
 
@@ -36,4 +41,10 @@ public class Json {
        }
        return objectWriter.writeValueAsString(node);
    }
+
+    public static CartasTotal initializeCartas() throws IOException {
+
+        return objectMapper.readerFor(CartasTotal.class).readValue(new File("Cartas.json"));
+
+    }
 }
