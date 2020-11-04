@@ -6,6 +6,7 @@
 package Visual;
 
 
+import Assets.Carta;
 import Assets.CartasTotal;
 import Estructuras_Datos.CList.CircularList;
 import Estructuras_Datos.CList.Node;
@@ -58,7 +59,7 @@ public class MenuInicial extends JFrame implements Observer {
     Cola mazo = new Cola();
     CircularList mano = new CircularList();
     Node cartaSelec;
-    
+    String rutaC = "img//cartas//";
 
 
     /**
@@ -75,10 +76,12 @@ public class MenuInicial extends JFrame implements Observer {
         puertoField_lobby.setText(String.valueOf(this.miPuerto));
         try {
             cargarCartas();
+            setCartaImage();
         } catch (IOException e) {
             e.printStackTrace();
         }
         setTurno(false);
+
 
     }
 
@@ -134,6 +137,7 @@ public class MenuInicial extends JFrame implements Observer {
         cartaOponente = new javax.swing.JLabel();
         vidaText = new javax.swing.JLabel();
         vidaBar = new javax.swing.JProgressBar();
+        mazoBoton = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -522,6 +526,11 @@ public class MenuInicial extends JFrame implements Observer {
 
         atrasBoton.setFont(salirBoton_lobby.getFont());
         atrasBoton.setText("Atras");
+        atrasBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atrasBotonActionPerformed(evt);
+            }
+        });
 
         cartaOponente.setText("jLabel3");
 
@@ -531,51 +540,62 @@ public class MenuInicial extends JFrame implements Observer {
         vidaBar.setBackground(new java.awt.Color(255, 0, 0));
         vidaBar.setMaximum(1000);
 
+        mazoBoton.setText("jButton1");
+        mazoBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mazoBotonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(cartaOponente, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(451, 451, 451))
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(161, 161, 161)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(436, 436, 436)
-                        .addComponent(cartaOponente, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(245, 245, 245)
-                                .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(vidaText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(37, 37, 37)
+                                .addComponent(vidaText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(161, 161, 161)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
+                        .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
-                        .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(315, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(96, 96, 96)
+                        .addComponent(mazoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cartaOponente, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mazoBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE))
+                .addGap(57, 57, 57)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(vidaText))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -728,12 +748,6 @@ public class MenuInicial extends JFrame implements Observer {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreFieldActionPerformed
 
-    private void adelanteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adelanteBotonActionPerformed
-        // TODO add your handling code here:
-        CambiarVida(150);
-        
-    }//GEN-LAST:event_adelanteBotonActionPerformed
-
     private void iniciarBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarBoton_lobbyActionPerformed
         // TODO add your handling code here:
         if(usuariosConectados == 2){
@@ -748,12 +762,35 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_iniciarBoton_lobbyActionPerformed
 
+    private void adelanteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adelanteBotonActionPerformed
+        // TODO add your handling code here:
+
+          this.cartaSelec = this.mano.getCartaNext();
+          setCartaImage();
+    }//GEN-LAST:event_adelanteBotonActionPerformed
+
     private void cartaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartaBotonActionPerformed
         // TODO add your handling code here:
         Mensaje envio = new Mensaje(null, 0, null, 5, false);
         EnvioJson(envio);
         setTurno(false);
     }//GEN-LAST:event_cartaBotonActionPerformed
+
+    private void atrasBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasBotonActionPerformed
+        // TODO add your handling code here:
+        this.cartaSelec = this.mano.getCartaPrev();
+        setCartaImage();
+    }//GEN-LAST:event_atrasBotonActionPerformed
+
+    private void mazoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mazoBotonActionPerformed
+        // TODO add your handling code here:
+        //Mensaje envio = new Mensaje(null, 0, null, 5, false);
+        //EnvioJson(envio);
+        setTurno(false);
+        tomarCarta();
+
+
+    }//GEN-LAST:event_mazoBotonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -815,6 +852,7 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JTextArea jugadoresConectadosTextArea_lobby;
     private javax.swing.JButton lobbyBoton;
     private javax.swing.JLabel lobbyText_lobby;
+    private javax.swing.JButton mazoBoton;
     private javax.swing.JLabel monsterName_lobby;
     private javax.swing.JLabel monsterName_menu;
     private javax.swing.JLabel monsterName_unirse;
@@ -884,8 +922,10 @@ public class MenuInicial extends JFrame implements Observer {
             else if (id == 4){
 
                 Mensaje recibido = LeerJsonMensaje(mensaje);
+
                 pantallas.setSelectedIndex(3);
                 JOptionPane.showMessageDialog(pantallas, "Es el turno de: " + mensaje.get("username").asText());
+
             }
 
             else if (id == 5){
@@ -894,6 +934,7 @@ public class MenuInicial extends JFrame implements Observer {
                 JOptionPane.showMessageDialog(pantallas, "Es tu turno");
                 setTurno(true);
             }
+
 
 
         } catch (JsonProcessingException e) {
@@ -913,8 +954,6 @@ public class MenuInicial extends JFrame implements Observer {
 
     public void EnvioJson(Object envio){
         JsonNode mensajeNode = Json.toJsonNode(envio);
-        System.out.println(mensajeNode);
-        System.out.println();
         try {
             String mensajeCompleto = Json.generateString(mensajeNode, false);
 
@@ -936,11 +975,14 @@ public class MenuInicial extends JFrame implements Observer {
     public void CambiarVida(int valor){
         this.miVida -= valor;
         vidaBar.setValue(miVida);
+        if (this.miVida <= 0){
+            //Mensaje perder = new Mensaje();
+            //EnvioJson(perder);
+        }
     }
 
     public void setTurno(Boolean turno){
-        atrasBoton.setEnabled(turno);
-        adelanteBoton.setEnabled(turno);
+
         cartaBoton.setEnabled(turno);
     }
   
@@ -970,11 +1012,24 @@ public class MenuInicial extends JFrame implements Observer {
         for(int i = 0; i < 4;i++){
             this.mano.insert(this.mazo.deQueue().getObject());
         }
+        this.cartaSelec = this.mano.getRef();
         System.out.println("--------------");
         this.mano.printList();
         System.out.println("--------------");
         this.mazo.print();
     }
 
+    public void setCartaImage(){
+        Carta select = this.cartaSelec.getObject();
+        cartaBoton.setIcon(new ImageIcon(this.rutaC+select.getType()+select.getId()+".png"));
+    }
+
+    public void tomarCarta(){
+        Carta nueva = this.mazo.deQueue().getObject();
+        this.mano.insert(nueva);
+        this.cartaSelec = this.mano.find(nueva);
+        setCartaImage();
+
+    }
 }
 

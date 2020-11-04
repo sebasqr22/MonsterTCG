@@ -54,8 +54,6 @@ public class Server extends Observable implements Runnable {
 
                 server = new ServerSocket(this.port);//create server socket
 
-                System.out.println("Lobby creado con exito");
-                System.out.println(String.valueOf(this.port));
 
                 while (true) { // loop para tener el server corriendo
 
