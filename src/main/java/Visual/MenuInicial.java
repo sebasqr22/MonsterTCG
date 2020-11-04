@@ -6,7 +6,9 @@
 package Visual;
 
 
+import Assets.CartasTotal;
 import Estructuras_Datos.CList.CircularList;
+import Estructuras_Datos.CList.Node;
 import Estructuras_Datos.Cola.Cola;
 import JsonPackage.Json;
 import Sockets.Client;
@@ -52,15 +54,17 @@ public class MenuInicial extends JFrame implements Observer {
     int miVida = 1000;
 
     //variables del mazo
+    CartasTotal cartasTotal = new CartasTotal();
     Cola mazo = new Cola();
     CircularList mano = new CircularList();
+    Node cartaSelec;
     
 
 
     /**
      * Creates new form MenuInicial
      */
-    public MenuInicial() {
+    public MenuInicial(){
         initComponents();
 
         Server servidor = new Server();
@@ -69,7 +73,13 @@ public class MenuInicial extends JFrame implements Observer {
         serverT.start();
         this.miPuerto = servidor.getPort();
         puertoField_lobby.setText(String.valueOf(this.miPuerto));
+        try {
+            cargarCartas();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setTurno(false);
+
     }
 
 
@@ -649,7 +659,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirMenuBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_lobbyActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres desconectarte?");
+        int salir = JOptionPane.showConfirmDialog(null, "Â¿Estas seguro que quieres desconectarte?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 if(cliente == true){
@@ -680,7 +690,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirBoton_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_menuActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "Â¿Estas seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -692,7 +702,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_unirseActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "Â¿Estas seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -704,7 +714,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_lobbyActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "Â¿Estas seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -882,9 +892,7 @@ public class MenuInicial extends JFrame implements Observer {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
-
-
+        
     }
     public static int puerto(){
 
@@ -916,6 +924,8 @@ public class MenuInicial extends JFrame implements Observer {
         return conectar;
     }
 
+
+    
     public void CambiarVida(int valor){
         this.miVida -= valor;
         vidaBar.setValue(miVida);
@@ -926,16 +936,36 @@ public class MenuInicial extends JFrame implements Observer {
         adelanteBoton.setEnabled(turno);
         cartaBoton.setEnabled(turno);
     }
+  
+    public void setMazo(CartasTotal cartas) {
+        
+        Random random = new Random();
+        int index = 0;
+        for (int i = 0; i < 6 ;i++ ){
+            index = random.nextInt(cartas.getCartastotal().length-1);
+            this.mazo.enQueue(cartas.getCartastotal()[index]);
+        }
+        this.mazo.print();
+        crearMano();
+    }
+    
 
-    private void setMazo(Cola mazo) {
+    public void cargarCartas() throws IOException {
 
-
-
-
+        this.cartasTotal = Json.initializeCartas();
+        for(int i = 0; i < this.cartasTotal.getCartastotal().length;i++) {
+            System.out.println(this.cartasTotal.getCartastotal()[i].toString());
+        }
+        setMazo(this.cartasTotal);
     }
 
-
-
+    public void crearMano(){
+        for(int i = 0; i < 6;i++){
+            this.mano.insert(this.mazo.deQueue().getObject());
+        }
+        System.out.println("--------------");
+        this.mano.printList();
+    }
 
 }
 

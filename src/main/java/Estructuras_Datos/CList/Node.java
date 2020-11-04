@@ -1,38 +1,40 @@
 package Estructuras_Datos.CList;
 
-public class NodeC {
+import Assets.Carta;
 
-    private Object data;
-    private NodeC next;
-    private NodeC prev;
+public class Node {
+
+    Carta data;
+    Node next;
+    Node prev;
 
 
-    public NodeC(Object data) {
+    public Node(Carta data) {
         this.data = data;
         this.next = null;
     }
 
-    public Object getObject() {
+    public Carta getObject() {
         return data;
     }
 
-    public void setObject(Object data) {
+    public void setObject(Carta data) {
         this.data = data;
     }
 
-    public NodeC getNext() {
+    public Node getNext() {
         return next;
     }
 
-    public void setNext(NodeC next) {
+    public void setNext(Node next) {
         this.next = next;
     }
 
-    public NodeC getPrev() {
+    public Node getPrev() {
         return this.prev;
     }
 
-    public void setPrev(NodeC prev) {
+    public void setPrev(Node prev) {
         this.prev = prev;
     }
 
