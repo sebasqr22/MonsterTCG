@@ -16,4 +16,23 @@ public class Carta {
         return value;
     }
 
+    public int getId() {
+        return Id;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public String getNombre() {
+        return Nombre;
+    }
+
+    public int getAtaque() {
+        return Ataque;
+    }
+
+    public int getMana() {
+        return Mana;
+    }
 }

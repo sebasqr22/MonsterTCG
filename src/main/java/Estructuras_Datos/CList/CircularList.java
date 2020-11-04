@@ -3,6 +3,8 @@ package Estructuras_Datos.CList;
 
 import Assets.Carta;
 
+import javax.swing.*;
+
 public class CircularList {
 
     int size;
@@ -20,36 +22,39 @@ public class CircularList {
     }
 
     public void insert(Carta data){
+        if(this.size + 1 <= 10) {
+            Node newNode = new Node(data);
 
-        Node newNode = new Node(data);
+            if (this.ref == null) {
+                this.ref = newNode;
+                this.ref.setNext(this.ref);
+                this.ref.setPrev(this.ref);
+                this.cartaSelec = this.ref;
 
-        if (this.ref == null){
-            this.ref = newNode;
-            this.ref.setNext(this.ref);
-            this.ref.setPrev(this.ref);
-            this.cartaSelec = this.ref;
+            } else if (this.size == 1) {
+                this.ref.setNext(newNode);
+                this.ref.setPrev(newNode);
 
-        }else if(this.size == 1){
-            this.ref.setNext(newNode);
-            this.ref.setPrev(newNode);
+                newNode.setPrev(this.ref);
+                newNode.setNext(this.ref);
 
-            newNode.setPrev(this.ref);
-            newNode.setNext(this.ref);
+            } else {
+                Node tmp = this.ref;
 
-        }else{
-            Node tmp = this.ref;
+                while (tmp.getNext() != this.ref) {
+                    tmp = tmp.getNext();
+                }
+                tmp.setNext(newNode);
 
-            while(tmp.getNext()!=this.ref) {
-                tmp = tmp.getNext();
+                newNode.setNext(this.ref);
+                newNode.setPrev(tmp);
+
+                this.ref.setPrev(newNode);
             }
-            tmp.setNext(newNode);
-
-            newNode.setNext(this.ref);
-            newNode.setPrev(tmp);
-
-            this.ref.setPrev(newNode);
+            this.size++;
+        }else{
+            JOptionPane.showMessageDialog(null,"No puede tomar mas cartas (maximo 10)");
         }
-        this.size++;
     }
 
     public void printList(){
@@ -71,7 +76,7 @@ public class CircularList {
     }
 
 
-    public void deleteDato(Object data){
+    public void deleteDato(Carta data){
         System.out.println("delete");
         if(this.ref == null){
             System.out.println("Lista nula no se puede borrar");
@@ -130,5 +135,29 @@ public class CircularList {
     }
     public Node getRef() {
         return ref;
+    }
+
+    public Node find(Carta carta){
+        if (this.ref == null){
+            return null;
+        }else{
+            Node tmp = this.ref;
+            boolean exists = true;
+
+            while(tmp.getNext().getObject() != carta){
+
+                tmp = tmp.getNext();
+                if (tmp == this.ref){
+                    exists = false;
+                    break;
+                }
+            }
+
+            if(exists){
+                return tmp.getNext();
+            }else{
+                return null;
+            }
+        }
     }
 }
