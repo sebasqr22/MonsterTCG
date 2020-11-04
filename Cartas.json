@@ -3,27 +3,141 @@
     {
       "Type": "e",
       "Id": 1,
-      "Nombre": "Zombie",
-      "Ataque": 10,
-      "Mana": 200
+      "Nombre": "Albino",
+      "Ataque": 80,
+      "Mana": 60
     },{
       "Type": "e",
       "Id": 2,
-      "Nombre": "CR7",
-      "Ataque": 20,
-      "Mana": 10
+      "Nombre": "Caballero",
+      "Ataque": 50,
+      "Mana": 50
     },{
       "Type": "e",
       "Id": 3,
-      "Nombre": "Caballero",
-      "Ataque": 30,
-      "Mana": 25
+      "Nombre": "CR7",
+      "Ataque": 240,
+      "Mana": 300
     },{
       "Type": "e",
       "Id": 4,
-      "Nombre": "Golem",
+      "Nombre": "El Bromas",
+      "Ataque": 150,
+      "Mana": 100
+    },{
+      "Type": "e",
+      "Id": 5,
+      "Nombre": "Conejo Malo",
       "Ataque": 100,
-      "Mana": 68
+      "Mana": 100
+    },{
+      "Type": "e",
+      "Id": 6,
+      "Nombre": "El Mago",
+      "Ataque": 120,
+      "Mana": 100
+    },{
+      "Type": "e",
+      "Id": 7,
+      "Nombre": "Monstruo Morado",
+      "Ataque": 300,
+      "Mana": 500
+    },{
+      "Type": "e",
+      "Id": 8,
+      "Nombre": "Golem",
+      "Ataque": 150,
+      "Mana": 150
+    },{
+      "Type": "e",
+      "Id": 9,
+      "Nombre": "Kratos",
+      "Ataque": 200,
+      "Mana": 250
+    },{
+      "Type": "e",
+      "Id": 10,
+      "Nombre": "Zombie",
+      "Ataque": 100,
+      "Mana": 80
+    },{
+      "Type": "h",
+      "Id": 1,
+      "Nombre": "Congelar",
+      "Ataque": 0,
+      "Mana": 150
+    },{
+      "Type": "h",
+      "Id": 2,
+      "Nombre": "Curar",
+      "Ataque": 0,
+      "Mana": 400
+    },{
+      "Type": "h",
+      "Id": 3,
+      "Nombre": "Poder Supremo",
+      "Ataque": 0,
+      "Mana": 500
+    },{
+      "Type": "h",
+      "Id": 4,
+      "Nombre": "Robar Carta",
+      "Ataque": 0,
+      "Mana": 200
+    },{
+      "Type": "h",
+      "Id": 5,
+      "Nombre": "Rayo",
+      "Ataque": 100,
+      "Mana": 50
+    },{
+      "Type": "h",
+      "Id": 6,
+      "Nombre": "Covid-19",
+      "Ataque": 100,
+      "Mana": 50
+    },{
+      "Type": "h",
+      "Id": 7,
+      "Nombre": "Veneno",
+      "Ataque": 200,
+      "Mana": 230
+    },{
+      "Type": "h",
+      "Id": 8,
+      "Nombre": "Bola de Fuego",
+      "Ataque": 80,
+      "Mana": 50
+    },{
+      "Type": "h",
+      "Id": 9,
+      "Nombre": "Escudo",
+      "Ataque": 0,
+      "Mana": 150
+    },{
+      "Type": "h",
+      "Id": 10,
+      "Nombre": "Bulum Bulum",
+      "Ataque": 0,
+      "Mana": 200
+    },{
+      "Type": "s",
+      "Id": 1,
+      "Nombre": "La Juve",
+      "Ataque": 200,
+      "Mana": 300
+    },{
+      "Type": "s",
+      "Id": 2,
+      "Nombre": "Bloqueo Hechizos",
+      "Ataque": 0,
+      "Mana": 200
+    },{
+      "Type": "s",
+      "Id": 3,
+      "Nombre": "Arjona",
+      "Ataque": 0,
+      "Mana": 100
     }
   ]
 }
