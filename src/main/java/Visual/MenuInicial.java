@@ -941,7 +941,7 @@ public class MenuInicial extends JFrame implements Observer {
         
         Random random = new Random();
         int index = 0;
-        for (int i = 0; i < 6 ;i++ ){
+        for (int i = 0; i < 20 ;i++ ){
             index = random.nextInt(cartas.getCartastotal().length-1);
             this.mazo.enQueue(cartas.getCartastotal()[index]);
         }
@@ -953,18 +953,20 @@ public class MenuInicial extends JFrame implements Observer {
     public void cargarCartas() throws IOException {
 
         this.cartasTotal = Json.initializeCartas();
-        for(int i = 0; i < this.cartasTotal.getCartastotal().length;i++) {
+        for(int i = 0; i < 23;i++) {
             System.out.println(this.cartasTotal.getCartastotal()[i].toString());
         }
         setMazo(this.cartasTotal);
     }
 
     public void crearMano(){
-        for(int i = 0; i < 6;i++){
+        for(int i = 0; i < 4;i++){
             this.mano.insert(this.mazo.deQueue().getObject());
         }
         System.out.println("--------------");
         this.mano.printList();
+        System.out.println("--------------");
+        this.mazo.print();
     }
 
 }
