@@ -786,26 +786,43 @@ public class MenuInicial extends JFrame implements Observer {
         // TODO add your handling code here:
 
           this.cartaSelec = this.mano.getCartaNext();
+          System.out.println(this.cartaSelec.getObject().getNombre());
           setCartaImage();
     }//GEN-LAST:event_adelanteBotonActionPerformed
 
     private void cartaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartaBotonActionPerformed
         // TODO add your handling code here:
-        Mensaje envio = new Mensaje(null, 0, null, 5, false);
-        EnvioJson(envio);
-        setTurno(false);
+        if(this.cartaSelec !=  null) {
+            Mensaje envio = new Mensaje(null, 0, null, 5, false);
+            EnvioJson(envio);
+            setTurno(false);
+            Carta utilizada = this.cartaSelec.getObject();
+            this.mazo.enQueue(utilizada);
+
+            this.cartaSelec = this.mano.getCartaNext();
+            this.mano.deleteDato(utilizada);
+
+            if (this.mano.getRef() == null){
+                this.cartaSelec = null;
+            }
+            setCartaImage();
+        }else{
+            JOptionPane.showMessageDialog(pantallas,"No tienes cartas debes tomar una del mazo");
+        }
     }//GEN-LAST:event_cartaBotonActionPerformed
 
     private void atrasBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasBotonActionPerformed
         // TODO add your handling code here:
+
         this.cartaSelec = this.mano.getCartaPrev();
+        System.out.println(this.cartaSelec.getObject().getNombre());
         setCartaImage();
     }//GEN-LAST:event_atrasBotonActionPerformed
 
     private void mazoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mazoBotonActionPerformed
         // TODO add your handling code here:
-        //Mensaje envio = new Mensaje(null, 0, null, 5, false);
-        //EnvioJson(envio);
+        Mensaje envio = new Mensaje(null, 0, null, 5, false);
+        EnvioJson(envio);
         setTurno(false);
         tomarCarta();
 
@@ -948,7 +965,7 @@ public class MenuInicial extends JFrame implements Observer {
             int id = mensaje.get("id").asInt();
             if(id == 1){
 
-                System.out.println(mensaje);
+
                 Mensaje recibido = LeerJsonMensaje(mensaje);
                 this.jugadoresConectadosTextArea_lobby.append(recibido.getUsername() + "\n");
                 this.usuariosConectados ++;
@@ -957,10 +974,7 @@ public class MenuInicial extends JFrame implements Observer {
 
                 if (recibido.host){
                     Mensaje conexion = new Mensaje(this.miIP,this.miPuerto,this.username + " (host)",1,false);
-                    System.out.println("Ip devuelta: "+conexion.ip);
-                    System.out.println("Port devuelta: "+conexion.port);
-                    System.out.println("Username devuelta: "+conexion.username);
-                    System.out.println("host devuelta: "+conexion.host);
+
                     EnvioJson(conexion);
                 }
             }
@@ -1055,7 +1069,7 @@ public class MenuInicial extends JFrame implements Observer {
     }
 
     public void setTurno(Boolean turno){
-
+        mazoBoton.setEnabled(turno);
         cartaBoton.setEnabled(turno);
     }
   
@@ -1082,7 +1096,7 @@ public class MenuInicial extends JFrame implements Observer {
     }
 
     public void crearMano(){
-        for(int i = 0; i < 4;i++){
+        for(int i = 0; i < 6;i++){
             this.mano.insert(this.mazo.deQueue().getObject());
         }
         this.cartaSelec = this.mano.getRef();
@@ -1093,8 +1107,12 @@ public class MenuInicial extends JFrame implements Observer {
     }
 
     public void setCartaImage(){
-        Carta select = this.cartaSelec.getObject();
-        cartaBoton.setIcon(new ImageIcon(this.rutaC+select.getType()+select.getId()+".png"));
+        if (this.cartaSelec != null) {
+            Carta select = this.cartaSelec.getObject();
+            cartaBoton.setIcon(new ImageIcon(this.rutaC + select.getType() + select.getId() + ".png"));
+        }else{
+            cartaBoton.setIcon(new ImageIcon(this.rutaC +  "back.png"));
+        }
     }
 
     public void tomarCarta(){

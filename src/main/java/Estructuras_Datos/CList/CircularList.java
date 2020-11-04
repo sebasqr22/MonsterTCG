@@ -62,14 +62,14 @@ public class CircularList {
             System.out.println("Lista Vacia");
 
         }else if(this.size == 1){
-            System.out.println(this.ref.getObject());
+            System.out.println("|"+this.ref.getObject()+"|");
 
         }else{
-            System.out.println(this.ref.getObject());
+            System.out.println("|"+this.ref.getObject()+"|");
             Node tmp = this.ref.getNext();
 
             while(tmp != this.ref){
-                System.out.println(tmp.getObject());
+                System.out.println("|"+tmp.getObject()+"|");
                 tmp = tmp.getNext();
             }
         }
@@ -77,15 +77,17 @@ public class CircularList {
 
 
     public void deleteDato(Carta data){
-        System.out.println("delete");
+        //System.out.println("delete");
         if(this.ref == null){
-            System.out.println("Lista nula no se puede borrar");
+            //System.out.println("Lista nula no se puede borrar");
 
         }else if(this.ref.getObject() == data) {
-            System.out.println("Segundo if:");
+            //System.out.println("Segundo if:");
             if (this.size == 1) {
                 this.ref = null;
-                System.out.println("ref borrado");
+                this.cartaSelec.delete();
+                this.cartaSelec = null;
+                //System.out.println("ref borrado");
 
             }else{
                 Node tmp = this.ref;
@@ -95,7 +97,7 @@ public class CircularList {
                 tmp.delete();
             }
         }else {
-            System.out.println("Buscar dato");
+            //System.out.println("Buscar dato");
             Node tmp = this.ref;
             boolean exists = true;
 
@@ -109,9 +111,9 @@ public class CircularList {
             }
 
             if (exists) {
-                System.out.println("Nodo tmp:" + tmp.getObject());
-                System.out.println("Nodo a borrar:" + tmp.getNext().getObject());
-                System.out.println("Nodo next de nodo a borrar:" + tmp.getNext().getNext().getObject());
+                //System.out.println("Nodo tmp:" + tmp.getObject());
+                //System.out.println("Nodo a borrar:" + tmp.getNext().getObject());
+                //System.out.println("Nodo next de nodo a borrar:" + tmp.getNext().getNext().getObject());
                 Node dNode = tmp.getNext();
 
                 tmp.setNext(dNode.getNext());
@@ -125,13 +127,22 @@ public class CircularList {
 
 
     public Node getCartaNext(){
-        this.cartaSelec = this.cartaSelec.getNext();
-        return this.cartaSelec;
+        if (this.cartaSelec != null) {
+            this.cartaSelec = this.cartaSelec.getNext();
+            return this.cartaSelec;
+        }else{
+            return null;
+
+        }
     }
 
     public Node getCartaPrev(){
-        this.cartaSelec = this.cartaSelec.getPrev();
-        return this.cartaSelec;
+        if (this.cartaSelec != null) {
+            this.cartaSelec = this.cartaSelec.getPrev();
+            return this.cartaSelec;
+        }else{
+            return null;
+        }
     }
     public Node getRef() {
         return ref;
