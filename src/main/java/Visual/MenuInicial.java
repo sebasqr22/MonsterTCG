@@ -19,6 +19,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -134,10 +136,11 @@ public class MenuInicial extends JFrame implements Observer {
         cartaBoton = new javax.swing.JButton();
         adelanteBoton = new javax.swing.JButton();
         atrasBoton = new javax.swing.JButton();
-        cartaOponente = new javax.swing.JLabel();
         vidaText = new javax.swing.JLabel();
         vidaBar = new javax.swing.JProgressBar();
         mazoBoton = new javax.swing.JButton();
+        salirMenuBoton_juego = new javax.swing.JButton();
+        salirBoton_juego = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -228,14 +231,14 @@ public class MenuInicial extends JFrame implements Observer {
                 .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreText)
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
                 .addComponent(unirseBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(84, 84, 84)
                 .addComponent(salirBoton_menu)
                 .addGap(56, 56, 56))
             .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuInicialLayout.createSequentialGroup()
-                    .addContainerGap(531, Short.MAX_VALUE)
+                    .addContainerGap(450, Short.MAX_VALUE)
                     .addComponent(lobbyBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(163, 163, 163)))
         );
@@ -329,7 +332,7 @@ public class MenuInicial extends JFrame implements Observer {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ipLobbyText_unirse)
                     .addComponent(puertoLobbyText_unirse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(unirseBoton_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(221, 221, 221)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -466,7 +469,7 @@ public class MenuInicial extends JFrame implements Observer {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jugadoresConectadosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(monsterName_lobby)
@@ -507,9 +510,10 @@ public class MenuInicial extends JFrame implements Observer {
         manaField.setFont(nombreField.getFont());
 
         jLabel1.setFont(nombreText.getFont());
+        jLabel1.setForeground(new java.awt.Color(12, 122, 16));
         jLabel1.setText("Mana");
 
-        cartaBoton.setText("jButton1");
+        cartaBoton.setBackground(new java.awt.Color(56, 1, 6));
         cartaBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cartaBotonActionPerformed(evt);
@@ -532,9 +536,8 @@ public class MenuInicial extends JFrame implements Observer {
             }
         });
 
-        cartaOponente.setText("jLabel3");
-
         vidaText.setFont(nombreText.getFont());
+        vidaText.setForeground(new java.awt.Color(12, 122, 16));
         vidaText.setText("Vida");
 
         vidaBar.setBackground(new java.awt.Color(255, 0, 0));
@@ -547,59 +550,77 @@ public class MenuInicial extends JFrame implements Observer {
             }
         });
 
+        salirMenuBoton_juego.setFont(atrasBoton.getFont());
+        salirMenuBoton_juego.setText("Menu Inicial");
+        salirMenuBoton_juego.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirMenuBoton_juegoActionPerformed(evt);
+            }
+        });
+
+        salirBoton_juego.setFont(adelanteBoton.getFont());
+        salirBoton_juego.setText("Salir");
+        salirBoton_juego.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirBoton_juegoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(cartaOponente, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(451, 451, 451))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(vidaText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(161, 161, 161)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(147, 147, 147)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
-                        .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96)
-                        .addComponent(mazoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58))))
+                        .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(vidaText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                .addComponent(mazoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(salirMenuBoton_juego)
+                .addGap(37, 37, 37)
+                .addComponent(salirBoton_juego)
+                .addGap(35, 35, 35))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cartaOponente, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mazoBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE))
-                .addGap(57, 57, 57)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vidaText))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(212, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(mazoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(119, 119, 119)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(vidaText)))
+                    .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(148, 148, 148)))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(salirMenuBoton_juego)
+                    .addComponent(salirBoton_juego))
+                .addGap(23, 23, 23))
         );
 
         vidaBar.setValue(miVida);
@@ -616,9 +637,7 @@ public class MenuInicial extends JFrame implements Observer {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -645,6 +664,7 @@ public class MenuInicial extends JFrame implements Observer {
             JOptionPane.showMessageDialog(pantallas, "Por favor introducir su nombre..." );
         }
         else{
+            puertoField_lobby.setText(String.valueOf(miPuerto));
             iniciarBoton_lobby.setVisible(true);
             this.username = nombreField.getText();
             usuariosConectados ++;
@@ -809,6 +829,49 @@ public class MenuInicial extends JFrame implements Observer {
 
     }//GEN-LAST:event_mazoBotonActionPerformed
 
+    private void salirMenuBoton_juegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_juegoActionPerformed
+        // TODO add your handling code here:
+        int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir al menu principal? Perderas la partida");
+        switch(salir){
+            case JOptionPane.YES_OPTION:
+                int valor;
+                if(cliente){
+                    valor = 2;
+                }
+                else{
+                    valor = 3;
+                }
+                Mensaje envio = new Mensaje(null, 1, this.username, valor, false);
+                EnvioJson(envio);
+                this.jugadoresConectadosTextArea_lobby.setText("");
+                pantallas.setSelectedIndex(0);
+
+            case JOptionPane.NO_OPTION:
+                break;
+        }
+    }//GEN-LAST:event_salirMenuBoton_juegoActionPerformed
+
+    private void salirBoton_juegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_juegoActionPerformed
+        // TODO add your handling code here:
+        int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir del juego?");
+        switch(salir){
+            case JOptionPane.YES_OPTION:
+                int valor;
+                if(cliente){
+                    valor = 2;
+                }
+                else{
+                    valor = 3;
+                }
+                Mensaje envio = new Mensaje(null, 1, this.username, valor, false);
+                EnvioJson(envio);
+                System.exit(0);
+
+            case JOptionPane.NO_OPTION:
+                break;
+        }
+    }//GEN-LAST:event_salirBoton_juegoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -852,7 +915,6 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JButton adelanteBoton;
     private javax.swing.JButton atrasBoton;
     private javax.swing.JButton cartaBoton;
-    private javax.swing.JLabel cartaOponente;
     private javax.swing.JButton iniciarBoton_lobby;
     private javax.swing.JTextField ipField_lobby;
     private javax.swing.JTextField ipField_unirse;
@@ -880,9 +942,11 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JTextField puertoField_unirse;
     private javax.swing.JLabel puertoLobbyText_unirse;
     private javax.swing.JLabel puertoText_lobby;
+    private javax.swing.JButton salirBoton_juego;
     private javax.swing.JButton salirBoton_lobby;
     private javax.swing.JButton salirBoton_menu;
     private javax.swing.JButton salirBoton_unirse;
+    private javax.swing.JButton salirMenuBoton_juego;
     private javax.swing.JButton salirMenuBoton_lobby;
     private javax.swing.JButton salirMenuBoton_unirse;
     private javax.swing.JButton unirseBoton;
@@ -921,17 +985,26 @@ public class MenuInicial extends JFrame implements Observer {
                 this.usuariosConectados -= 1;
                 this.opPort = 0;
                 this.opIP = null;
-                JOptionPane.showMessageDialog(pantallas, "Se deconecto un jugador");
+                JOptionPane.showMessageDialog(pantallas, mensaje.get("username").asText() + " se deconecto, usted sera enviado al lobby");
+                if(mensaje.get("port").asInt() == 1){
+                    resetMazo();
+                }
+                pantallas.setSelectedIndex(2);
+                setTurno(false);
             }
             else if (id == 3){
 
                 Mensaje recibido = LeerJsonMensaje(mensaje);
-                JOptionPane.showMessageDialog(pantallas, "El host se desconectado, usted sera enviado al menu principal");
+                JOptionPane.showMessageDialog(pantallas, "El host: " + mensaje.get("username").asText() + " se he desconectado, usted sera enviado al menu principal");
+                if(mensaje.get("port").asInt() == 1){
+                    resetMazo();
+                }
                 pantallas.setSelectedIndex(0);
                 this.jugadoresConectadosTextArea_lobby.setText("");
                 this.usuariosConectados = 0;
                 this.opPort = 0;
                 this.opIP = null;
+                setTurno(false);
             }
             else if (id == 4){
 
@@ -1048,6 +1121,11 @@ public class MenuInicial extends JFrame implements Observer {
         this.cartaSelec = this.mano.find(nueva);
         setCartaImage();
 
+    }
+    public void resetMazo(){
+        this.mano = new CircularList();
+        this.mazo = new Cola();
+        setMazo(this.cartasTotal);
     }
 }
 
