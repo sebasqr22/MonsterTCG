@@ -59,7 +59,7 @@
         <Container class="javax.swing.JPanel" name="MenuInicial">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="53" green="52" red="93" type="rgb"/>
+              <Color blue="6" green="1" red="38" type="rgb"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
@@ -78,17 +78,8 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="unirseBoton" min="-2" pref="185" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                              <Component id="monsterName_menu" min="-2" pref="604" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="salirBoton_menu" min="-2" max="-2" attributes="0"/>
@@ -100,7 +91,20 @@
                               <Component id="nombreText" min="-2" pref="255" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="386" max="32767" attributes="0"/>
+                      <EmptySpace pref="630" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="unirseBoton" min="-2" pref="185" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="monsterName_menu" min="-2" pref="604" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -211,7 +215,7 @@
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="53" green="52" red="93" type="rgb"/>
+              <Color blue="6" green="1" red="38" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>
@@ -227,18 +231,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="monsterName_unirse" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="ipField_unirse" min="-2" pref="190" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="puertoField_unirse" min="-2" pref="190" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="ipField_unirse" min="-2" pref="190" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="puertoField_unirse" min="-2" pref="190" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
@@ -247,17 +243,25 @@
                       <Component id="puertoLobbyText_unirse" min="-2" pref="313" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="unirseBoton_unirse" min="-2" pref="191" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="299" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="salirMenuBoton_unirse" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="salirBoton_unirse" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="407" max="-2" attributes="0"/>
+                              <Component id="unirseBoton_unirse" min="-2" pref="191" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="221" max="-2" attributes="0"/>
+                              <Component id="monsterName_unirse" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -276,9 +280,9 @@
                           <Component id="ipLobbyText_unirse" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="puertoLobbyText_unirse" alignment="3" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+                      <EmptySpace pref="113" max="32767" attributes="0"/>
                       <Component id="unirseBoton_unirse" min="-2" pref="53" max="-2" attributes="0"/>
-                      <EmptySpace pref="219" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="221" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="salirMenuBoton_unirse" min="-2" max="-2" attributes="0"/>
                           <Component id="salirBoton_unirse" min="-2" max="-2" attributes="0"/>
@@ -319,6 +323,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection component="nombreText" name="font" type="property"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Escriba iP del Lobby"/>
               </Properties>
             </Component>
@@ -326,6 +333,9 @@
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Microsoft YaHei UI Light" size="24" style="3"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Escriba puerto del Lobby"/>
               </Properties>
@@ -368,7 +378,7 @@
         <Container class="javax.swing.JPanel" name="jPanel3">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="53" green="52" red="93" type="rgb"/>
+              <Color blue="6" green="1" red="38" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>
@@ -384,41 +394,45 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Component id="ipField_lobby" min="-2" pref="205" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="puertoField_lobby" min="-2" pref="205" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="220" max="-2" attributes="0"/>
-                                      <Component id="lobbyText_lobby" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                                      <Component id="monsterName_lobby" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
-                                      <Component id="iniciarBoton_lobby" min="-2" pref="160" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="salirMenuBoton_lobby" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="371" max="-2" attributes="0"/>
-                                      <Component id="salirBoton_lobby" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="salirMenuBoton_lobby" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="371" max="-2" attributes="0"/>
+                              <Component id="salirBoton_lobby" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="272" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                                       <Component id="ipText_lobby" min="-2" pref="157" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                       <Component id="puertoText_lobby" min="-2" pref="219" max="-2" attributes="0"/>
                                   </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                      <Component id="ipField_lobby" min="-2" pref="205" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="puertoField_lobby" min="-2" pref="205" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="monsterName_lobby" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="iniciarBoton_lobby" min="-2" pref="160" max="-2" attributes="0"/>
+                                          <Component id="lobbyText_lobby" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="348" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
                       </Group>
                       <Component id="jugadoresConectadosPanel" min="-2" max="-2" attributes="0"/>
@@ -430,7 +444,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="jugadoresConectadosPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="150" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -447,9 +461,9 @@
                           <Component id="ipText_lobby" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="puertoText_lobby" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                      <Component id="iniciarBoton_lobby" min="-2" pref="55" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="iniciarBoton_lobby" min="-2" pref="55" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="salirMenuBoton_lobby" min="-2" max="-2" attributes="0"/>
                           <Component id="salirBoton_lobby" min="-2" max="-2" attributes="0"/>
@@ -463,7 +477,7 @@
             <Container class="javax.swing.JPanel" name="jugadoresConectadosPanel">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="5a" green="59" red="96" type="rgb"/>
+                  <Color blue="6" green="1" red="38" type="rgb"/>
                 </Property>
               </Properties>
 
@@ -496,6 +510,9 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Microsoft YaHei UI Light" size="14" style="3"/>
                     </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="10" green="7a" red="c" type="rgb"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Jugadores conectados:"/>
                   </Properties>
                 </Component>
@@ -515,6 +532,9 @@
                         <Property name="columns" type="int" value="20"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                           <Connection component="jugadoresConectadosText" name="font" type="property"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="10" green="7a" red="c" type="rgb"/>
                         </Property>
                         <Property name="rows" type="int" value="5"/>
                       </Properties>
@@ -575,6 +595,9 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection component="nombreText" name="font" type="property"/>
                 </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="iP del Lobby"/>
               </Properties>
             </Component>
@@ -582,6 +605,9 @@
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection component="nombreText" name="font" type="property"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Puerto del Lobby"/>
               </Properties>
@@ -593,6 +619,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Iniciar Partida"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="iniciarBoton_lobbyActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="salirMenuBoton_lobby">
               <Properties>
@@ -621,7 +650,7 @@
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="53" green="52" red="93" type="rgb"/>
+              <Color blue="6" green="1" red="38" type="rgb"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
@@ -641,30 +670,30 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="manaField" min="-2" pref="123" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" pref="81" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="436" max="-2" attributes="0"/>
+                              <Component id="cartaOponente" min="-2" pref="143" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="245" max="-2" attributes="0"/>
                                       <Component id="atrasBoton" min="-2" pref="126" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="vidaField" min="-2" pref="123" max="-2" attributes="0"/>
+                                      <Component id="vidaBar" min="-2" pref="276" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="vidaText" min="-2" pref="63" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="carta1Boton" min="-2" pref="200" max="-2" attributes="0"/>
+                              <Component id="cartaBoton" min="-2" pref="200" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                               <Component id="adelanteBoton" min="-2" pref="126" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="436" max="-2" attributes="0"/>
-                              <Component id="cartaOponente" min="-2" pref="143" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="315" max="32767" attributes="0"/>
@@ -676,27 +705,21 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cartaOponente" min="-2" pref="219" max="-2" attributes="0"/>
-                      <EmptySpace pref="120" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="carta1Boton" alignment="3" min="-2" pref="327" max="-2" attributes="0"/>
-                                  <Component id="atrasBoton" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
-                                  <Component id="adelanteBoton" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="vidaField" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                                  <Component id="vidaText" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          </Group>
+                      <EmptySpace pref="61" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="cartaBoton" alignment="3" min="-2" pref="327" max="-2" attributes="0"/>
+                          <Component id="atrasBoton" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="adelanteBoton" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jLabel1" max="32767" attributes="0"/>
-                          <Component id="manaField" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="vidaBar" min="-2" pref="25" max="-2" attributes="0"/>
+                          <Component id="vidaText" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="manaField" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -724,10 +747,13 @@
                 <Property name="text" type="java.lang.String" value="Mana"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="carta1Boton">
+            <Component class="javax.swing.JButton" name="cartaBoton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="jButton1"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cartaBotonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="adelanteBoton">
               <Properties>
@@ -736,6 +762,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Adelante"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adelanteBotonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="atrasBoton">
               <Properties>
@@ -750,14 +779,6 @@
                 <Property name="text" type="java.lang.String" value="jLabel3"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="vidaField">
-              <Properties>
-                <Property name="editable" type="boolean" value="false"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection component="manaField" name="font" type="property"/>
-                </Property>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="vidaText">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -765,6 +786,17 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Vida"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JProgressBar" name="vidaBar">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="maximum" type="int" value="1000"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="vidaBar.setValue(miVida);"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

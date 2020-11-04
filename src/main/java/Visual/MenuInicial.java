@@ -15,6 +15,7 @@ import Sockets.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -33,7 +34,7 @@ public class MenuInicial extends JFrame implements Observer {
     int miPuerto;
     String miIP;
     int usuariosConectados = 0;
-    Boolean cliente;
+    Boolean cliente = false;
     {
         try {
             miIP = InetAddress.getLocalHost().getHostAddress();
@@ -46,6 +47,9 @@ public class MenuInicial extends JFrame implements Observer {
     String opUs;
     int opPort;
     String opIP;
+
+    // variables de jugabilidad
+    int miVida = 1000;
 
     //variables del mazo
     Cola mazo = new Cola();
@@ -65,6 +69,7 @@ public class MenuInicial extends JFrame implements Observer {
         serverT.start();
         this.miPuerto = servidor.getPort();
         puertoField_lobby.setText(String.valueOf(this.miPuerto));
+        setTurno(false);
     }
 
 
@@ -113,12 +118,12 @@ public class MenuInicial extends JFrame implements Observer {
         jPanel1 = new javax.swing.JPanel();
         javax.swing.JTextField manaField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        carta1Boton = new javax.swing.JButton();
+        cartaBoton = new javax.swing.JButton();
         adelanteBoton = new javax.swing.JButton();
         atrasBoton = new javax.swing.JButton();
         cartaOponente = new javax.swing.JLabel();
-        vidaField = new javax.swing.JTextField();
         vidaText = new javax.swing.JLabel();
+        vidaBar = new javax.swing.JProgressBar();
 
         jLabel2.setText("jLabel2");
 
@@ -127,7 +132,7 @@ public class MenuInicial extends JFrame implements Observer {
 
         pantallas.setBackground(new java.awt.Color(147, 82, 83));
 
-        MenuInicial.setBackground(new java.awt.Color(147, 82, 83));
+        MenuInicial.setBackground(new java.awt.Color(56, 1, 6));
         MenuInicial.setToolTipText("");
 
         monsterName_menu.setFont(new java.awt.Font("Viner Hand ITC", 3, 70)); // NOI18N
@@ -174,15 +179,8 @@ public class MenuInicial extends JFrame implements Observer {
         MenuInicial.setLayout(MenuInicialLayout);
         MenuInicialLayout.setHorizontalGroup(
             MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuInicialLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(unirseBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(134, 134, 134))
             .addGroup(MenuInicialLayout.createSequentialGroup()
                 .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MenuInicialLayout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(monsterName_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(MenuInicialLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(salirBoton_menu))
@@ -191,7 +189,16 @@ public class MenuInicial extends JFrame implements Observer {
                         .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(nombreText, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(386, Short.MAX_VALUE))
+                .addContainerGap(630, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuInicialLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuInicialLayout.createSequentialGroup()
+                        .addComponent(unirseBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(134, 134, 134))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuInicialLayout.createSequentialGroup()
+                        .addComponent(monsterName_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(223, 223, 223))))
             .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(MenuInicialLayout.createSequentialGroup()
                     .addGap(161, 161, 161)
@@ -221,7 +228,7 @@ public class MenuInicial extends JFrame implements Observer {
 
         pantallas.addTab("tab1", MenuInicial);
 
-        jPanel2.setBackground(new java.awt.Color(147, 82, 83));
+        jPanel2.setBackground(new java.awt.Color(56, 1, 6));
 
         monsterName_unirse.setFont(monsterName_menu.getFont());
         monsterName_unirse.setForeground(monsterName_menu.getForeground());
@@ -232,9 +239,11 @@ public class MenuInicial extends JFrame implements Observer {
         puertoField_unirse.setFont(nombreField.getFont());
 
         ipLobbyText_unirse.setFont(nombreText.getFont());
+        ipLobbyText_unirse.setForeground(new java.awt.Color(12, 122, 16));
         ipLobbyText_unirse.setText("Escriba iP del Lobby");
 
         puertoLobbyText_unirse.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 24)); // NOI18N
+        puertoLobbyText_unirse.setForeground(new java.awt.Color(12, 122, 16));
         puertoLobbyText_unirse.setText("Escriba puerto del Lobby");
 
         unirseBoton_unirse.setFont(unirseBoton.getFont());
@@ -267,31 +276,31 @@ public class MenuInicial extends JFrame implements Observer {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(112, 112, 112)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(monsterName_unirse)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(ipField_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(puertoField_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(135, 135, 135))))
+                .addComponent(ipField_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(puertoField_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(135, 135, 135))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addComponent(ipLobbyText_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
                 .addComponent(puertoLobbyText_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(unirseBoton_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(299, 299, 299))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(salirMenuBoton_unirse)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(salirBoton_unirse)
                 .addGap(33, 33, 33))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(407, 407, 407)
+                        .addComponent(unirseBoton_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(221, 221, 221)
+                        .addComponent(monsterName_unirse)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,9 +315,9 @@ public class MenuInicial extends JFrame implements Observer {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ipLobbyText_unirse)
                     .addComponent(puertoLobbyText_unirse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(115, 115, 115)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
                 .addComponent(unirseBoton_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
+                .addGap(221, 221, 221)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salirMenuBoton_unirse)
                     .addComponent(salirBoton_unirse))
@@ -317,17 +326,19 @@ public class MenuInicial extends JFrame implements Observer {
 
         pantallas.addTab("tab2", jPanel2);
 
-        jPanel3.setBackground(new java.awt.Color(147, 82, 83));
+        jPanel3.setBackground(new java.awt.Color(56, 1, 6));
 
-        jugadoresConectadosPanel.setBackground(new java.awt.Color(150, 89, 90));
+        jugadoresConectadosPanel.setBackground(new java.awt.Color(56, 1, 6));
 
         jugadoresConectadosText.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 14)); // NOI18N
+        jugadoresConectadosText.setForeground(new java.awt.Color(12, 122, 16));
         jugadoresConectadosText.setText("Jugadores conectados:");
 
         jugadoresConectadosTextArea_lobby.setEditable(false);
         jugadoresConectadosTextArea_lobby.setBackground(jPanel2.getBackground());
         jugadoresConectadosTextArea_lobby.setColumns(20);
         jugadoresConectadosTextArea_lobby.setFont(jugadoresConectadosText.getFont());
+        jugadoresConectadosTextArea_lobby.setForeground(new java.awt.Color(12, 122, 16));
         jugadoresConectadosTextArea_lobby.setRows(5);
         jScrollPane2.setViewportView(jugadoresConectadosTextArea_lobby);
 
@@ -367,13 +378,20 @@ public class MenuInicial extends JFrame implements Observer {
         puertoField_lobby.setFont(nombreField.getFont());
 
         ipText_lobby.setFont(nombreText.getFont());
+        ipText_lobby.setForeground(new java.awt.Color(12, 122, 16));
         ipText_lobby.setText("iP del Lobby");
 
         puertoText_lobby.setFont(nombreText.getFont());
+        puertoText_lobby.setForeground(new java.awt.Color(12, 122, 16));
         puertoText_lobby.setText("Puerto del Lobby");
 
         iniciarBoton_lobby.setFont(unirseBoton.getFont());
         iniciarBoton_lobby.setText("Iniciar Partida");
+        iniciarBoton_lobby.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iniciarBoton_lobbyActionPerformed(evt);
+            }
+        });
 
         salirMenuBoton_lobby.setFont(salirMenuBoton_unirse.getFont());
         salirMenuBoton_lobby.setText("Menu Principal");
@@ -398,33 +416,35 @@ public class MenuInicial extends JFrame implements Observer {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(ipField_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(puertoField_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(220, 220, 220)
-                                .addComponent(lobbyText_lobby))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addComponent(monsterName_lobby))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(206, 206, 206)
-                                .addComponent(iniciarBoton_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(salirMenuBoton_lobby)
-                                .addGap(371, 371, 371)
-                                .addComponent(salirBoton_lobby))
+                        .addContainerGap()
+                        .addComponent(salirMenuBoton_lobby)
+                        .addGap(371, 371, 371)
+                        .addComponent(salirBoton_lobby)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 272, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(45, 45, 45)
                                 .addComponent(ipText_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(108, 108, 108)
-                                .addComponent(puertoText_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(puertoText_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(ipField_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(puertoField_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(49, 49, 49))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(monsterName_lobby)
+                                .addGap(182, 182, 182))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(iniciarBoton_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lobbyText_lobby))
+                                .addGap(348, 348, 348)))))
                 .addComponent(jugadoresConectadosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -432,7 +452,7 @@ public class MenuInicial extends JFrame implements Observer {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jugadoresConectadosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(monsterName_lobby)
@@ -446,9 +466,9 @@ public class MenuInicial extends JFrame implements Observer {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ipText_lobby)
                     .addComponent(puertoText_lobby))
-                .addGap(80, 80, 80)
-                .addComponent(iniciarBoton_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(iniciarBoton_lobby, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(190, 190, 190)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(salirMenuBoton_lobby)
                     .addComponent(salirBoton_lobby))
@@ -466,7 +486,7 @@ public class MenuInicial extends JFrame implements Observer {
 
         pantallas.addTab("tab3", jPanel3);
 
-        jPanel1.setBackground(new java.awt.Color(147, 82, 83));
+        jPanel1.setBackground(new java.awt.Color(56, 1, 6));
         jPanel1.setToolTipText("");
 
         manaField.setEditable(false);
@@ -475,21 +495,31 @@ public class MenuInicial extends JFrame implements Observer {
         jLabel1.setFont(nombreText.getFont());
         jLabel1.setText("Mana");
 
-        carta1Boton.setText("jButton1");
+        cartaBoton.setText("jButton1");
+        cartaBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cartaBotonActionPerformed(evt);
+            }
+        });
 
         adelanteBoton.setFont(lobbyBoton.getFont());
         adelanteBoton.setText("Adelante");
+        adelanteBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adelanteBotonActionPerformed(evt);
+            }
+        });
 
         atrasBoton.setFont(salirBoton_lobby.getFont());
         atrasBoton.setText("Atras");
 
         cartaOponente.setText("jLabel3");
 
-        vidaField.setEditable(false);
-        vidaField.setFont(manaField.getFont());
-
         vidaText.setFont(nombreText.getFont());
         vidaText.setText("Vida");
+
+        vidaBar.setBackground(new java.awt.Color(255, 0, 0));
+        vidaBar.setMaximum(1000);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -500,8 +530,11 @@ public class MenuInicial extends JFrame implements Observer {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(161, 161, 161)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(436, 436, 436)
+                        .addComponent(cartaOponente, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -509,16 +542,13 @@ public class MenuInicial extends JFrame implements Observer {
                                 .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(vidaField, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(vidaText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(37, 37, 37)
-                        .addComponent(carta1Boton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(46, 46, 46)
-                        .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(436, 436, 436)
-                        .addComponent(cartaOponente, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(315, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -526,24 +556,23 @@ public class MenuInicial extends JFrame implements Observer {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(cartaOponente, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(carta1Boton, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(16, 16, 16))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(vidaField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vidaText))
-                        .addGap(27, 27, 27)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(manaField))
+                    .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vidaText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        vidaBar.setValue(miVida);
 
         pantallas.addTab("tab4", jPanel1);
 
@@ -575,6 +604,8 @@ public class MenuInicial extends JFrame implements Observer {
             pantallas.setSelectedIndex(1);
             this.cliente = true;
             this.username = nombreField.getText();
+            iniciarBoton_lobby.setVisible(false);
+
         }
     }//GEN-LAST:event_unirseBotonActionPerformed
 
@@ -585,7 +616,6 @@ public class MenuInicial extends JFrame implements Observer {
         }
         else{
             iniciarBoton_lobby.setVisible(true);
-            this.cliente = false;
             this.username = nombreField.getText();
             usuariosConectados ++;
             System.out.println("Cantidad de jugadores conectados : " + usuariosConectados);
@@ -606,6 +636,7 @@ public class MenuInicial extends JFrame implements Observer {
             jugadoresConectadosTextArea_lobby.append(this.username + "\n");
 
             EnvioJson(conectar);
+            puertoField_lobby.setText(String.valueOf(opPort));
             pantallas.setSelectedIndex(2);
         }
     }//GEN-LAST:event_unirseBoton_unirseActionPerformed
@@ -613,11 +644,12 @@ public class MenuInicial extends JFrame implements Observer {
     private void salirMenuBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_unirseActionPerformed
         // TODO add your handling code here:
         pantallas.setSelectedIndex(0);
+        cliente = false;
     }//GEN-LAST:event_salirMenuBoton_unirseActionPerformed
 
     private void salirMenuBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_lobbyActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres desconectarte?");
+        int salir = JOptionPane.showConfirmDialog(null, "�Estas seguro que quieres desconectarte?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 if(cliente == true){
@@ -627,6 +659,7 @@ public class MenuInicial extends JFrame implements Observer {
                     pantallas.setSelectedIndex(0);
                     this.opIP = null;
                     this.opPort = 0;
+                    setTurno(false);
                 }
                 else{
                     jugadoresConectadosTextArea_lobby.setText("");
@@ -637,6 +670,7 @@ public class MenuInicial extends JFrame implements Observer {
                     pantallas.setSelectedIndex(0);
                     this.opIP = null;
                     this.opPort = 0;
+                    cliente = false;
                 }
 
             case JOptionPane.NO_OPTION:
@@ -646,7 +680,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirBoton_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_menuActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "�Estas seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -658,7 +692,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_unirseActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "�Estas seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -670,7 +704,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void salirBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_lobbyActionPerformed
         // TODO add your handling code here:
-        int salir = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres salir del juego?");
+        int salir = JOptionPane.showConfirmDialog(null, "�Estas seguro que quieres salir del juego?");
         switch(salir){
             case JOptionPane.YES_OPTION:
                 System.exit(0);
@@ -683,6 +717,33 @@ public class MenuInicial extends JFrame implements Observer {
     private void nombreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreFieldActionPerformed
+
+    private void adelanteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adelanteBotonActionPerformed
+        // TODO add your handling code here:
+        CambiarVida(150);
+        
+    }//GEN-LAST:event_adelanteBotonActionPerformed
+
+    private void iniciarBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarBoton_lobbyActionPerformed
+        // TODO add your handling code here:
+        if(usuariosConectados == 2){
+            Mensaje inicio = new Mensaje(null, 0, this.username, 4, false);
+            EnvioJson(inicio);
+            setTurno(true);
+            pantallas.setSelectedIndex(3);
+        }
+        
+        else{
+            JOptionPane.showMessageDialog(pantallas, "Debe haber dos jugadores para poder iniciar la partida..." );
+        }
+    }//GEN-LAST:event_iniciarBoton_lobbyActionPerformed
+
+    private void cartaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartaBotonActionPerformed
+        // TODO add your handling code here:
+        Mensaje envio = new Mensaje(null, 0, null, 5, false);
+        EnvioJson(envio);
+        setTurno(false);
+    }//GEN-LAST:event_cartaBotonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -726,7 +787,7 @@ public class MenuInicial extends JFrame implements Observer {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adelanteBoton;
     private javax.swing.JButton atrasBoton;
-    private javax.swing.JButton carta1Boton;
+    private javax.swing.JButton cartaBoton;
     private javax.swing.JLabel cartaOponente;
     private javax.swing.JButton iniciarBoton_lobby;
     private javax.swing.JTextField ipField_lobby;
@@ -761,7 +822,7 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JButton salirMenuBoton_unirse;
     private javax.swing.JButton unirseBoton;
     private javax.swing.JButton unirseBoton_unirse;
-    private javax.swing.JTextField vidaField;
+    private javax.swing.JProgressBar vidaBar;
     private javax.swing.JLabel vidaText;
     // End of variables declaration//GEN-END:variables
 
@@ -777,7 +838,6 @@ public class MenuInicial extends JFrame implements Observer {
                 Mensaje recibido = LeerJsonMensaje(mensaje);
                 this.jugadoresConectadosTextArea_lobby.append(recibido.getUsername() + "\n");
                 this.usuariosConectados ++;
-                System.out.println("Cantidad de jugadores conectados : " + usuariosConectados);
                 this.opIP = recibido.getIp();
                 this.opPort = recibido.getPort();
 
@@ -796,17 +856,29 @@ public class MenuInicial extends JFrame implements Observer {
                 this.usuariosConectados -= 1;
                 this.opPort = 0;
                 this.opIP = null;
-                System.out.println("Se desconecto un cliente" + ", cantidad jugadores conectados = " + usuariosConectados);
+                JOptionPane.showMessageDialog(pantallas, "Se deconecto un jugador");
             }
             else if (mensaje.get("id").asText().equals("3")){
                 Mensaje recibido = LeerJsonMensaje(mensaje);
-                JOptionPane.showMessageDialog(pantallas, "El host se desconectó, usted será enviado al menu principal");
+                JOptionPane.showMessageDialog(pantallas, "El host se desconectado, usted sera enviado al menu principal");
                 pantallas.setSelectedIndex(0);
                 this.jugadoresConectadosTextArea_lobby.setText("");
                 this.usuariosConectados = 0;
                 this.opPort = 0;
                 this.opIP = null;
             }
+            else if (mensaje.get("id").asText().equals("4")){
+                Mensaje recibido = LeerJsonMensaje(mensaje);
+                pantallas.setSelectedIndex(3);
+                JOptionPane.showMessageDialog(pantallas, "Es el turno de: " + mensaje.get("username").asText());
+            }
+
+            else if (mensaje.get("id").asText().equals("5")){
+                Mensaje recibido = LeerJsonMensaje(mensaje);
+                JOptionPane.showMessageDialog(pantallas, "Es tu turno");
+                setTurno(true);
+            }
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -842,6 +914,17 @@ public class MenuInicial extends JFrame implements Observer {
         Mensaje conectar = new Mensaje(node.get("ip").asText(),node.get("port").asInt(),
                 node.get("username").asText(),1,node.get("host").asBoolean());
         return conectar;
+    }
+
+    public void CambiarVida(int valor){
+        this.miVida -= valor;
+        vidaBar.setValue(miVida);
+    }
+
+    public void setTurno(Boolean turno){
+        atrasBoton.setEnabled(turno);
+        adelanteBoton.setEnabled(turno);
+        cartaBoton.setEnabled(turno);
     }
 
     private void setMazo(Cola mazo) {
