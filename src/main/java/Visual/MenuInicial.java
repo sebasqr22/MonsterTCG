@@ -13,14 +13,12 @@ import Estructuras_Datos.CList.Node;
 import Estructuras_Datos.Cola.Cola;
 import JsonPackage.Json;
 import Sockets.Client;
+import Sockets.EnvioCarta;
 import Sockets.Mensaje;
 import Sockets.Server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -40,6 +38,8 @@ public class MenuInicial extends JFrame implements Observer {
     String miIP;
     int usuariosConectados = 0;
     Boolean cliente = false;
+    Boolean poderSupremo = false;
+    int contadorSupremo = 0;
     {
         try {
             miIP = InetAddress.getLocalHost().getHostAddress();
@@ -55,6 +55,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     // variables de jugabilidad
     int miVida = 1000;
+    int miMana = 1000;
 
     //variables del mazo
     CartasTotal cartasTotal = new CartasTotal();
@@ -83,8 +84,6 @@ public class MenuInicial extends JFrame implements Observer {
             e.printStackTrace();
         }
         setTurno(false);
-
-
     }
 
 
@@ -131,7 +130,6 @@ public class MenuInicial extends JFrame implements Observer {
         salirMenuBoton_lobby = new javax.swing.JButton();
         salirBoton_lobby = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        javax.swing.JTextField manaField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         cartaBoton = new javax.swing.JButton();
         adelanteBoton = new javax.swing.JButton();
@@ -141,6 +139,8 @@ public class MenuInicial extends JFrame implements Observer {
         mazoBoton = new javax.swing.JButton();
         salirMenuBoton_juego = new javax.swing.JButton();
         salirBoton_juego = new javax.swing.JButton();
+        pasarTurnoBoton = new javax.swing.JButton();
+        manaField = new javax.swing.JTextField();
 
         jLabel2.setText("jLabel2");
 
@@ -506,9 +506,6 @@ public class MenuInicial extends JFrame implements Observer {
         jPanel1.setBackground(new java.awt.Color(56, 1, 6));
         jPanel1.setToolTipText("");
 
-        manaField.setEditable(false);
-        manaField.setFont(nombreField.getFont());
-
         jLabel1.setFont(nombreText.getFont());
         jLabel1.setForeground(new java.awt.Color(12, 122, 16));
         jLabel1.setText("Mana");
@@ -543,7 +540,6 @@ public class MenuInicial extends JFrame implements Observer {
         vidaBar.setBackground(new java.awt.Color(255, 0, 0));
         vidaBar.setMaximum(1000);
 
-        mazoBoton.setText("jButton1");
         mazoBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mazoBotonActionPerformed(evt);
@@ -566,29 +562,45 @@ public class MenuInicial extends JFrame implements Observer {
             }
         });
 
+        pasarTurnoBoton.setFont(iniciarBoton_lobby.getFont());
+        pasarTurnoBoton.setText("Pasar turno");
+        pasarTurnoBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pasarTurnoBotonActionPerformed(evt);
+            }
+        });
+
+        manaField.setEditable(false);
+        manaField.setFont(ipField_lobby.getFont());
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(147, 147, 147)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(vidaText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(vidaText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-                .addComponent(mazoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(adelanteBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(pasarTurnoBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(101, 101, 101)
+                .addComponent(mazoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(salirMenuBoton_juego)
@@ -599,23 +611,29 @@ public class MenuInicial extends JFrame implements Observer {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(212, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(mazoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119)
+                .addContainerGap(215, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vidaText)))
-                    .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(119, 119, 119)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(vidaText)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(100, 100, 100)
+                                .addComponent(pasarTurnoBoton)
+                                .addGap(25, 25, 25))
+                            .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(adelanteBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(148, 148, 148)))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                        .addComponent(mazoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(manaField)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salirMenuBoton_juego)
@@ -624,6 +642,7 @@ public class MenuInicial extends JFrame implements Observer {
         );
 
         vidaBar.setValue(miVida);
+        mazoBoton.setIcon(new ImageIcon(this.rutaC +  "back.png"));
 
         pantallas.addTab("tab4", jPanel1);
 
@@ -786,26 +805,94 @@ public class MenuInicial extends JFrame implements Observer {
         // TODO add your handling code here:
 
           this.cartaSelec = this.mano.getCartaNext();
-          System.out.println(this.cartaSelec.getObject().getNombre());
           setCartaImage();
     }//GEN-LAST:event_adelanteBotonActionPerformed
 
     private void cartaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartaBotonActionPerformed
         // TODO add your handling code here:
+        int especial = 0;
+
         if(this.cartaSelec !=  null) {
-            Mensaje envio = new Mensaje(null, 0, null, 5, false);
-            EnvioJson(envio);
-            setTurno(false);
-            Carta utilizada = this.cartaSelec.getObject();
-            this.mazo.enQueue(utilizada);
+            if(this.miMana >= this.cartaSelec.getObject().getMana()) {
+                if (this.poderSupremo == false){
+                    especial = 0;
+                    System.out.println("Poder supremo falso");
+                }
 
-            this.cartaSelec = this.mano.getCartaNext();
-            this.mano.deleteDato(utilizada);
+                else{
+                    System.out.println("Poder supremo true");
+                    if (this.contadorSupremo == 0){
+                        this.contadorSupremo += 3;
+                        this.poderSupremo = false;
+                        JOptionPane.showMessageDialog(pantallas, "Tus 3 turnos del poder supremo han acabado...");
+                        setTurno(false);
+                        Mensaje envio = new Mensaje(null, 2, null, 9, false);
+                        EnvioJson(envio);
+                    }
+                    this.contadorSupremo -= 1;
+                    especial = 1;
+                }
 
-            if (this.mano.getRef() == null){
-                this.cartaSelec = null;
+
+                Carta utilizada = this.cartaSelec.getObject();
+                int idCarta = utilizada.getId();
+
+                if (utilizada.getType().equals("h")){// cartas tipo hechizo
+                    if (idCarta == 1){
+                        EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
+                                8, utilizada.getType(), utilizada.getId());
+                        EnvioJson(ataque);
+                    }
+                    else if (idCarta == 2){
+                        this.miVida += 250;
+                        vidaBar.setValue(miVida);
+                    }
+                    else if (idCarta == 3){// poder supremo
+                        EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
+                                8, utilizada.getType(), utilizada.getId());
+                        EnvioJson(ataque);
+                        JOptionPane.showMessageDialog(pantallas, "Has activado el poder supremo, puedes usar tres cartas seguidas...");
+                        poderSupremo = true;
+                        contadorSupremo += 3;
+                        especial = 1;
+                    }
+                }
+
+
+                else{//cartas tipo esbirro
+                    EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
+                            7, utilizada.getType(), utilizada.getId());
+                    EnvioJson(ataque);
+                }
+                RestarMana(utilizada.getMana());
+                if (this.miMana + (this.miMana*0.25) < 1000){
+                    SumarMana();
+                }
+                else{
+                    this.miMana = 1000;
+                    manaField.setText(String.valueOf(this.miMana));
+                }
+                System.out.println("Mana: " + this.miMana);
+                this.mazo.enQueue(utilizada);
+
+                this.cartaSelec = this.mano.getCartaNext();
+                this.mano.deleteDato(utilizada);
+
+                if (this.mano.getRef() == null) {
+                    this.cartaSelec = null;
+                }
+                setCartaImage();
+
+                if(especial == 0){
+                    System.out.println("Enviando cambio de turno");
+                    Mensaje envio = new Mensaje(null, 0, null, 5, false);
+                    EnvioJson(envio);
+                    setTurno(false);
+                }
             }
-            setCartaImage();
+            else{
+                JOptionPane.showMessageDialog(pantallas, "No tienes suficiente mana para utilizar esta carta, prueba con otra...");
+            }
         }else{
             JOptionPane.showMessageDialog(pantallas,"No tienes cartas debes tomar una del mazo");
         }
@@ -826,6 +913,13 @@ public class MenuInicial extends JFrame implements Observer {
             EnvioJson(envio);
             setTurno(false);
             tomarCarta();
+            if (this.miMana + (this.miMana*0.25) < 1000){
+                SumarMana();
+            }
+            else{
+                this.miMana = 1000;
+                manaField.setText(String.valueOf(this.miMana));
+            }
         }else{
             JOptionPane.showMessageDialog(pantallas,"No puede tomar mas cartas (maximo 10)");
         }
@@ -874,6 +968,27 @@ public class MenuInicial extends JFrame implements Observer {
                 break;
         }
     }//GEN-LAST:event_salirBoton_juegoActionPerformed
+
+    private void pasarTurnoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasarTurnoBotonActionPerformed
+        // TODO add your handling code here:
+        int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres otorgar tu turno al rival?");
+        switch(salir){
+            case JOptionPane.YES_OPTION:
+                Mensaje envio = new Mensaje(null, 1, this.username, 5, false);
+                EnvioJson(envio);
+                setTurno(false);
+                if (this.miMana + (this.miMana*0.25) < 1000){
+                    SumarMana();
+                }
+                else{
+                    this.miMana = 1000;
+                    manaField.setText(String.valueOf(this.miMana));
+                }
+
+            case JOptionPane.NO_OPTION:
+                break;
+        }
+    }//GEN-LAST:event_pasarTurnoBotonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -934,6 +1049,7 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JTextArea jugadoresConectadosTextArea_lobby;
     private javax.swing.JButton lobbyBoton;
     private javax.swing.JLabel lobbyText_lobby;
+    private javax.swing.JTextField manaField;
     private javax.swing.JButton mazoBoton;
     private javax.swing.JLabel monsterName_lobby;
     private javax.swing.JLabel monsterName_menu;
@@ -941,6 +1057,7 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JTextField nombreField;
     private javax.swing.JLabel nombreText;
     private javax.swing.JTabbedPane pantallas;
+    private javax.swing.JButton pasarTurnoBoton;
     private javax.swing.JTextField puertoField_lobby;
     private javax.swing.JTextField puertoField_unirse;
     private javax.swing.JLabel puertoLobbyText_unirse;
@@ -1024,6 +1141,53 @@ public class MenuInicial extends JFrame implements Observer {
                 JOptionPane.showMessageDialog(pantallas, "Es tu turno");
                 setTurno(true);
             }
+            else if(id == 6){
+                Mensaje recibido = LeerJsonMensaje(mensaje);
+                JOptionPane.showMessageDialog(pantallas, "Felicidades " + this.username + " , has ganado la partida ;)!!!");
+                if (cliente){
+                    setTurno(false);
+                }
+                else{
+                    setTurno(true);
+                }
+                resetMazo();
+                resetVidaMana();
+                pantallas.setSelectedIndex(2);
+            }
+
+            else if (id == 7){// ataque de carta
+                EnvioCarta recibido = LeerJsonCarta(mensaje);
+                CambiarVida(recibido.getAtaque());
+                System.out.println("Vida: " + this.miVida);
+            }
+
+            else if (id == 8){// lee carta y avisa de la perdida de turnos
+                EnvioCarta recibido = LeerJsonCarta(mensaje);
+                if (recibido.getIdCarta() == 1){
+                    setTurno(false);
+                    JOptionPane.showMessageDialog(pantallas, "Congelar ha sido acivado, pierdes un turno...");
+                    Mensaje envio = new Mensaje(null, 1, null, 9, false);
+                    EnvioJson(envio);
+                }
+                else if(recibido.getIdCarta() == 3){
+                    JOptionPane.showMessageDialog(pantallas, "Poder Supremo ha sido acivado, pierdes 3 turnos...");
+                    setTurno(false);
+                }
+                else{
+                    JOptionPane.showMessageDialog(pantallas, "Poder Supremo ha sido acivado, pierdes 3 turnos...");
+                    setTurno(false);
+                }
+            }
+            else if (id == 9){// verifica la jugabilidad de turnos
+                Mensaje recibido = LeerJsonMensaje(mensaje);
+                if (recibido.getPort() == 1){ // 1 turno de congelacion
+                    setTurno(true);
+                }
+                else if (recibido.getPort() == 2){ // poder supremo
+                    setTurno(true);
+                    JOptionPane.showMessageDialog(pantallas, "Ya puedes jugar...");
+                }
+            }
 
 
 
@@ -1040,6 +1204,9 @@ public class MenuInicial extends JFrame implements Observer {
             port = port_r.nextInt(11999);
         }
         return port;
+    }
+    public void modificarPantallas(int valor){
+        pantallas.setSelectedIndex(valor);
     }
 
     public void EnvioJson(Object envio){
@@ -1060,20 +1227,55 @@ public class MenuInicial extends JFrame implements Observer {
         return conectar;
     }
 
+    public EnvioCarta LeerJsonCarta(JsonNode node) throws JsonProcessingException{
+        System.out.println("----Leyendo carta----");
+        EnvioCarta card = new EnvioCarta(node.get("nombre").asText(), node.get("ataque").asInt(), node.get("mana").asInt(),
+                node.get("id").asInt(), node.get("tipo").asText(), node.get("idCarta").asInt());
+        System.out.println(card.getNombre() +  card.getAtaque() +  card.getMana() + card.getId() + card.getTipo());
+        return card;
+    }
+
 
     
     public void CambiarVida(int valor){
         this.miVida -= valor;
         vidaBar.setValue(miVida);
-        if (this.miVida <= 0){
-            //Mensaje perder = new Mensaje();
-            //EnvioJson(perder);
+        System.out.println("Vida de " + this.username + ": " + this.miVida);
+        if (this.miVida <= 1){
+            Mensaje perder = new Mensaje(null, 0, this.username, 6, false);
+            EnvioJson(perder);
+            JOptionPane.showMessageDialog(pantallas, this.username + " , has perdido la partida :c");
+            resetMazo();
+            if(cliente){
+                setTurno(false);
+            }
+            else{
+                setTurno(true);
+            }
+            resetVidaMana();
+            pantallas.setSelectedIndex(2);
         }
+    }
+    public void SumarMana(){
+        this.miMana += (this.miMana * 0.25);
+        manaField.setText(String.valueOf(miMana));
+    }
+
+    public void RestarMana(int valor){
+        this.miMana -= valor;
+        manaField.setText(String.valueOf(miMana));
     }
 
     public void setTurno(Boolean turno){
         mazoBoton.setEnabled(turno);
         cartaBoton.setEnabled(turno);
+    }
+
+    public void resetVidaMana(){
+        this.miMana = 1000;
+        this.miVida = 1000;
+        vidaBar.setValue(miVida);
+        manaField.setText(String.valueOf(miMana));
     }
   
     public void setMazo(CartasTotal cartas) {
@@ -1131,4 +1333,3 @@ public class MenuInicial extends JFrame implements Observer {
         setMazo(this.cartasTotal);
     }
 }
-
