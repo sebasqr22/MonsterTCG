@@ -821,11 +821,14 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void mazoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mazoBotonActionPerformed
         // TODO add your handling code here:
-        Mensaje envio = new Mensaje(null, 0, null, 5, false);
-        EnvioJson(envio);
-        setTurno(false);
-        tomarCarta();
-
+        if(this.mano.getSize() <= 10) {
+            Mensaje envio = new Mensaje(null, 0, null, 5, false);
+            EnvioJson(envio);
+            setTurno(false);
+            tomarCarta();
+        }else{
+            JOptionPane.showMessageDialog(pantallas,"No puede tomar mas cartas (maximo 10)");
+        }
 
     }//GEN-LAST:event_mazoBotonActionPerformed
 
