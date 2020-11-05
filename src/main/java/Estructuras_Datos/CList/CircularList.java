@@ -81,20 +81,36 @@ public class CircularList {
         if(this.ref == null){
             //System.out.println("Lista nula no se puede borrar");
 
-        }else if(this.ref.getObject() == data) {
-            //System.out.println("Segundo if:");
-            if (this.size == 1) {
-                this.ref = null;
-                this.cartaSelec.delete();
-                this.cartaSelec = null;
-                //System.out.println("ref borrado");
+        }else if(this.ref.getObject() == data){
 
+            if (this.ref.getObject() != this.cartaSelec.getObject()) {
+                //System.out.println("Segundo if:");
+                if (this.size == 1) {
+                    this.ref = null;
+                    //System.out.println("ref borrado");
+
+                } else {
+                    Node tmp = this.ref;
+                    tmp.getNext().setPrev(tmp.getPrev());
+                    tmp.getPrev().setNext(tmp.getNext());
+                    this.ref = tmp.getNext();
+                    tmp.delete();
+                }
             }else{
-                Node tmp = this.ref;
-                tmp.getNext().setPrev(tmp.getPrev());
-                tmp.getPrev().setNext(tmp.getNext());
-                this.ref = tmp.getNext();
-                tmp.delete();
+                if (this.size == 1) {
+                    this.ref = null;
+                    this.cartaSelec.delete();
+                    this.cartaSelec = null;
+                    //System.out.println("ref borrado");
+
+                } else {
+                    Node tmp = this.ref;
+                    tmp.getNext().setPrev(tmp.getPrev());
+                    tmp.getPrev().setNext(tmp.getNext());
+                    this.ref = tmp.getNext();
+                    this.cartaSelec = this.ref;
+                    tmp.delete();
+                }
             }
         }else {
             //System.out.println("Buscar dato");

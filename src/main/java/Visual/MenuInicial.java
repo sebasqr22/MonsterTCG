@@ -804,8 +804,13 @@ public class MenuInicial extends JFrame implements Observer {
     private void adelanteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adelanteBotonActionPerformed
         // TODO add your handling code here:
 
-          this.cartaSelec = this.mano.getCartaNext();
-          setCartaImage();
+        if(this.cartaSelec != null) {
+            this.cartaSelec = this.mano.getCartaNext();
+            setCartaImage();
+            System.out.println("Carta: "+this.cartaSelec.getObject());
+        }else{
+            System.out.println("Carta: NUll");
+        }
     }//GEN-LAST:event_adelanteBotonActionPerformed
 
     private void cartaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartaBotonActionPerformed
@@ -877,7 +882,7 @@ public class MenuInicial extends JFrame implements Observer {
 
                 this.cartaSelec = this.mano.getCartaNext();
                 this.mano.deleteDato(utilizada);
-
+                
                 if (this.mano.getRef() == null) {
                     this.cartaSelec = null;
                 }
@@ -892,7 +897,7 @@ public class MenuInicial extends JFrame implements Observer {
             }
             else{
                 JOptionPane.showMessageDialog(pantallas, "No tienes suficiente mana para utilizar esta carta, prueba con otra...");
-            }
+          
         }else{
             JOptionPane.showMessageDialog(pantallas,"No tienes cartas debes tomar una del mazo");
         }
@@ -900,15 +905,18 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void atrasBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasBotonActionPerformed
         // TODO add your handling code here:
-
-        this.cartaSelec = this.mano.getCartaPrev();
-        System.out.println(this.cartaSelec.getObject().getNombre());
-        setCartaImage();
+        if (this.cartaSelec != null) {
+            this.cartaSelec = this.mano.getCartaPrev();
+            setCartaImage();
+            System.out.println("Carta: "+this.cartaSelec.getObject());
+        }else{
+            System.out.println("Carta: NUll");
+        }
     }//GEN-LAST:event_atrasBotonActionPerformed
 
     private void mazoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mazoBotonActionPerformed
         // TODO add your handling code here:
-        if(this.mano.getSize() <= 10) {
+        if(this.mano.getSize() + 1 <= 10) {
             Mensaje envio = new Mensaje(null, 0, null, 5, false);
             EnvioJson(envio);
             setTurno(false);
@@ -921,6 +929,7 @@ public class MenuInicial extends JFrame implements Observer {
                 manaField.setText(String.valueOf(this.miMana));
             }
         }else{
+
             JOptionPane.showMessageDialog(pantallas,"No puede tomar mas cartas (maximo 10)");
         }
 
@@ -1301,7 +1310,7 @@ public class MenuInicial extends JFrame implements Observer {
     }
 
     public void crearMano(){
-        for(int i = 0; i < 6;i++){
+        for(int i = 0; i < 4;i++){
             this.mano.insert(this.mazo.deQueue().getObject());
         }
         this.cartaSelec = this.mano.getRef();
@@ -1321,11 +1330,14 @@ public class MenuInicial extends JFrame implements Observer {
     }
 
     public void tomarCarta(){
-        Carta nueva = this.mazo.deQueue().getObject();
-        this.mano.insert(nueva);
-        this.cartaSelec = this.mano.find(nueva);
-        setCartaImage();
-
+        if (this.mano.getSize() <= 10) {
+            Carta nueva = this.mazo.deQueue().getObject();
+            this.mano.insert(nueva);
+            this.cartaSelec = this.mano.find(nueva);
+            setCartaImage();
+        }else{
+            JOptionPane.showMessageDialog(pantallas,"NO puedes tener mas de 10 cartas");
+        }
     }
     public void resetMazo(){
         this.mano = new CircularList();
