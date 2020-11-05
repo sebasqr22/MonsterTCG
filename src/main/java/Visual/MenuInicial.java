@@ -42,6 +42,7 @@ public class MenuInicial extends JFrame implements Observer {
     int contadorSupremo = 0;
     int congelar = 0;
     Boolean escudo = false;
+    Boolean bulum = false;
     {
         try {
             miIP = InetAddress.getLocalHost().getHostAddress();
@@ -54,6 +55,7 @@ public class MenuInicial extends JFrame implements Observer {
     String opUs;
     int opPort;
     String opIP;
+    int vidaOponente = 1000;
 
     // variables de jugabilidad
     int miVida = 1000;
@@ -143,6 +145,8 @@ public class MenuInicial extends JFrame implements Observer {
         salirBoton_juego = new javax.swing.JButton();
         pasarTurnoBoton = new javax.swing.JButton();
         manaField = new javax.swing.JTextField();
+        vidaOponenteBar = new javax.swing.JProgressBar();
+        vidaOponenteText = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -575,45 +579,65 @@ public class MenuInicial extends JFrame implements Observer {
         manaField.setEditable(false);
         manaField.setFont(ipField_lobby.getFont());
 
+        vidaOponenteBar.setMaximum(1000);
+
+        vidaOponenteText.setFont(vidaText.getFont());
+        vidaOponenteText.setForeground(vidaText.getForeground());
+        vidaOponenteText.setText("Vida Oponente:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(vidaText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(adelanteBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(pasarTurnoBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(101, 101, 101)
-                .addComponent(mazoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(salirMenuBoton_juego)
-                .addGap(37, 37, 37)
-                .addComponent(salirBoton_juego)
-                .addGap(35, 35, 35))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(atrasBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(vidaBar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(vidaText, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(manaField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(adelanteBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(pasarTurnoBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(85, 85, 85))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(vidaOponenteText, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(mazoBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(salirMenuBoton_juego)
+                        .addGap(37, 37, 37)
+                        .addComponent(salirBoton_juego)
+                        .addGap(35, 35, 35))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(vidaOponenteBar, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(215, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(vidaOponenteBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(vidaOponenteText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -836,7 +860,9 @@ public class MenuInicial extends JFrame implements Observer {
                         setTurno(false);
                     }
                     System.out.println("Poder supremo falso");
-                } else {
+                }
+
+                else {
                     System.out.println("Poder supremo true");
                     if (this.contadorSupremo == 0) {
                         this.contadorSupremo += 3;
@@ -853,6 +879,15 @@ public class MenuInicial extends JFrame implements Observer {
 
                 Carta utilizada = this.cartaSelec.getObject();
                 int idCarta = utilizada.getId();
+
+                if (bulum && utilizada.getType().equals("e")){
+                    int ataque = utilizada.getAtaque();;
+                    ataque += ataque*0.30;
+                    EnvioCarta envio = new EnvioCarta(utilizada.getNombre(), ataque, utilizada.getMana(),
+                            8, utilizada.getType(), utilizada.getId());
+                    EnvioJson(envio);
+                    bulum = false;
+                }
 
                 if (utilizada.getType().equals("h")) {// cartas tipo hechizo
                     if (idCarta == 1) {
@@ -892,7 +927,10 @@ public class MenuInicial extends JFrame implements Observer {
                         JOptionPane.showMessageDialog(pantallas,"Has activado el escudo durante un turno...");
                         escudo = true;
                     }
-
+                    else if (idCarta == 10){// bulum bulum
+                        JOptionPane.showMessageDialog(pantallas, "Has activado a Bulum Bulum, tu siguiente esbirro hara un 30% mas de daño");
+                        bulum = true;
+                    }
                 } else {//cartas tipo esbirro
                     EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
                             7, utilizada.getType(), utilizada.getId());
@@ -1113,6 +1151,8 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JButton unirseBoton;
     private javax.swing.JButton unirseBoton_unirse;
     private javax.swing.JProgressBar vidaBar;
+    private javax.swing.JProgressBar vidaOponenteBar;
+    private javax.swing.JLabel vidaOponenteText;
     private javax.swing.JLabel vidaText;
     // End of variables declaration//GEN-END:variables
 
