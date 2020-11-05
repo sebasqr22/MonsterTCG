@@ -68,7 +68,6 @@ public class MenuInicial extends JFrame implements Observer {
     Node cartaSelec;
     String rutaC = "img//cartas//";
 
-
     /**
      * Creates new form MenuInicial
      */
@@ -714,7 +713,6 @@ public class MenuInicial extends JFrame implements Observer {
             iniciarBoton_lobby.setVisible(true);
             this.username = nombreField.getText();
             usuariosConectados ++;
-            System.out.println("Cantidad de jugadores conectados : " + usuariosConectados);
             pantallas.setSelectedIndex(2);
             jugadoresConectadosTextArea_lobby.append(this.username + " (host)" + "\n");
         }
@@ -860,11 +858,9 @@ public class MenuInicial extends JFrame implements Observer {
                         JOptionPane.showMessageDialog(pantallas, "Se ha acabado tu turno extra...");
                         setTurno(false);
                     }
-                    System.out.println("Poder supremo falso");
                 }
 
                 else {
-                    System.out.println("Poder supremo true");
                     if (this.contadorSupremo == 0) {
                         this.contadorSupremo += 3;
                         this.poderSupremo = false;
@@ -934,6 +930,11 @@ public class MenuInicial extends JFrame implements Observer {
                         JOptionPane.showMessageDialog(pantallas, "Has activado a Bulum Bulum, tu siguiente esbirro hara un 30% mas de daño");
                         bulum = true;
                     }
+                    else{
+                        EnvioCarta robar = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
+                                7, utilizada.getType(), utilizada.getId());
+                        EnvioJson(robar);
+                    }
                 } else {//cartas tipo esbirro
                     EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
                             7, utilizada.getType(), utilizada.getId());
@@ -949,7 +950,6 @@ public class MenuInicial extends JFrame implements Observer {
                 }
 
 
-                System.out.println("Mana: " + this.miMana);
                 this.mazo.enQueue(utilizada);
 
                 this.cartaSelec = this.mano.getCartaNext();
@@ -962,7 +962,6 @@ public class MenuInicial extends JFrame implements Observer {
                 setCartaImage();
 
                 if (especial == 0) {
-                    System.out.println("Enviando cambio de turno");
                     Mensaje envio = new Mensaje(null, 0, null, 5, false);
                     EnvioJson(envio);
                     setTurno(false);
@@ -1215,6 +1214,8 @@ public class MenuInicial extends JFrame implements Observer {
                 Mensaje recibido = LeerJsonMensaje(mensaje);
 
                 pantallas.setSelectedIndex(3);
+                setTurno(false);
+
                 JOptionPane.showMessageDialog(pantallas, "Es el turno de: " + mensaje.get("username").asText());
 
             }
@@ -1228,7 +1229,7 @@ public class MenuInicial extends JFrame implements Observer {
             else if(id == 6){
                 Mensaje recibido = LeerJsonMensaje(mensaje);
                 JOptionPane.showMessageDialog(pantallas, "Felicidades " + this.username + " , has ganado la partida ;)!!!");
-                if (cliente){
+                if (cliente == true){
                     setTurno(false);
                 }
                 else{
@@ -1242,7 +1243,6 @@ public class MenuInicial extends JFrame implements Observer {
             else if (id == 7){// ataque de carta
                 EnvioCarta recibido = LeerJsonCarta(mensaje);
                 CambiarVida(recibido.getAtaque());
-                System.out.println("Vida: " + this.miVida);
             }
 
             else if (id == 8){// lee carta y avisa de la perdida de turnos
@@ -1345,7 +1345,6 @@ public class MenuInicial extends JFrame implements Observer {
     }
 
     public EnvioCarta LeerJsonCarta(JsonNode node) throws JsonProcessingException{
-        System.out.println("----Leyendo carta----");
         EnvioCarta card = new EnvioCarta(node.get("nombre").asText(), node.get("ataque").asInt(), node.get("mana").asInt(),
                 node.get("id").asInt(), node.get("tipo").asText(), node.get("idCarta").asInt());
         System.out.println(card.getNombre() +  card.getAtaque() +  card.getMana() + card.getId() + card.getTipo());
@@ -1371,7 +1370,7 @@ public class MenuInicial extends JFrame implements Observer {
                 EnvioJson(perder);
                 JOptionPane.showMessageDialog(pantallas, this.username + " , has perdido la partida :c");
                 resetMazo();
-                if (cliente) {
+                if (cliente== true) {
                     setTurno(false);
                 } else {
                     setTurno(true);
@@ -1397,8 +1396,9 @@ public class MenuInicial extends JFrame implements Observer {
     }
 
     public void resetVidaMana(){
-        this.miMana = 1000;
+        this.miMana = 700;
         this.miVida = 1000;
+        this.vidaOponenteBar.setValue(1000);
         vidaBar.setValue(miVida);
         manaField.setText(String.valueOf(miMana));
     }
