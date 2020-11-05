@@ -955,7 +955,7 @@ public class MenuInicial extends JFrame implements Observer {
                 this.cartaSelec = this.mano.getCartaNext();
                 this.mano.deleteDato(utilizada);
 
-                if (this.mano.getRef() == null) {
+                if (this.mano.getRef() == null && this.mano.getCartaSelec() == null) {
                     this.cartaSelec = null;
                 }
 
@@ -1449,7 +1449,7 @@ public class MenuInicial extends JFrame implements Observer {
         if (this.mano.getSize() <= 10) {
             Carta nueva = this.mazo.deQueue().getObject();
             this.mano.insert(nueva);
-            this.cartaSelec = this.mano.find(nueva);
+            this.cartaSelec = this.mano.getCartaSelec();
             setCartaImage();
         }else{
             JOptionPane.showMessageDialog(pantallas,"NO puedes tener mas de 10 cartas");

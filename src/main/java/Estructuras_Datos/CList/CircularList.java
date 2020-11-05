@@ -37,6 +37,7 @@ public class CircularList {
 
                 newNode.setPrev(this.ref);
                 newNode.setNext(this.ref);
+                this.cartaSelec = newNode;
 
             } else {
                 Node tmp = this.ref;
@@ -50,6 +51,7 @@ public class CircularList {
                 newNode.setPrev(tmp);
 
                 this.ref.setPrev(newNode);
+                this.cartaSelec = newNode;
             }
             this.size++;
         }else{
@@ -102,7 +104,6 @@ public class CircularList {
             }else{
                 if (this.size == 1) {
                     this.ref = null;
-                    this.cartaSelec.delete();
                     this.cartaSelec = null;
                     //System.out.println("ref borrado");
 
