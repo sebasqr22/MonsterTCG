@@ -907,6 +907,8 @@ public class MenuInicial extends JFrame implements Observer {
                             this.miVida += 250;
                         }
                         vidaBar.setValue(miVida);
+                        Mensaje updateVida = new Mensaje(null,this.miVida,null,11,false);
+                        EnvioJson(updateVida);
 
                     } else if (idCarta == 3) {// poder supremo
                         EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
