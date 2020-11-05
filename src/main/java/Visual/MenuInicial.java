@@ -41,6 +41,7 @@ public class MenuInicial extends JFrame implements Observer {
     Boolean poderSupremo = false;
     int contadorSupremo = 0;
     int congelar = 0;
+    Boolean escudo = false;
     {
         try {
             miIP = InetAddress.getLocalHost().getHostAddress();
@@ -863,7 +864,12 @@ public class MenuInicial extends JFrame implements Observer {
                         especial += 1;
 
                     } else if (idCarta == 2) {
-                        this.miVida += 250;
+                        if (this.miVida + 250 > 1000){
+                            this.miVida = 1000;
+                        }
+                        else{
+                            this.miVida += 250;
+                        }
                         vidaBar.setValue(miVida);
 
                     } else if (idCarta == 3) {// poder supremo
@@ -875,11 +881,16 @@ public class MenuInicial extends JFrame implements Observer {
                         contadorSupremo += 3;
                         especial = 1;
 
-                    }else if (idCarta == 4){ // robar carta
+                    }
+                    else if (idCarta == 4){ // robar carta
                         JOptionPane.showMessageDialog(pantallas,"Le has robado una carta al oponente!!");
                         EnvioCarta robar = new EnvioCarta(utilizada.getNombre(), 1, utilizada.getMana(),
                                 10, utilizada.getType(), utilizada.getId());
                         EnvioJson(robar);
+                    }
+                    else if (idCarta == 9){// escudo
+                        JOptionPane.showMessageDialog(pantallas,"Has activado el escudo durante un turno...");
+                        escudo = true;
                     }
 
                 } else {//cartas tipo esbirro
@@ -1193,15 +1204,12 @@ public class MenuInicial extends JFrame implements Observer {
 
             else if (id == 8){// lee carta y avisa de la perdida de turnos
                 EnvioCarta recibido = LeerJsonCarta(mensaje);
-                if (recibido.getIdCarta() == 1){
+                int idCarta = recibido.getIdCarta();
+                if (idCarta == 1){
                     setTurno(false);
                     JOptionPane.showMessageDialog(pantallas, "Congelar ha sido acivado, pierdes un turno...");
                 }
-                else if(recibido.getIdCarta() == 3){
-                    JOptionPane.showMessageDialog(pantallas, "Poder Supremo ha sido acivado, pierdes 3 turnos...");
-                    setTurno(false);
-                }
-                else{
+                else if(idCarta == 3){
                     JOptionPane.showMessageDialog(pantallas, "Poder Supremo ha sido acivado, pierdes 3 turnos...");
                     setTurno(false);
                 }
@@ -1300,22 +1308,27 @@ public class MenuInicial extends JFrame implements Observer {
 
     
     public void CambiarVida(int valor){
-        this.miVida -= valor;
-        vidaBar.setValue(miVida);
-        System.out.println("Vida de " + this.username + ": " + this.miVida);
-        if (this.miVida <= 1){
-            Mensaje perder = new Mensaje(null, 0, this.username, 6, false);
-            EnvioJson(perder);
-            JOptionPane.showMessageDialog(pantallas, this.username + " , has perdido la partida :c");
-            resetMazo();
-            if(cliente){
-                setTurno(false);
+        if (this.escudo == true){
+            this.escudo = false;
+            JOptionPane.showMessageDialog(pantallas, "Has bloqueado el ataque de tu oponente...");
+        }
+        else {
+            this.miVida -= valor;
+            vidaBar.setValue(miVida);
+            System.out.println("Vida de " + this.username + ": " + this.miVida);
+            if (this.miVida <= 1) {
+                Mensaje perder = new Mensaje(null, 0, this.username, 6, false);
+                EnvioJson(perder);
+                JOptionPane.showMessageDialog(pantallas, this.username + " , has perdido la partida :c");
+                resetMazo();
+                if (cliente) {
+                    setTurno(false);
+                } else {
+                    setTurno(true);
+                }
+                resetVidaMana();
+                pantallas.setSelectedIndex(2);
             }
-            else{
-                setTurno(true);
-            }
-            resetVidaMana();
-            pantallas.setSelectedIndex(2);
         }
     }
     public void SumarMana(){
