@@ -732,15 +732,22 @@ public class MenuInicial extends JFrame implements Observer {
                     setTurno(false);
                 }
                 else{
-                    jugadoresConectadosTextArea_lobby.setText("");
-                    iniciarBoton_lobby.setVisible(false);
-                    usuariosConectados = 0;
-                    Mensaje desconectar = new Mensaje(null, 0, null, 3, false);
-                    EnvioJson(desconectar);
-                    pantallas.setSelectedIndex(0);
-                    this.opIP = null;
-                    this.opPort = 0;
-                    cliente = false;
+                    if (this.usuariosConectados == 2) {
+                        jugadoresConectadosTextArea_lobby.setText("");
+
+                        usuariosConectados = 0;
+                        Mensaje desconectar = new Mensaje(null, 0, null, 3, false);
+                        EnvioJson(desconectar);
+                        pantallas.setSelectedIndex(0);
+                        this.opIP = null;
+                        this.opPort = 0;
+                        cliente = false;
+                    }else{
+                        jugadoresConectadosTextArea_lobby.setText("");
+                        iniciarBoton_lobby.setVisible(false);
+                        pantallas.setSelectedIndex(0);
+                        cliente = false;
+                    }
                 }
 
             case JOptionPane.NO_OPTION:
@@ -858,6 +865,7 @@ public class MenuInicial extends JFrame implements Observer {
                     } else if (idCarta == 2) {
                         this.miVida += 250;
                         vidaBar.setValue(miVida);
+
                     } else if (idCarta == 3) {// poder supremo
                         EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
                                 8, utilizada.getType(), utilizada.getId());
@@ -866,7 +874,14 @@ public class MenuInicial extends JFrame implements Observer {
                         poderSupremo = true;
                         contadorSupremo += 3;
                         especial = 1;
+
+                    }else if (idCarta == 4){ // robar carta
+                        JOptionPane.showMessageDialog(pantallas,"Le has robado una carta al oponente!!");
+                        EnvioCarta robar = new EnvioCarta(utilizada.getNombre(), 1, utilizada.getMana(),
+                                10, utilizada.getType(), utilizada.getId());
+                        EnvioJson(robar);
                     }
+
                 } else {//cartas tipo esbirro
                     EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
                             7, utilizada.getType(), utilizada.getId());
@@ -1200,10 +1215,44 @@ public class MenuInicial extends JFrame implements Observer {
                     setTurno(true);
                     JOptionPane.showMessageDialog(pantallas, "Ya puedes jugar...");
                 }
+
+            }else if (id == 10){ // robar carta
+                EnvioCarta robar = LeerJsonCarta(mensaje);
+                if (robar.getAtaque() == 1){
+
+                    if (this.cartaSelec != null) {
+                        Carta robada = this.mano.getCartaSelec().getObject();
+                        JOptionPane.showMessageDialog(pantallas,"El oponente te ha robado tu carta: "+robada.getNombre());
+                        this.cartaSelec = this.mano.getCartaNext();
+                        this.mano.deleteDato(robada);
+                        setCartaImage();
+
+                        EnvioCarta envio = new EnvioCarta(robada.getNombre(), 2, robada.getMana(), 10,
+                                robada.getType(), robada.getId());
+                        EnvioJson(envio);
+                        setTurno(true);
+                    }else {
+                        Node nodeR = this.mazo.deQueue();
+                        Carta robada = nodeR.getObject();
+                        JOptionPane.showMessageDialog(pantallas,"El oponente te ha robado tu carta: "+robada.getNombre());
+                        EnvioCarta envio = new EnvioCarta(robada.getNombre(), robada.getAtaque(), robada.getMana(), 10,
+                                robada.getType(), robada.getId());
+                        EnvioJson(envio);
+                        setTurno(true);
+                    }
+                }else{
+
+                    JOptionPane.showMessageDialog(pantallas,"La carta robada fue: " + robar.getNombre());
+
+                    Carta robada = new Carta(robar.getIdCarta(),robar.getTipo(),robar.getNombre(),
+                            robar.getAtaque(),robar.getMana());
+                    this.mano.insert(robada);
+                    this.mano.setCartaSelec(this.mano.find(robada));
+                    this.cartaSelec = this.mano.getCartaSelec();
+                    setCartaImage();
+                }
+
             }
-
-
-
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
