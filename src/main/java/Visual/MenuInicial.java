@@ -40,6 +40,7 @@ public class MenuInicial extends JFrame implements Observer {
     Boolean cliente = false;
     Boolean poderSupremo = false;
     int contadorSupremo = 0;
+    int congelar = 0;
     {
         try {
             miIP = InetAddress.getLocalHost().getHostAddress();
@@ -821,6 +822,11 @@ public class MenuInicial extends JFrame implements Observer {
             if (this.miMana >= this.cartaSelec.getObject().getMana()) {
                 if (this.poderSupremo == false) {
                     especial = 0;
+                    if (this.congelar == 1){
+                        this.congelar = 0;
+                        JOptionPane.showMessageDialog(pantallas, "Se ha acabado tu turno extra...");
+                        setTurno(false);
+                    }
                     System.out.println("Poder supremo falso");
                 } else {
                     System.out.println("Poder supremo true");
@@ -845,6 +851,10 @@ public class MenuInicial extends JFrame implements Observer {
                         EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
                                 8, utilizada.getType(), utilizada.getId());
                         EnvioJson(ataque);
+                        JOptionPane.showMessageDialog(pantallas, "Has activado congelar, tienes un turno extra...");
+                        this.congelar += 2;
+                        especial += 1;
+
                     } else if (idCarta == 2) {
                         this.miVida += 250;
                         vidaBar.setValue(miVida);
@@ -1171,8 +1181,6 @@ public class MenuInicial extends JFrame implements Observer {
                 if (recibido.getIdCarta() == 1){
                     setTurno(false);
                     JOptionPane.showMessageDialog(pantallas, "Congelar ha sido acivado, pierdes un turno...");
-                    Mensaje envio = new Mensaje(null, 1, null, 9, false);
-                    EnvioJson(envio);
                 }
                 else if(recibido.getIdCarta() == 3){
                     JOptionPane.showMessageDialog(pantallas, "Poder Supremo ha sido acivado, pierdes 3 turnos...");
