@@ -58,6 +58,7 @@ public class CircularList {
     }
 
     public void printList(){
+        System.out.println("--------------------");
         if (this.ref == null){
             System.out.println("Lista Vacia");
 
@@ -73,6 +74,8 @@ public class CircularList {
                 tmp = tmp.getNext();
             }
         }
+        System.out.println("Carta seleccionada: "+ this.cartaSelec.getObject().toString());
+        System.out.println("--------------------");
     }
 
 

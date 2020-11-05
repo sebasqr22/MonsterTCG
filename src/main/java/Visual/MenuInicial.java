@@ -55,7 +55,7 @@ public class MenuInicial extends JFrame implements Observer {
     String opUs;
     int opPort;
     String opIP;
-    int vidaOponente = 1000;
+
 
     // variables de jugabilidad
     int miVida = 1000;
@@ -580,6 +580,7 @@ public class MenuInicial extends JFrame implements Observer {
         manaField.setFont(ipField_lobby.getFont());
 
         vidaOponenteBar.setMaximum(1000);
+        vidaOponenteBar.setValue(1000);
 
         vidaOponenteText.setFont(vidaText.getFont());
         vidaOponenteText.setForeground(vidaText.getForeground());
@@ -836,13 +837,13 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void adelanteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adelanteBotonActionPerformed
         // TODO add your handling code here:
-
+        this.mano.printList();
         if(this.cartaSelec != null) {
             this.cartaSelec = this.mano.getCartaNext();
             setCartaImage();
             System.out.println("Carta: "+this.cartaSelec.getObject());
-        }else{
-            System.out.println("Carta: NUll");
+
+
         }
     }//GEN-LAST:event_adelanteBotonActionPerformed
 
@@ -975,12 +976,12 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void atrasBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasBotonActionPerformed
         // TODO add your handling code here:
+        this.mano.printList();
         if (this.cartaSelec != null) {
             this.cartaSelec = this.mano.getCartaPrev();
             setCartaImage();
             System.out.println("Carta: "+this.cartaSelec.getObject());
-        }else{
-            System.out.println("Carta: NUll");
+
         }
     }//GEN-LAST:event_atrasBotonActionPerformed
 
@@ -1300,7 +1301,11 @@ public class MenuInicial extends JFrame implements Observer {
                     setCartaImage();
                 }
 
+            }else if (id == 11){
+                Mensaje updateVida = LeerJsonMensaje(mensaje);
+                vidaOponenteBar.setValue(updateVida.getPort());
             }
+
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -1355,7 +1360,10 @@ public class MenuInicial extends JFrame implements Observer {
         else {
             this.miVida -= valor;
             vidaBar.setValue(miVida);
-            System.out.println("Vida de " + this.username + ": " + this.miVida);
+
+            Mensaje updateVida = new Mensaje(null,this.miVida,null,11,false);
+            EnvioJson(updateVida);
+
             if (this.miVida <= 1) {
                 Mensaje perder = new Mensaje(null, 0, this.username, 6, false);
                 EnvioJson(perder);
