@@ -11,6 +11,15 @@ public class Carta {
 
     }
 
+    public Carta(int id, String type, String nombre, int ataque, int mana) {
+        Id = id;
+        Type = type;
+        Nombre = nombre;
+        Ataque = ataque;
+        Mana = mana;
+    }
+
+
     public String toString(){
         String value = this.Nombre + " , " + this.Id + " , " + this.Type + " , " + this.Mana + " , " + this.Ataque;
         return value;
