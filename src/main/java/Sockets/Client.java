@@ -1,10 +1,14 @@
 package Sockets;
 
+import Visual.MenuInicial;
+
+import javax.swing.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 /**
  * Esta clase se encarga de implementar el cliente, el cual manda mensajes a los servidores.
@@ -19,7 +23,6 @@ public class Client implements Runnable {
     int port;
     String output;
     String ip;
-
     /**
      * Constructor de cliente.
      * @param port puerto a donde se quiere mandar.
@@ -41,7 +44,7 @@ public class Client implements Runnable {
 
         //try para prevenir problemas con la creacion del socket
         try{
-
+            System.out.println("---Creando socket cliente en puerto: " + this.port + " en ip: " + this.ip + "---");
             Socket client = new Socket(ip,port);//Create socket
 
             out = new DataOutputStream(client.getOutputStream());//create DataOutputStream
@@ -53,6 +56,8 @@ public class Client implements Runnable {
 
         }catch (IOException ex){
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE,null, ex);
+            JOptionPane.showMessageDialog(null, "No es posible establecer la conexion, por favor revisar el puerto y la iP...");
         }
     }
 }
+
