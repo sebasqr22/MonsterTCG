@@ -187,4 +187,12 @@ public class CircularList {
             }
         }
     }
+
+    public Node getCartaSelec() {
+        return cartaSelec;
+    }
+
+    public void setCartaSelec(Node cartaSelec) {
+        this.cartaSelec = cartaSelec;
+    }
 }
