@@ -818,15 +818,13 @@ public class MenuInicial extends JFrame implements Observer {
         int especial = 0;
 
         if(this.cartaSelec !=  null) {
-            if(this.miMana >= this.cartaSelec.getObject().getMana()) {
-                if (this.poderSupremo == false){
+            if (this.miMana >= this.cartaSelec.getObject().getMana()) {
+                if (this.poderSupremo == false) {
                     especial = 0;
                     System.out.println("Poder supremo falso");
-                }
-
-                else{
+                } else {
                     System.out.println("Poder supremo true");
-                    if (this.contadorSupremo == 0){
+                    if (this.contadorSupremo == 0) {
                         this.contadorSupremo += 3;
                         this.poderSupremo = false;
                         JOptionPane.showMessageDialog(pantallas, "Tus 3 turnos del poder supremo han acabado...");
@@ -842,17 +840,15 @@ public class MenuInicial extends JFrame implements Observer {
                 Carta utilizada = this.cartaSelec.getObject();
                 int idCarta = utilizada.getId();
 
-                if (utilizada.getType().equals("h")){// cartas tipo hechizo
-                    if (idCarta == 1){
+                if (utilizada.getType().equals("h")) {// cartas tipo hechizo
+                    if (idCarta == 1) {
                         EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
                                 8, utilizada.getType(), utilizada.getId());
                         EnvioJson(ataque);
-                    }
-                    else if (idCarta == 2){
+                    } else if (idCarta == 2) {
                         this.miVida += 250;
                         vidaBar.setValue(miVida);
-                    }
-                    else if (idCarta == 3){// poder supremo
+                    } else if (idCarta == 3) {// poder supremo
                         EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
                                 8, utilizada.getType(), utilizada.getId());
                         EnvioJson(ataque);
@@ -861,45 +857,45 @@ public class MenuInicial extends JFrame implements Observer {
                         contadorSupremo += 3;
                         especial = 1;
                     }
-                }
-
-
-                else{//cartas tipo esbirro
+                } else {//cartas tipo esbirro
                     EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
                             7, utilizada.getType(), utilizada.getId());
                     EnvioJson(ataque);
                 }
+
                 RestarMana(utilizada.getMana());
-                if (this.miMana + (this.miMana*0.25) < 1000){
+                if (this.miMana + (this.miMana * 0.25) < 1000) {
                     SumarMana();
-                }
-                else{
+                } else {
                     this.miMana = 1000;
                     manaField.setText(String.valueOf(this.miMana));
                 }
+
+
                 System.out.println("Mana: " + this.miMana);
                 this.mazo.enQueue(utilizada);
 
                 this.cartaSelec = this.mano.getCartaNext();
                 this.mano.deleteDato(utilizada);
-                
+
                 if (this.mano.getRef() == null) {
                     this.cartaSelec = null;
                 }
+
                 setCartaImage();
 
-                if(especial == 0){
+                if (especial == 0) {
                     System.out.println("Enviando cambio de turno");
                     Mensaje envio = new Mensaje(null, 0, null, 5, false);
                     EnvioJson(envio);
                     setTurno(false);
                 }
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(pantallas, "No tienes suficiente mana para utilizar esta carta, prueba con otra...");
-          
+
+            }
         }else{
-            JOptionPane.showMessageDialog(pantallas,"No tienes cartas debes tomar una del mazo");
+            JOptionPane.showMessageDialog(pantallas, "No tienes cartas debes tomar una del mazo");
         }
     }//GEN-LAST:event_cartaBotonActionPerformed
 
