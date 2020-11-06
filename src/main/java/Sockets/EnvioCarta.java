@@ -1,6 +1,6 @@
 package Sockets;
 
-public class EnvioCarta {
+public class EnvioCarta extends Client {
     //atributos
     public int id;
     public String tipo;
