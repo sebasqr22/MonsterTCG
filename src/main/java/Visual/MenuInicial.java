@@ -59,7 +59,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     // variables de jugabilidad
     int miVida = 1000;
-    int miMana = 1000;
+    int miMana = 700;
 
     //variables del mazo
     CartasTotal cartasTotal = new CartasTotal();
@@ -935,6 +935,8 @@ public class MenuInicial extends JFrame implements Observer {
                                 7, utilizada.getType(), utilizada.getId());
                         EnvioJson(robar);
                     }
+
+                    // hacer else if
                 } else {//cartas tipo esbirro
                     EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
                             7, utilizada.getType(), utilizada.getId());

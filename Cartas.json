@@ -138,6 +138,48 @@
       "Nombre": "Arjona",
       "Ataque": 0,
       "Mana": 100
+    },{
+      "Type":"s",
+      "Id": 4,
+      "Nombre": "Ministro Salas",
+      "Ataque": 0,
+      "Mana": 100
+    },{
+      "Type":"s",
+      "Id": 5,
+      "Nombre": "Puerto FC",
+      "Ataque": 0,
+      "Mana": 300
+    },{
+      "Type":"s",
+      "Id": 6,
+      "Nombre": "Para Rayos",
+      "Ataque": 0,
+      "Mana": 100
+    },{
+      "Type":"s",
+      "Id": 7,
+      "Nombre": "OIJ",
+      "Ataque": 0,
+      "Mana": 250
+    },{
+      "Type":"s",
+      "Id": 8,
+      "Nombre": "Anti Cura",
+      "Ataque": 0,
+      "Mana": 400
+    },{
+      "Type":"s",
+      "Id": 9,
+      "Nombre": "Batman",
+      "Ataque": 0,
+      "Mana": 150
+    },{
+      "Type":"s",
+      "Id": 10,
+      "Nombre": "Steve",
+      "Ataque": 0,
+      "Mana": 50
     }
   ]
 }
