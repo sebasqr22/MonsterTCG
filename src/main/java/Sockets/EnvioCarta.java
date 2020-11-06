@@ -9,14 +9,6 @@ public class EnvioCarta {
     public int mana;
     public int idCarta;
 
-    public int getIdCarta() {
-        return idCarta;
-    }
-
-    public void setIdCarta(int idMensaje) {
-        this.idCarta = idMensaje;
-    }
-
     public EnvioCarta(String nombre, int ataque, int mana, int id, String tipo, int idCarta){
         this.nombre = nombre;
         this.ataque = ataque;
@@ -24,6 +16,14 @@ public class EnvioCarta {
         this.id = id;
         this.tipo = tipo;
         this.idCarta = idCarta;
+    }
+
+    public int getIdCarta() {
+        return idCarta;
+    }
+
+    public void setIdCarta(int idMensaje) {
+        this.idCarta = idMensaje;
     }
 
     public int getId() {

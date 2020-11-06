@@ -25,6 +25,7 @@ import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
+import javax.print.attribute.standard.MediaName;
 import javax.swing.*;
 
 /**
@@ -59,7 +60,10 @@ public class MenuInicial extends JFrame implements Observer {
 
     // variables de jugabilidad
     int miVida = 1000;
-    int miMana = 1000;
+    int miMana = 700;
+    String miSecreto = "";
+    String opSecreto = "";
+    int especial = 0;
 
     //variables del mazo
     CartasTotal cartasTotal = new CartasTotal();
@@ -957,124 +961,236 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void cartaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartaBotonActionPerformed
         // TODO add your handling code here:
-        int especial = 0;
-
         if(this.cartaSelec !=  null) {
             if (this.miMana >= this.cartaSelec.getObject().getMana()) {
-                if (this.poderSupremo == false) {
-                    especial = 0;
-                    if (this.congelar == 1){
-                        this.congelar = 0;
-                        JOptionPane.showMessageDialog(pantallas, "Se ha acabado tu turno extra...");
-                        setTurno(false);
+                String val = this.cartaSelec.getObject().getType() + String.valueOf(this.cartaSelec.getObject().getId());
+                if (this.opSecreto.equals(val)){
+                    JOptionPane.showMessageDialog(pantallas, "El secreto de tu oponente ha sido activado :/");
+                    Mensaje activacion = new Mensaje(null, 0, null, 13, false);
+                    EnvioJson(activacion);
+                    if (val.equals("e3")){
+                        JOptionPane.showMessageDialog(pantallas, "Se activo la Juve, pierder 200 de vida...");
+                        CambiarVida(200);
                     }
-                }
-
-                else {
-                    if (this.contadorSupremo == 0) {
-                        this.contadorSupremo += 3;
-                        this.poderSupremo = false;
-                        JOptionPane.showMessageDialog(pantallas, "Tus 3 turnos del poder supremo han acabado...");
-                        setTurno(false);
-                        Mensaje envio = new Mensaje(null, 2, null, 9, false);
-                        EnvioJson(envio);
+                    else if (val.equals("e9")){
+                        JOptionPane.showMessageDialog(pantallas, "Zeus te ha bajado del Olimpo, no le puedes hacer daño");
                     }
-                    this.contadorSupremo -= 1;
-                    especial = 1;
-                }
 
+                    else if (val.equals("e5")){
+                        JOptionPane.showMessageDialog(pantallas, "Arjona te ha cancelado por tu musica fea, no le hace daño");
+                    }
 
-                Carta utilizada = this.cartaSelec.getObject();
-                int idCarta = utilizada.getId();
+                    else if (val.equals("h6")){
+                        JOptionPane.showMessageDialog(pantallas, "No puedes contra el Ministro Salas...");
+                    }
 
-                if (bulum && utilizada.getType().equals("e")){
-                    int ataque = utilizada.getAtaque();;
-                    ataque += ataque*0.30;
-                    EnvioCarta envio = new EnvioCarta(utilizada.getNombre(), ataque, utilizada.getMana(),
-                            8, utilizada.getType(), utilizada.getId());
-                    EnvioJson(envio);
-                    bulum = false;
-                }
-
-                if (utilizada.getType().equals("h")) {// cartas tipo hechizo
-                    if (idCarta == 1) {
-                        EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
-                                8, utilizada.getType(), utilizada.getId());
-                        EnvioJson(ataque);
-                        JOptionPane.showMessageDialog(pantallas, "Has activado congelar, tienes un turno extra...");
-                        this.congelar += 2;
-                        especial += 1;
-
-                    } else if (idCarta == 2) {
-                        if (this.miVida + 250 > 1000){
-                            this.miVida = 1000;
-                        }
-                        else{
-                            this.miVida += 250;
-                        }
-                        vidaBar.setValue(miVida);
-                        Mensaje updateVida = new Mensaje(null,this.miVida,null,11,false);
-                        EnvioJson(updateVida);
-
-                    } else if (idCarta == 3) {// poder supremo
-                        EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
-                                8, utilizada.getType(), utilizada.getId());
-                        EnvioJson(ataque);
-                        JOptionPane.showMessageDialog(pantallas, "Has activado el poder supremo, puedes usar tres cartas seguidas...");
-                        poderSupremo = true;
-                        contadorSupremo += 3;
-                        especial = 1;
+                    else if (val.equals("e7")){
+                        JOptionPane.showMessageDialog(pantallas, "Nada como el Sapri, pero siempre perdemos con el Puerto...");
 
                     }
-                    else if (idCarta == 4){ // robar carta
-                        JOptionPane.showMessageDialog(pantallas,"Le has robado una carta al oponente!!");
-                        EnvioCarta robar = new EnvioCarta(utilizada.getNombre(), 1, utilizada.getMana(),
-                                10, utilizada.getType(), utilizada.getId());
-                        EnvioJson(robar);
+
+                    else if (val.equals("h5")){
+                        JOptionPane.showMessageDialog(pantallas, "Hola, soy el Para Rayos y no me haces daño xd...");
+
                     }
-                    else if (idCarta == 9){// escudo
-                        JOptionPane.showMessageDialog(pantallas,"Has activado el escudo durante un turno...");
-                        escudo = true;
+
+                    else if (val.equals("h4")){
+                        JOptionPane.showMessageDialog(pantallas, "OIJ, arriba esas manos, tiene derecho a guardar silencio...");
+
                     }
-                    else if (idCarta == 10){// bulum bulum
-                        JOptionPane.showMessageDialog(pantallas, "Has activado a Bulum Bulum, tu siguiente esbirro hara un 30% mas de daño");
-                        bulum = true;
+
+                    else if (val.equals("h2")){
+                        JOptionPane.showMessageDialog(pantallas, "No te puedes curar, mas bien te quito vida...");
+                        CambiarVida(250);
+
+                    }
+
+                    else if (val.equals("e4")){
+                        JOptionPane.showMessageDialog(pantallas, "Soy Bruce Wayne y soy millonario...");
+
                     }
                     else{
-                        EnvioCarta robar = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
-                                7, utilizada.getType(), utilizada.getId());
-                        EnvioJson(robar);
+                        JOptionPane.showMessageDialog(pantallas, "Steve ha matado a tu zombie, este es el rap de Maincra...");
                     }
-                } else {//cartas tipo esbirro
-                    EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
-                            7, utilizada.getType(), utilizada.getId());
-                    EnvioJson(ataque);
-                }
+                    this.opSecreto = "";
+                    Carta utilizada = this.cartaSelec.getObject();
+                    RestarMana(utilizada.getMana());
 
-                RestarMana(utilizada.getMana());
-                if (this.miMana + (this.miMana * 0.25) < 1000) {
-                    SumarMana();
-                } else {
-                    this.miMana = 1000;
-                    manaField.setText(String.valueOf(this.miMana));
-                }
+                    if (this.miMana + (this.miMana * 0.25) < 1000) {
+                        SumarMana();
+                    } else {
+                        this.miMana = 1000;
+                        manaField.setText(String.valueOf(this.miMana));
+                    }
 
+                    this.mazo.enQueue(utilizada);
+                    this.cartaSelec = this.mano.getCartaNext();
+                    this.mano.deleteDato(utilizada);
 
-                this.mazo.enQueue(utilizada);
-
-                this.cartaSelec = this.mano.getCartaNext();
-                this.mano.deleteDato(utilizada);
-
-                if (this.mano.getRef() == null && this.mano.getCartaSelec() == null) {
-                    this.cartaSelec = null;
-                }
-
-                setCartaImage();
-
-                if (especial == 0) {
-                    Mensaje envio = new Mensaje(null, 0, null, 5, false);
-                    EnvioJson(envio);
+                    if (this.mano.getRef() == null && this.mano.getCartaSelec() == null) {
+                        this.cartaSelec = null;
+                    }
+                    setCartaImage();
                     setTurno(false);
+                }
+                else {
+                    System.out.println("Se eligio carta");
+                    if (this.poderSupremo == false) {
+                        especial = 0;
+                        if (this.congelar == 1) {
+                            this.congelar = 0;
+                            JOptionPane.showMessageDialog(pantallas, "Se ha acabado tu turno extra...");
+                            setTurno(false);
+                        }
+                    } else {
+                        if (this.contadorSupremo == 0) {
+                            this.contadorSupremo += 3;
+                            this.poderSupremo = false;
+                            JOptionPane.showMessageDialog(pantallas, "Tus 3 turnos del poder supremo han acabado...");
+                            setTurno(false);
+                            Mensaje envio = new Mensaje(null, 2, null, 9, false);
+                            EnvioJson(envio);
+                        }
+                        this.contadorSupremo -= 1;
+                        especial = 1;
+                    }
+
+
+                    Carta utilizada = this.cartaSelec.getObject();
+                    int idCarta = utilizada.getId();
+
+                    if (bulum && utilizada.getType().equals("e")) {
+                        int ataque = utilizada.getAtaque();
+                        ;
+                        ataque += ataque * 0.30;
+                        EnvioCarta envio = new EnvioCarta(utilizada.getNombre(), ataque, utilizada.getMana(),
+                                8, utilizada.getType(), utilizada.getId());
+                        EnvioJson(envio);
+                        bulum = false;
+                    }
+
+                    if (utilizada.getType().equals("h")) {// cartas tipo hechizo
+                        if (idCarta == 1) {
+                            EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
+                                    8, utilizada.getType(), utilizada.getId());
+                            EnvioJson(ataque);
+                            JOptionPane.showMessageDialog(pantallas, "Has activado congelar, tienes un turno extra...");
+                            this.congelar += 2;
+                            especial += 1;
+
+                        } else if (idCarta == 2) {
+                            if (this.miVida + 250 > 1000) {
+                                this.miVida = 1000;
+                            } else {
+                                this.miVida += 250;
+                            }
+                            vidaBar.setValue(miVida);
+                            Mensaje updateVida = new Mensaje(null, this.miVida, null, 11, false);
+                            EnvioJson(updateVida);
+
+                        } else if (idCarta == 3) {// poder supremo
+                            EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
+                                    8, utilizada.getType(), utilizada.getId());
+                            EnvioJson(ataque);
+                            JOptionPane.showMessageDialog(pantallas, "Has activado el poder supremo, puedes usar tres cartas seguidas...");
+                            poderSupremo = true;
+                            contadorSupremo += 3;
+                            especial = 1;
+
+                        } else if (idCarta == 4) { // robar carta
+                            JOptionPane.showMessageDialog(pantallas, "Le has robado una carta al oponente!!");
+                            EnvioCarta robar = new EnvioCarta(utilizada.getNombre(), 1, utilizada.getMana(),
+                                    10, utilizada.getType(), utilizada.getId());
+                            EnvioJson(robar);
+                        } else if (idCarta == 9) {// escudo
+                            JOptionPane.showMessageDialog(pantallas, "Has activado el escudo durante un turno...");
+                            escudo = true;
+                        } else if (idCarta == 10) {// bulum bulum
+                            JOptionPane.showMessageDialog(pantallas, "Has activado a Bulum Bulum, tu siguiente esbirro hara un 30% mas de daño");
+                            bulum = true;
+                        } else {
+                            EnvioCarta robar = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
+                                    7, utilizada.getType(), utilizada.getId());
+                            EnvioJson(robar);
+                        }
+                    } else if (utilizada.getType().equals("s")) {
+                        int idS = utilizada.getId();
+                        if (idS == 1){
+                            this.miSecreto = "e3";
+                        }
+                        else if (idS == 2){
+                            this.miSecreto = "e9";
+                        }
+
+                        else if (idS == 3){
+                            this.miSecreto = "e5";
+                        }
+
+                        else if (idS == 4){
+                            this.miSecreto = "h6";
+                        }
+
+                        else if (idS == 5){
+                            this.miSecreto = "e7";
+
+                        }
+
+                        else if (idS == 6){
+                            this.miSecreto = "h5";
+
+                        }
+
+                        else if (idS == 7){
+                            this.miSecreto = "h4";
+
+                        }
+
+                        else if (idS == 8){
+                            this.miSecreto = "h2";
+
+                        }
+
+                        else if (idS == 9){
+                            this.miSecreto = "e4";
+
+                        }
+                        else{
+                            this.miSecreto = "e10";
+                        }
+                        JOptionPane.showMessageDialog(pantallas, "Has activado el secreto de la carta: "+ utilizada.getNombre());
+                        Mensaje secreto = new Mensaje(null, 0, this.miSecreto, 12, false);
+                        EnvioJson(secreto);
+                    } else {//cartas tipo esbirro
+                        EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
+                                7, utilizada.getType(), utilizada.getId());
+                        EnvioJson(ataque);
+                    }
+
+                    RestarMana(utilizada.getMana());
+                    if (this.miMana + (this.miMana * 0.25) < 1000) {
+                        SumarMana();
+                    } else {
+                        this.miMana = 1000;
+                        manaField.setText(String.valueOf(this.miMana));
+                    }
+
+
+                    this.mazo.enQueue(utilizada);
+
+                    this.cartaSelec = this.mano.getCartaNext();
+                    this.mano.deleteDato(utilizada);
+
+                    if (this.mano.getRef() == null && this.mano.getCartaSelec() == null) {
+                        this.cartaSelec = null;
+                    }
+
+                    setCartaImage();
+
+                    if (especial == 0) {
+                        Mensaje envio = new Mensaje(null, 0, null, 5, false);
+                        EnvioJson(envio);
+                        setTurno(false);
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(pantallas, "No tienes suficiente mana para utilizar esta carta, prueba con otra...");
@@ -1099,6 +1215,10 @@ public class MenuInicial extends JFrame implements Observer {
     private void mazoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mazoBotonActionPerformed
         // TODO add your handling code here:
         if(this.mano.getSize() + 1 <= 10) {
+            if (this.poderSupremo == true){
+                this.especial = 0;
+                this.poderSupremo = false;
+            }
             Mensaje envio = new Mensaje(null, 0, null, 5, false);
             EnvioJson(envio);
             setTurno(false);
@@ -1433,6 +1553,15 @@ public class MenuInicial extends JFrame implements Observer {
                 Mensaje updateVida = LeerJsonMensaje(mensaje);
                 vidaOponenteBar.setValue(updateVida.getPort());
             }
+            else if(id == 12){
+                Mensaje recibido = LeerJsonMensaje(mensaje);
+                this.opSecreto = recibido.getUsername();
+            }
+            else if(id == 13){
+                JOptionPane.showMessageDialog(pantallas, "Tu secreto ha sido activado...");
+                setTurno(true);
+                this.miSecreto = "";
+            }
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -1533,7 +1662,7 @@ public class MenuInicial extends JFrame implements Observer {
         
         Random random = new Random();
         int index = 0;
-        for (int i = 0; i < 20 ;i++ ){
+        for (int i = 0; i < 30 ;i++ ){
             index = random.nextInt(cartas.getCartastotal().length-1);
             this.mazo.enQueue(cartas.getCartastotal()[index]);
         }
