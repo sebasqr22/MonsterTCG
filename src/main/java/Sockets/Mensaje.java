@@ -1,6 +1,6 @@
 package Sockets;
 
-public class Mensaje extends Client {
+public class Mensaje{
     //atributos
     public String ip;
     public int port;
