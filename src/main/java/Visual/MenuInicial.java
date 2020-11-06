@@ -935,6 +935,8 @@ public class MenuInicial extends JFrame implements Observer {
                                 7, utilizada.getType(), utilizada.getId());
                         EnvioJson(robar);
                     }
+
+                    // hacer else if
                 } else {//cartas tipo esbirro
                     EnvioCarta ataque = new EnvioCarta(utilizada.getNombre(), utilizada.getAtaque(), utilizada.getMana(),
                             7, utilizada.getType(), utilizada.getId());
