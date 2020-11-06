@@ -2,6 +2,7 @@ package Estructuras_Datos.CList;
 
 
 import Assets.Carta;
+import Estructuras_Datos.Node;
 
 import javax.swing.*;
 

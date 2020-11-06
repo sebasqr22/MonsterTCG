@@ -1,4 +1,4 @@
-package Estructuras_Datos.CList;
+package Estructuras_Datos;
 
 import Assets.Carta;
 

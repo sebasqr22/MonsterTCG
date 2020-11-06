@@ -9,7 +9,7 @@ package Visual;
 import Assets.Carta;
 import Assets.CartasTotal;
 import Estructuras_Datos.CList.CircularList;
-import Estructuras_Datos.CList.Node;
+import Estructuras_Datos.Node;
 import Estructuras_Datos.Cola.Cola;
 import JsonPackage.Json;
 import Sockets.Client;
@@ -150,6 +150,18 @@ public class MenuInicial extends JFrame implements Observer {
         manaField = new javax.swing.JTextField();
         vidaOponenteBar = new javax.swing.JProgressBar();
         vidaOponenteText = new javax.swing.JLabel();
+        historialPantalla = new javax.swing.JPanel();
+        movimientoTurno_field = new javax.swing.JTextField();
+        movimientoMana_field = new javax.swing.JTextField();
+        movimientoUser_field1 = new javax.swing.JTextField();
+        movimientoVida_field1 = new javax.swing.JTextField();
+        movimientoCarta_nombre = new javax.swing.JTextField();
+        MovimientoCartaDano_field = new javax.swing.JTextField();
+        MovimientoCartaMana_field1 = new javax.swing.JTextField();
+        movimientosMenuBoton = new javax.swing.JButton();
+        movimientoNextTurnBoton = new javax.swing.JButton();
+        movimientoPrevTurnBoton1 = new javax.swing.JButton();
+        movimientoSalirBoton = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -583,7 +595,6 @@ public class MenuInicial extends JFrame implements Observer {
         manaField.setFont(ipField_lobby.getFont());
 
         vidaOponenteBar.setMaximum(1000);
-        vidaOponenteBar.setValue(1000);
 
         vidaOponenteText.setFont(vidaText.getFont());
         vidaOponenteText.setForeground(vidaText.getForeground());
@@ -675,6 +686,105 @@ public class MenuInicial extends JFrame implements Observer {
         mazoBoton.setIcon(new ImageIcon(this.rutaC +  "back.png"));
 
         pantallas.addTab("tab4", jPanel1);
+
+        historialPantalla.setBackground(new java.awt.Color(56, 1, 6));
+        historialPantalla.setForeground(new java.awt.Color(56, 1, 6));
+
+        movimientoTurno_field.setText("jTextField1");
+
+        movimientoMana_field.setText("jTextField1");
+
+        movimientoUser_field1.setText("jTextField1");
+
+        movimientoVida_field1.setText("jTextField1");
+
+        movimientoCarta_nombre.setText("jTextField1");
+
+        MovimientoCartaDano_field.setText("jTextField1");
+
+        MovimientoCartaMana_field1.setText("jTextField1");
+
+        movimientosMenuBoton.setText("Menu Inicial");
+        movimientosMenuBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                movimientosMenuBotonActionPerformed(evt);
+            }
+        });
+
+        movimientoNextTurnBoton.setText("Siguiente Turno");
+
+        movimientoPrevTurnBoton1.setText("Turno Previo");
+
+        movimientoSalirBoton.setText("Salir");
+
+        javax.swing.GroupLayout historialPantallaLayout = new javax.swing.GroupLayout(historialPantalla);
+        historialPantalla.setLayout(historialPantallaLayout);
+        historialPantallaLayout.setHorizontalGroup(
+            historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(historialPantallaLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(movimientosMenuBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(historialPantallaLayout.createSequentialGroup()
+                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addComponent(movimientoMana_field, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(historialPantallaLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(historialPantallaLayout.createSequentialGroup()
+                                .addGap(0, 11, Short.MAX_VALUE)
+                                .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(movimientoUser_field1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(movimientoVida_field1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(movimientoTurno_field, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(historialPantallaLayout.createSequentialGroup()
+                                .addComponent(movimientoSalirBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(historialPantallaLayout.createSequentialGroup()
+                                .addGap(294, 294, 294)
+                                .addComponent(movimientoCarta_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, historialPantallaLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(MovimientoCartaDano_field, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(MovimientoCartaMana_field1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, historialPantallaLayout.createSequentialGroup()
+                                        .addComponent(movimientoPrevTurnBoton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(80, 80, 80)
+                                        .addComponent(movimientoNextTurnBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(130, 130, 130))))
+        );
+        historialPantallaLayout.setVerticalGroup(
+            historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(historialPantallaLayout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(movimientoTurno_field, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(movimientoCarta_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
+                .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(MovimientoCartaDano_field)
+                    .addComponent(movimientoUser_field1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(movimientoVida_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MovimientoCartaMana_field1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(84, 84, 84)
+                .addComponent(movimientoMana_field, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(movimientoSalirBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(movimientoNextTurnBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(movimientoPrevTurnBoton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(movimientosMenuBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
+        );
+
+        pantallas.addTab("tab5", historialPantalla);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1191,6 +1301,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_pasarTurnoBotonActionPerformed
 
+    private void movimientosMenuBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_movimientosMenuBotonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_movimientosMenuBotonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1231,9 +1345,12 @@ public class MenuInicial extends JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField MovimientoCartaDano_field;
+    private javax.swing.JTextField MovimientoCartaMana_field1;
     private javax.swing.JButton adelanteBoton;
     private javax.swing.JButton atrasBoton;
     private javax.swing.JButton cartaBoton;
+    private javax.swing.JPanel historialPantalla;
     private javax.swing.JButton iniciarBoton_lobby;
     private javax.swing.JTextField ipField_lobby;
     private javax.swing.JTextField ipField_unirse;
@@ -1255,6 +1372,15 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JLabel monsterName_lobby;
     private javax.swing.JLabel monsterName_menu;
     private javax.swing.JLabel monsterName_unirse;
+    private javax.swing.JTextField movimientoCarta_nombre;
+    private javax.swing.JTextField movimientoMana_field;
+    private javax.swing.JButton movimientoNextTurnBoton;
+    private javax.swing.JButton movimientoPrevTurnBoton1;
+    private javax.swing.JButton movimientoSalirBoton;
+    private javax.swing.JTextField movimientoTurno_field;
+    private javax.swing.JTextField movimientoUser_field1;
+    private javax.swing.JTextField movimientoVida_field1;
+    private javax.swing.JButton movimientosMenuBoton;
     private javax.swing.JTextField nombreField;
     private javax.swing.JLabel nombreText;
     private javax.swing.JTabbedPane pantallas;

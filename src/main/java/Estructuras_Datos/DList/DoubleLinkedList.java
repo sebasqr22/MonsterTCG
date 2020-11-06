@@ -1,13 +1,15 @@
 package Estructuras_Datos.DList;
 
-import Assets.Carta;
-import Estructuras_Datos.CList.Node;
+
+import Assets.Movimiento;
+
 
 public class DoubleLinkedList {
 
-    private Node head;
-    private Node tail;
-    private int size;
+    public NodeD head;
+    public NodeD tail;
+    public int size;
+
 
     public DoubleLinkedList(){
         this.head = null;
@@ -23,9 +25,9 @@ public class DoubleLinkedList {
         return size;
     }
 
-    public void insertHead(Carta data){
+    public void insertHead(Movimiento data){
 
-        Node newNode = new Node(data);
+        NodeD newNode = new NodeD(data);
 
         if (this.isEmpty()){
             this.head = this.tail = newNode;
@@ -36,9 +38,9 @@ public class DoubleLinkedList {
         this.size++;
     }
 
-    public void insertLast(Carta data){
+    public void insertLast(Movimiento data){
 
-        Node newNode = new Node(data);
+        NodeD newNode = new NodeD(data);
 
         if (this.isEmpty()){
             this.head = this.tail = newNode;
@@ -49,14 +51,14 @@ public class DoubleLinkedList {
         this.size++;
     }
 
-    public Node find(Object data){
+    public NodeD find(Object data){
         if (this.isEmpty()){
             return null;
         }else{
             if (this.head.getObject()==data){
                 return this.head;
             }else{
-                Node tmp = this.head.getNext();
+                NodeD tmp = this.head.getNext();
 
                 while(tmp!=null){
                     if (tmp.getObject()==data){
@@ -70,7 +72,7 @@ public class DoubleLinkedList {
     }
 
     public void print(){
-        Node tmp = this.head;
+        NodeD tmp = this.head;
 
         while(tmp!=null){
             System.out.println(tmp.getObject());
