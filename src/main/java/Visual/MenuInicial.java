@@ -59,7 +59,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     // variables de jugabilidad
     int miVida = 1000;
-    int miMana = 1000;
+    int miMana = 700;
 
     //variables del mazo
     CartasTotal cartasTotal = new CartasTotal();
