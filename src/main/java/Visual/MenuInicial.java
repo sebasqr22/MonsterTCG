@@ -2112,6 +2112,10 @@ public class MenuInicial extends JFrame implements Observer {
         setMazo(this.cartasTotal);
     }
 
+    /**
+     * Metodo para modificar el movimiento para el historial de jugadas
+     * @param inicial
+     */
     public void setMovimiento(Movimiento inicial){
 
         this.numeroTurnoField.setText(String.valueOf(inicial.getTurno()));
@@ -2123,6 +2127,10 @@ public class MenuInicial extends JFrame implements Observer {
         this.manaCartaField.setText(String.valueOf(inicial.getManaC()));
     }
 
+    /**
+     * Metodo para iniciar el movimiento para el historial de jugadas
+     * @throws IOException
+     */
     public void empezarMov() throws IOException {
 
         this.movimientosTotal = Json.initiaizeMovimientos();

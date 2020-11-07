@@ -134,18 +134,34 @@ public class DoubleLinkedList {
         }
     }
 
+    /**
+     * Metodo para retornar el primer elemento
+     * @return primer elemento
+     */
     public NodeD getHead() {
         return head;
     }
 
+    /**
+     * Metodo para retornar el ultimo elemento
+     * @return utilo elemento
+     */
     public NodeD getTail() {
         return tail;
     }
 
+    /**
+     * Metodo para retornar el elemento seleccionado
+     * @return elemento seleccionado
+     */
     public NodeD getSelec() {
         return selec;
     }
 
+    /**
+     * Metodo para retornar el siguiente elemento
+     * @return siguiente elemento
+     */
     public NodeD getSelecNext(){
         if (this.selec == this.tail){
             return this.tail;
@@ -155,6 +171,10 @@ public class DoubleLinkedList {
         }
     }
 
+    /**
+     * Metodo para retornar el elemento anterior
+     * @return elemento anterior
+     */
     public NodeD getSelecPrev(){
         if (this.selec == this.head){
             return this.head;
