@@ -75,11 +75,26 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="0" pref="268" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="monsterName_menu" min="-2" pref="604" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="unirseBoton" min="-2" pref="185" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="salirBoton_menu" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="391" max="-2" attributes="0"/>
+                              <Component id="historialBoton_menu" min="-2" pref="185" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -88,20 +103,7 @@
                               <Component id="nombreText" min="-2" pref="255" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="630" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="unirseBoton" min="-2" pref="185" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="monsterName_menu" min="-2" pref="604" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -124,9 +126,18 @@
                       </Group>
                       <EmptySpace pref="233" max="32767" attributes="0"/>
                       <Component id="unirseBoton" min="-2" pref="46" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                      <Component id="salirBoton_menu" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                              <Component id="salirBoton_menu" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="historialBoton_menu" min="-2" pref="46" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
@@ -206,6 +217,14 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salirBoton_menuActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="historialBoton_menu">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="mazoBoton" name="font" type="property"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Historial de Movimientos "/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -920,50 +939,78 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="movimientosMenuBoton" min="-2" pref="98" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace type="separate" max="32767" attributes="0"/>
-                              <Component id="movimientoMana_field" min="-2" pref="261" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="movimientoUser_field1" alignment="1" min="-2" pref="261" max="-2" attributes="0"/>
-                                          <Component id="movimientoVida_field1" alignment="1" min="-2" pref="261" max="-2" attributes="0"/>
-                                          <Component id="movimientoTurno_field" alignment="1" min="-2" pref="160" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="movimientoSalirBoton" min="-2" pref="96" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                  </Group>
+                      <Component id="salirMenuBoton_historial" min="-2" pref="127" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="salirBoton_historial" min="-2" pref="96" max="-2" attributes="0"/>
+                                  <Component id="manaField_historial" min="-2" pref="261" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="294" max="-2" attributes="0"/>
-                                      <Component id="movimientoCarta_nombre" pref="261" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="movPrevioBoton" min="-2" pref="151" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="278" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="manaText_historial" min="-2" pref="225" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="vidaField_historial" min="-2" pref="261" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="MovimientoCartaDano_field" alignment="1" min="-2" pref="102" max="-2" attributes="0"/>
-                                          <Component id="MovimientoCartaMana_field1" alignment="1" min="-2" pref="102" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="vidaText_historial" min="-2" pref="212" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
                                           <Group type="102" alignment="1" attributes="0">
-                                              <Component id="movimientoPrevTurnBoton1" min="-2" pref="114" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                                              <Component id="movimientoNextTurnBoton" min="-2" pref="114" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="movNextBoton" alignment="1" min="-2" pref="151" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="ataqueCartaText" min="-2" pref="163" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="ataqueCartaField" min="-2" pref="102" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
                                           </Group>
                                       </Group>
                                   </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="manaCartaText" min="-2" pref="146" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="manaCartaField" min="-2" pref="102" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="nombreField_historial" min="-2" pref="261" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="nombreText_historial" min="-2" pref="257" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="numeroTurnoField" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jLabel3" min="-2" pref="228" max="-2" attributes="0"/>
+                                      <EmptySpace pref="199" max="32767" attributes="0"/>
+                                      <Component id="movimientoText_historial" min="-2" pref="153" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="movimientoField_historial" min="-2" pref="211" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -972,33 +1019,55 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="movimientoTurno_field" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="movimientoCarta_nombre" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="numeroTurnoField" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="movimientoField_historial" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="movimientoText_historial" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="MovimientoCartaDano_field" max="32767" attributes="0"/>
-                          <Component id="movimientoUser_field1" pref="45" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="nombreField_historial" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Component id="nombreText_historial" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="ataqueCartaField" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                                  <Component id="ataqueCartaText" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="movimientoVida_field1" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                          <Component id="MovimientoCartaMana_field1" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="vidaField_historial" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="vidaText_historial" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                      <Component id="movimientoMana_field" min="-2" pref="45" max="-2" attributes="0"/>
-                      <EmptySpace pref="103" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="manaCartaField" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="manaCartaText" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="manaField_historial" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="manaText_historial" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="131" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="movimientoSalirBoton" alignment="3" max="32767" attributes="0"/>
-                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
-                                  <Component id="movimientoNextTurnBoton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                                  <Component id="movimientoPrevTurnBoton1" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="movNextBoton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="movPrevioBoton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="movimientosMenuBoton" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="salirMenuBoton_historial" alignment="3" max="32767" attributes="0"/>
+                              <Component id="salirBoton_historial" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                   </Group>
@@ -1006,62 +1075,168 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="movimientoTurno_field">
+            <Component class="javax.swing.JTextField" name="numeroTurnoField">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="manaField" name="font" type="property"/>
+                </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="movimientoMana_field">
+            <Component class="javax.swing.JTextField" name="manaField_historial">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="nombreField" name="font" type="property"/>
+                </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="movimientoUser_field1">
+            <Component class="javax.swing.JTextField" name="nombreField_historial">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="nombreField" name="font" type="property"/>
+                </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="movimientoVida_field1">
+            <Component class="javax.swing.JTextField" name="vidaField_historial">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="numeroTurnoField" name="font" type="property"/>
+                </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="movimientoCarta_nombre">
+            <Component class="javax.swing.JTextField" name="movimientoField_historial">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="numeroTurnoField" name="font" type="property"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="movimientoField_historialActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="ataqueCartaField">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="nombreField_historial" name="font" type="property"/>
+                </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="MovimientoCartaDano_field">
+            <Component class="javax.swing.JTextField" name="manaCartaField">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="nombreField" name="font" type="property"/>
+                </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="MovimientoCartaMana_field1">
+            <Component class="javax.swing.JButton" name="salirMenuBoton_historial">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jTextField1"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="movimientosMenuBoton">
-              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="atrasBoton" name="font" type="property"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Menu Inicial"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="movimientosMenuBotonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salirMenuBoton_historialActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="movimientoNextTurnBoton">
+            <Component class="javax.swing.JButton" name="movNextBoton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Siguiente Turno"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="movNextBotonActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="movimientoPrevTurnBoton1">
+            <Component class="javax.swing.JButton" name="movPrevioBoton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Turno Previo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="movPrevioBotonActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="movimientoSalirBoton">
+            <Component class="javax.swing.JButton" name="salirBoton_historial">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salir"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salirBoton_historialActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="nombreText_historial">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="vidaText" name="font" type="property"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Nombre del Jugador"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="movimientoText_historial">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="vidaText" name="font" type="property"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Movimiento"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel3">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="vidaText" name="font" type="property"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Numero de Turno"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="vidaText_historial">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="vidaText" name="font" type="property"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Vida del Jugador"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="manaText_historial">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="vidaText" name="font" type="property"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Mana del Jugador"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="ataqueCartaText">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="vidaText" name="font" type="property"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Ataque Carta"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="manaCartaText">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection component="vidaText" name="font" type="property"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="10" green="7a" red="c" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Mana Carta"/>
               </Properties>
             </Component>
           </SubComponents>
