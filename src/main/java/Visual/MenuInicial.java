@@ -63,7 +63,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     // variables de jugabilidad
     int miVida = 1000;
-    int miMana = 1000;
+    int miMana = 200;
     String miSecreto = "";
     String opSecreto = "";
     int especial = 0;
@@ -92,6 +92,8 @@ public class MenuInicial extends JFrame implements Observer {
         serverT.start();
         this.miPuerto = servidor.getPort();
         puertoField_lobby.setText(String.valueOf(this.miPuerto));
+        vidaOponenteBar.setValue(1000);
+        manaField.setText(String.valueOf(this.miMana));
         try {
             cargarCartas();
             setCartaImage();
@@ -183,6 +185,7 @@ public class MenuInicial extends JFrame implements Observer {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pantallas.setBackground(new java.awt.Color(147, 82, 83));
 
@@ -194,7 +197,6 @@ public class MenuInicial extends JFrame implements Observer {
         monsterName_menu.setText("MONSTER TECG");
 
         nombreField.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 14)); // NOI18N
-
 
         nombreText.setBackground(new java.awt.Color(102, 204, 0));
         nombreText.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 24)); // NOI18N
@@ -258,7 +260,7 @@ public class MenuInicial extends JFrame implements Observer {
                         .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(nombreText, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(448, Short.MAX_VALUE))
             .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(MenuInicialLayout.createSequentialGroup()
                     .addGap(161, 161, 161)
@@ -274,7 +276,7 @@ public class MenuInicial extends JFrame implements Observer {
                 .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreText)
                     .addComponent(nombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 264, Short.MAX_VALUE)
                 .addComponent(unirseBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MenuInicialLayout.createSequentialGroup()
@@ -287,7 +289,7 @@ public class MenuInicial extends JFrame implements Observer {
                         .addGap(69, 69, 69))))
             .addGroup(MenuInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MenuInicialLayout.createSequentialGroup()
-                    .addContainerGap(450, Short.MAX_VALUE)
+                    .addContainerGap(481, Short.MAX_VALUE)
                     .addComponent(lobbyBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(163, 163, 163)))
         );
@@ -381,7 +383,7 @@ public class MenuInicial extends JFrame implements Observer {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ipLobbyText_unirse)
                     .addComponent(puertoLobbyText_unirse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(unirseBoton_unirse, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(221, 221, 221)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -518,7 +520,7 @@ public class MenuInicial extends JFrame implements Observer {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(jugadoresConectadosPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(monsterName_lobby)
@@ -621,7 +623,6 @@ public class MenuInicial extends JFrame implements Observer {
 
         manaField.setEditable(false);
         manaField.setFont(ipField_lobby.getFont());
-        manaField.setText(String.valueOf(this.miMana));
 
         vidaOponenteBar.setMaximum(1000);
 
@@ -652,7 +653,7 @@ public class MenuInicial extends JFrame implements Observer {
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(cartaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(adelanteBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                             .addComponent(pasarTurnoBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -681,7 +682,7 @@ public class MenuInicial extends JFrame implements Observer {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(vidaOponenteBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(vidaOponenteText))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -712,7 +713,6 @@ public class MenuInicial extends JFrame implements Observer {
         );
 
         vidaBar.setValue(miVida);
-        vidaOponenteBar.setValue(1000);
         mazoBoton.setIcon(new ImageIcon(this.rutaC +  "back.png"));
 
         pantallas.addTab("tab4", jPanel1);
@@ -897,7 +897,7 @@ public class MenuInicial extends JFrame implements Observer {
                 .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(manaField_historial, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(manaText_historial))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                 .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(historialPantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(movNextBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -910,18 +910,7 @@ public class MenuInicial extends JFrame implements Observer {
 
         pantallas.addTab("tab5", historialPantalla);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pantallas, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(pantallas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -31, 1100, 720));
 
         pack();
         setLocationRelativeTo(null);
@@ -2063,9 +2052,9 @@ public class MenuInicial extends JFrame implements Observer {
     public void cargarCartas() throws IOException {
 
         this.cartasTotal = Json.initializeCartas();
-        /*for(int i = 0; i < 30;i++) {
+        for(int i = 0; i < 30;i++) {
             System.out.println(this.cartasTotal.getCartastotal()[i].toString());
-        }*/
+        }
         setMazo(this.cartasTotal);
     }
 
