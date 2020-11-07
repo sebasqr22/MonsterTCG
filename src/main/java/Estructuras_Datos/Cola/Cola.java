@@ -1,7 +1,7 @@
 package Estructuras_Datos.Cola;
 
 import Assets.Carta;
-import Estructuras_Datos.CList.Node;
+import Estructuras_Datos.Node;
 
 public class Cola {
     Node front;
