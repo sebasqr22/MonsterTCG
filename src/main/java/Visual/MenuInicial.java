@@ -621,7 +621,7 @@ public class MenuInicial extends JFrame implements Observer {
 
         manaField.setEditable(false);
         manaField.setFont(ipField_lobby.getFont());
-        manaField.setText("200");
+        manaField.setText(String.valueOf(this.miMana));
 
         vidaOponenteBar.setMaximum(1000);
 
@@ -712,6 +712,7 @@ public class MenuInicial extends JFrame implements Observer {
         );
 
         vidaBar.setValue(miVida);
+        vidaOponenteBar.setValue(1000);
         mazoBoton.setIcon(new ImageIcon(this.rutaC +  "back.png"));
 
         pantallas.addTab("tab4", jPanel1);
