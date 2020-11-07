@@ -11,6 +11,10 @@ public class Movimiento {
     public int manaC;
     public int id = 14;
 
+
+    public Movimiento() {
+    }
+
     public Movimiento(int turno, String user, int vida, int mana, String carta, int ataque, int manaC) {
         this.turno = turno;
         this.user = user;
@@ -20,6 +24,7 @@ public class Movimiento {
         this.ataque = ataque;
         this.manaC = manaC;
     }
+
 
 
 

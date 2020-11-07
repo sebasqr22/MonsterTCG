@@ -9,12 +9,14 @@ public class DoubleLinkedList {
     public NodeD head;
     public NodeD tail;
     public int size;
+    public NodeD selec;
 
 
     public DoubleLinkedList(){
         this.head = null;
         this.tail = null;
         this.size = 0;
+        this.selec = null;
     }
 
     public boolean isEmpty(){
@@ -30,7 +32,7 @@ public class DoubleLinkedList {
         NodeD newNode = new NodeD(data);
 
         if (this.isEmpty()){
-            this.head = this.tail = newNode;
+            this.head = this.tail = this.selec = newNode;
         }else{
             newNode.setNext(this.head);
             this.head = newNode;
@@ -43,9 +45,10 @@ public class DoubleLinkedList {
         NodeD newNode = new NodeD(data);
 
         if (this.isEmpty()){
-            this.head = this.tail = newNode;
+            this.head = this.tail = this.selec = newNode;
         }else{
             this.tail.setNext(newNode);
+            newNode.setPrev(this.tail);
             this.tail = newNode;
         }
         this.size++;
@@ -71,7 +74,7 @@ public class DoubleLinkedList {
         }
     }
 
-    public Movimiento[] toArray(){
+    public Movimiento[] movArray(){
         Movimiento[] array;
         if (this.head == null){
             array = new Movimiento[1];
@@ -99,6 +102,35 @@ public class DoubleLinkedList {
         }
     }
 
+    public NodeD getHead() {
+        return head;
+    }
+
+    public NodeD getTail() {
+        return tail;
+    }
+
+    public NodeD getSelec() {
+        return selec;
+    }
+
+    public NodeD getSelecNext(){
+        if (this.selec == this.tail){
+            return this.tail;
+        }else{
+            this.selec = this.selec.getNext();
+            return selec;
+        }
+    }
+
+    public NodeD getSelecPrev(){
+        if (this.selec == this.head){
+            return this.head;
+        }else{
+            this.selec = this.selec.getPrev();
+            return selec;
+        }
+    }
 }
 
 
