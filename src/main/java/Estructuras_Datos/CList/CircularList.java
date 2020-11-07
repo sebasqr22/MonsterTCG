@@ -6,22 +6,36 @@ import Estructuras_Datos.Node;
 
 import javax.swing.*;
 
+/**
+ * @author David de la Hoz
+ */
 public class CircularList {
 
     int size;
     Node cartaSelec;
     Node ref;
 
+    /**
+     * Constructor de la clase CircularList
+     */
     public CircularList(){
         this.ref = null;
         this.cartaSelec = null;
         this.size = 0;
     }
 
+    /**
+     * Metodo para obtener el tamaño de la lista
+     * @return tamaño
+     */
     public int getSize(){
         return this.size;
     }
 
+    /**
+     * Metodo para insertar a una carta a la lista
+     * @param data
+     */
     public void insert(Carta data){
         if(this.size + 1 <= 10) {
             Node newNode = new Node(data);
@@ -60,6 +74,9 @@ public class CircularList {
         }
     }
 
+    /**
+     * Metodo para imprimir la lista
+     */
     public void printList(){
         System.out.println("--------------------");
         if (this.ref == null){
@@ -81,7 +98,10 @@ public class CircularList {
         System.out.println("--------------------");
     }
 
-
+    /**
+     * Metodo para borrar un elemento de la lista
+     * @param data
+     */
     public void deleteDato(Carta data){
         //System.out.println("delete");
         if(this.ref == null){
@@ -146,7 +166,10 @@ public class CircularList {
         this.size -= 1;
     }
 
-
+    /**
+     * Metodo para obtener el siguiente elemento de la lista
+     * @return siguiente elemento
+     */
     public Node getCartaNext(){
         if (this.cartaSelec != null) {
             this.cartaSelec = this.cartaSelec.getNext();
@@ -157,6 +180,10 @@ public class CircularList {
         }
     }
 
+    /**
+     * Metodo para obtener el elemento anterior de la lista
+     * @return elemento anterior
+     */
     public Node getCartaPrev(){
         if (this.cartaSelec != null) {
             this.cartaSelec = this.cartaSelec.getPrev();
@@ -165,10 +192,20 @@ public class CircularList {
             return null;
         }
     }
+
+    /**
+     * Metodo para retornar la refernecia principal de la lista
+     * @return
+     */
     public Node getRef() {
         return ref;
     }
 
+    /**
+     * Metodo para encontraar un nodo de la lista
+     * @param carta
+     * @return valor booleano
+     */
     public Node find(Carta carta){
         if (this.ref == null){
             return null;
@@ -193,10 +230,18 @@ public class CircularList {
         }
     }
 
+    /**
+     * Metodo para obtener el elemento seleccionado de la lista
+     * @return elemento seleccionado
+     */
     public Node getCartaSelec() {
         return cartaSelec;
     }
 
+    /**
+     * Metodo para modificar la carta seleccionada
+     * @param cartaSelec
+     */
     public void setCartaSelec(Node cartaSelec) {
         this.cartaSelec = cartaSelec;
     }

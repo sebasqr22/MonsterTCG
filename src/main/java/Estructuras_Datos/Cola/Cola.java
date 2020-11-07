@@ -3,19 +3,33 @@ package Estructuras_Datos.Cola;
 import Assets.Carta;
 import Estructuras_Datos.Node;
 
+/**
+ * @author David de la Hoz
+ */
 public class Cola {
     Node front;
     Node rear;
 
+    /**
+     * Constructor de la clase Cola
+     */
     public Cola(){
         this.front = null;
         this.rear = null;
     }
 
+    /**
+     * Metodo para obtener si la cola es vacia
+     * @return valor booleano
+     */
     public boolean isEmpty(){
         return this.rear == null;
     }
 
+    /**
+     * Metodo para agregar elemento siguiente a la cola
+     * @param data
+     */
     public void enQueue(Carta data){
         Node tmp = new Node(data);
 
@@ -28,6 +42,10 @@ public class Cola {
         }
     }
 
+    /**
+     * Metodo para sacar primer elemento de la cola
+     * @return
+     */
     public Node deQueue(){
 
         if (this.isEmpty()){
@@ -43,6 +61,9 @@ public class Cola {
         }
     }
 
+    /**
+     * Metodo para imprimir la cola
+     */
     public void print(){
         if(isEmpty()){
             System.out.println("Vacia");

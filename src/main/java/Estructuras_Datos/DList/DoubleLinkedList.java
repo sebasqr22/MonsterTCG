@@ -3,28 +3,44 @@ package Estructuras_Datos.DList;
 
 import Assets.Movimiento;
 
-
+/**
+ * @author David de la Hoz
+ */
 public class DoubleLinkedList {
 
     public NodeD head;
     public NodeD tail;
     public int size;
 
-
+    /**
+     * Constructor de la clase DoubleLinkedList
+     */
     public DoubleLinkedList(){
         this.head = null;
         this.tail = null;
         this.size = 0;
     }
 
+    /**
+     * Metodo para verificar si la lista es vacia
+     * @return valor booleano
+     */
     public boolean isEmpty(){
         return this.head==null;
     }
 
+    /**
+     * Metodo para obtener el tamaño de la lista
+     * @return tamaño de la lista
+     */
     public int getSize() {
         return size;
     }
 
+    /**
+     * Metodo para insertar un elemento al inicio de la lista
+     * @param data
+     */
     public void insertHead(Movimiento data){
 
         NodeD newNode = new NodeD(data);
@@ -38,6 +54,10 @@ public class DoubleLinkedList {
         this.size++;
     }
 
+    /**
+     * Metodo para insertar un elemento al final de la lista
+     * @param data
+     */
     public void insertLast(Movimiento data){
 
         NodeD newNode = new NodeD(data);
@@ -51,6 +71,11 @@ public class DoubleLinkedList {
         this.size++;
     }
 
+    /**
+     * Metodo para encontrar un elemento en la lista
+     * @param data
+     * @return posicion del elemento
+     */
     public NodeD find(Object data){
         if (this.isEmpty()){
             return null;
@@ -71,6 +96,10 @@ public class DoubleLinkedList {
         }
     }
 
+    /**
+     * Metodo para transformar la lista en un array
+     * @return el movimiento a array
+     */
     public Movimiento[] toArray(){
         Movimiento[] array;
         if (this.head == null){
@@ -90,6 +119,9 @@ public class DoubleLinkedList {
             return array;
         }
     }
+    /**
+     * Metodo para imprimir la lista
+     */
     public void print(){
         NodeD tmp = this.head;
 
