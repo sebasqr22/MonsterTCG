@@ -9,6 +9,7 @@ import java.util.Observable;
 import java.util.Random;
 
 /**
+ * @author David de la Hoz
  * Esta clase se encarga de implementar el servidor para recibir los mensajes de los clientes.
  * @see java.lang.Runnable
  * @see java.util.Observable

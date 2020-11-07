@@ -31,8 +31,8 @@ import javax.print.attribute.standard.MediaName;
 import javax.swing.*;
 
 /**
- *
- * @author sebas
+ * Esta es la clase principal de la aplicacion
+ * @author David de la Hoz y Sebastian Quesada
  */
 public class MenuInicial extends JFrame implements Observer {
     //variables del user
@@ -191,11 +191,7 @@ public class MenuInicial extends JFrame implements Observer {
         monsterName_menu.setText("MONSTER TECG");
 
         nombreField.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 14)); // NOI18N
-        nombreField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreFieldActionPerformed(evt);
-            }
-        });
+
 
         nombreText.setBackground(new java.awt.Color(102, 204, 0));
         nombreText.setFont(new java.awt.Font("Microsoft YaHei UI Light", 3, 24)); // NOI18N
@@ -916,6 +912,11 @@ public class MenuInicial extends JFrame implements Observer {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     *
+     * Acciones del boton de unirse a partida en el Menu Inicial
+     * @param evt
+     */
     private void unirseBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unirseBotonActionPerformed
         // TODO add your handling code here:
         if("".equals(nombreField.getText())){
@@ -930,6 +931,11 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_unirseBotonActionPerformed
 
+    /**
+     *
+     * Acciones del boton para crear un lobby desde el Menu Inicial
+     * @param evt
+     */
     private void lobbyBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lobbyBotonActionPerformed
         // TODO add your handling code here:
         if ("".equals(nombreField.getText())){
@@ -945,6 +951,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_lobbyBotonActionPerformed
 
+    /**
+     * Acciones del boton para unirse a un lobby desde la pantalla de unirse, donde se solicita el puerto y el ip del lobby
+     * @param evt
+     */
     private void unirseBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unirseBoton_unirseActionPerformed
         // TODO add your handling code here:
         if("".equals(puertoField_unirse.getText()) || "".equals(ipField_unirse.getText())){
@@ -962,12 +972,20 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_unirseBoton_unirseActionPerformed
 
+    /**
+     * Acciones del boton para salir al menu inicial desde la pantalla de unirse a un lobby
+     * @param evt
+     */
     private void salirMenuBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_unirseActionPerformed
         // TODO add your handling code here:
         pantallas.setSelectedIndex(0);
         cliente = false;
     }//GEN-LAST:event_salirMenuBoton_unirseActionPerformed
 
+    /**
+     * Acciones del boton para salir al menu principal desde el lobby
+     * @param evt
+     */
     private void salirMenuBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_lobbyActionPerformed
         // TODO add your handling code here:
         int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres desconectarte?");
@@ -1006,6 +1024,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_salirMenuBoton_lobbyActionPerformed
 
+    /**
+     * Acciones del boton para salir del juego desde el menu inicial
+     * @param evt
+     */
     private void salirBoton_menuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_menuActionPerformed
         // TODO add your handling code here:
         int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir del juego?");
@@ -1018,6 +1040,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_salirBoton_menuActionPerformed
 
+    /**
+     * Acciones del boton para salir del juego desde el menu de unirse a un lobby
+     * @param evt
+     */
     private void salirBoton_unirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_unirseActionPerformed
         // TODO add your handling code here:
         int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir del juego?");
@@ -1030,6 +1056,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_salirBoton_unirseActionPerformed
 
+    /**
+     * Acciones del boton para salir del juego desde el lobby
+     * @param evt
+     */
     private void salirBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_lobbyActionPerformed
         // TODO add your handling code here:
         int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir del juego?");
@@ -1042,10 +1072,11 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_salirBoton_lobbyActionPerformed
 
-    private void nombreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreFieldActionPerformed
-
+    /**
+     * Acciones del boton para iniciar la partida desde el lobby
+     * Este solo es visible para el host
+     * @param evt
+     */
     private void iniciarBoton_lobbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarBoton_lobbyActionPerformed
         // TODO add your handling code here:
         if(usuariosConectados == 2){
@@ -1060,6 +1091,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_iniciarBoton_lobbyActionPerformed
 
+    /**
+     * Acciones del boton para avanzar en la mano de cartas
+     * @param evt
+     */
     private void adelanteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adelanteBotonActionPerformed
         // TODO add your handling code here:
 
@@ -1071,6 +1106,11 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_adelanteBotonActionPerformed
 
+    /**
+     * Acciones del boton para enviar la carta que aparezca en pantalla
+     * Se hace el envio segun el tipo de carta (esbirro, hechizo o secreto)
+     * @param evt
+     */
     private void cartaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cartaBotonActionPerformed
         // TODO add your handling code here:
         if(this.cartaSelec !=  null) {
@@ -1324,6 +1364,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_cartaBotonActionPerformed
 
+    /**
+     * Acciones del boton para retroceder en la mano de cartas
+     * @param evt
+     */
     private void atrasBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasBotonActionPerformed
         // TODO add your handling code here:
 
@@ -1333,6 +1377,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_atrasBotonActionPerformed
 
+    /**
+     * Acciones del boton para agregar cartas a la mano
+     * @param evt
+     */
     private void mazoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mazoBotonActionPerformed
         // TODO add your handling code here:
         if(this.mano.getSize() + 1 <= 10) {
@@ -1367,6 +1415,10 @@ public class MenuInicial extends JFrame implements Observer {
 
     }//GEN-LAST:event_mazoBotonActionPerformed
 
+    /**
+     * Acciones del boton para salir al menu principal desde la pantalla del juego
+     * @param evt
+     */
     private void salirMenuBoton_juegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_juegoActionPerformed
         // TODO add your handling code here:
         int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir al menu principal? Perderas la partida");
@@ -1389,6 +1441,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_salirMenuBoton_juegoActionPerformed
 
+    /**
+     * Acciones del boton para salir del juego desde la pantalla del juego
+     * @param evt
+     */
     private void salirBoton_juegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_juegoActionPerformed
         // TODO add your handling code here:
         int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir del juego?");
@@ -1410,6 +1466,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_salirBoton_juegoActionPerformed
 
+    /**
+     * Acciones del boton para pasar el turno al oponente
+     * @param evt
+     */
     private void pasarTurnoBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pasarTurnoBotonActionPerformed
         // TODO add your handling code here:
         int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres otorgar tu turno al rival?");
@@ -1440,6 +1500,10 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_pasarTurnoBotonActionPerformed
 
+    /**
+     * Acciones del boton para salir al menu principal desde el historial de jugadas
+     * @param evt
+     */
     private void salirMenuBoton_historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirMenuBoton_historialActionPerformed
         // TODO add your handling code here:
         int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir al menu principal?");
@@ -1456,6 +1520,10 @@ public class MenuInicial extends JFrame implements Observer {
         // TODO add your handling code here:
     }//GEN-LAST:event_movimientoField_historialActionPerformed
 
+    /**
+     * Acciones del boton para salir del juego desde el menu del historial de jugadas
+     * @param evt
+     */
     private void salirBoton_historialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBoton_historialActionPerformed
         // TODO add your handling code here:
         int salir = JOptionPane.showConfirmDialog(null, "¿Estas seguro que quieres salir del juego?");
@@ -1468,10 +1536,18 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }//GEN-LAST:event_salirBoton_historialActionPerformed
 
+    /**
+     * Acciones del boton para moverse para atras en el historial de jugadas
+     * @param evt
+     */
     private void movPrevioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_movPrevioBotonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_movPrevioBotonActionPerformed
 
+    /**
+     * Acciones del boton para moverse adelante en el historial de jugadas
+     * @param evt
+     */
     private void movNextBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_movNextBotonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_movNextBotonActionPerformed
@@ -1583,6 +1659,12 @@ public class MenuInicial extends JFrame implements Observer {
     private javax.swing.JLabel vidaText_historial;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     *
+     * Metodo donde llegan las notificaciones de los observadores
+     * @param o
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg){
 
@@ -1752,6 +1834,12 @@ public class MenuInicial extends JFrame implements Observer {
         }
         
     }
+
+    /**
+     *
+     * Metodo para buscar un puerto libre y asignarlo a un jugador
+     * @return puerto libre
+     */
     public static int puerto(){
 
         Random port_r = new Random();// create random class
@@ -1761,10 +1849,11 @@ public class MenuInicial extends JFrame implements Observer {
         }
         return port;
     }
-    public void modificarPantallas(int valor){
-        pantallas.setSelectedIndex(valor);
-    }
 
+    /**
+     * Metodo para hacer un envio por la red de tipo JSON
+     * @param envio
+     */
     public void EnvioJson(Object envio){
         JsonNode mensajeNode = Json.toJsonNode(envio);
         try {
@@ -1777,20 +1866,36 @@ public class MenuInicial extends JFrame implements Observer {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Metodo para leer un objeto de serializado con JSON
+     * @param node
+     * @return el objeto tipo JSON
+     * @throws JsonProcessingException
+     */
     public Mensaje LeerJsonMensaje(JsonNode node) throws JsonProcessingException {
         Mensaje conectar = new Mensaje(node.get("ip").asText(),node.get("port").asInt(),
                 node.get("username").asText(),1,node.get("host").asBoolean());
         return conectar;
     }
-
-
+    /**
+     * Metodo para serializar la carta con JSON y enviarla
+     * @param node
+     * @return
+     * @throws JsonProcessingException
+     */
     public EnvioCarta LeerJsonCarta(JsonNode node) throws JsonProcessingException{
         EnvioCarta card = new EnvioCarta(node.get("nombre").asText(), node.get("ataque").asInt(), node.get("mana").asInt(),
                 node.get("id").asInt(), node.get("tipo").asText(), node.get("idCarta").asInt());
         return card;
     }
 
-
+    /**
+     * Metodo para serializar con JSON a la clase Movimiento
+     * @param node
+     * @return
+     * @throws JsonProcessingException
+     */
     public Movimiento LeerJsonMovimiento(JsonNode node) throws JsonProcessingException{
 
         Movimiento movimiento = new Movimiento(node.get("turno").asInt(),node.get("user").asText(),
@@ -1799,7 +1904,10 @@ public class MenuInicial extends JFrame implements Observer {
         return movimiento;
     }
 
-    
+    /**
+     * Metodo para modificar la vida de un jugador
+     * @param valor
+     */
     public void CambiarVida(int valor){
         if (this.escudo == true){
             this.escudo = false;
@@ -1827,11 +1935,18 @@ public class MenuInicial extends JFrame implements Observer {
             }
         }
     }
+
+    /**
+     * Metodo para sumar mana a un jugador
+     */
     public void SumarMana(){
         this.miMana += (this.miMana * 0.25);
         manaField.setText(String.valueOf(miMana));
     }
-
+    /**
+     * Metodo para restar mana a un jugador
+     * @param valor
+     */
     public void RestarMana(int valor){
         if (this.miMana - valor < 0){
             this.miMana = 0;
@@ -1841,11 +1956,18 @@ public class MenuInicial extends JFrame implements Observer {
         manaField.setText(String.valueOf(miMana));
     }
 
+    /**
+     * Metodo para modificar el turno de un jugador
+     * @param turno
+     */
     public void setTurno(Boolean turno){
         mazoBoton.setEnabled(turno);
         cartaBoton.setEnabled(turno);
     }
 
+    /**
+     * Metodo para reestablecer los valores predeterminados de la vida y el mana
+     */
     public void resetVidaMana(){
         this.miMana = 200;
         this.miVida = 1000;
@@ -1853,7 +1975,11 @@ public class MenuInicial extends JFrame implements Observer {
         vidaBar.setValue(miVida);
         manaField.setText(String.valueOf(miMana));
     }
-  
+
+    /**
+     * Metodo para crear el mazo de cartas de un jugador
+     * @param cartas
+     */
     public void setMazo(CartasTotal cartas) {
         
         Random random = new Random();
@@ -1865,8 +1991,11 @@ public class MenuInicial extends JFrame implements Observer {
         this.mazo.print();
         crearMano();
     }
-    
 
+    /**
+     * Metodo para cargar las cartas establecidas en el archivo Cartas.json
+     * @throws IOException
+     */
     public void cargarCartas() throws IOException {
 
         this.cartasTotal = Json.initializeCartas();
@@ -1884,6 +2013,9 @@ public class MenuInicial extends JFrame implements Observer {
 
     }
 
+    /**
+     * Metodo para modificar la imagen del boton donde se hace el envio de una carta
+     */
     public void setCartaImage(){
         if (this.cartaSelec != null) {
             Carta select = this.cartaSelec.getObject();
@@ -1893,6 +2025,9 @@ public class MenuInicial extends JFrame implements Observer {
         }
     }
 
+    /**
+     * Metodo para tomar una carta del mazo a la mano
+     */
     public void tomarCarta(){
         if (this.mano.getSize() <= 10) {
             Carta nueva = this.mazo.deQueue().getObject();
@@ -1903,6 +2038,10 @@ public class MenuInicial extends JFrame implements Observer {
             JOptionPane.showMessageDialog(pantallas,"NO puedes tener mas de 10 cartas");
         }
     }
+
+    /**
+     * Metodo para volver a crear un mazo de cartas
+     */
     public void resetMazo(){
         this.mano = new CircularList();
         this.mazo = new Cola();
