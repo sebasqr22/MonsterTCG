@@ -71,11 +71,30 @@ public class DoubleLinkedList {
         }
     }
 
+    public Movimiento[] toArray(){
+        Movimiento[] array;
+        if (this.head == null){
+            array = new Movimiento[1];
+            return array;
+        }
+        else{
+            array = new Movimiento[this.size];
+            NodeD tmp = this.head;
+            int i = 0;
+
+            while (tmp != null){
+                array[i] = tmp.getObject();
+                tmp = tmp.getNext();
+                i++;
+            }
+            return array;
+        }
+    }
     public void print(){
         NodeD tmp = this.head;
 
         while(tmp!=null){
-            System.out.println(tmp.getObject());
+            System.out.println(tmp.getObject().asString());
             tmp = tmp.getNext();
         }
     }

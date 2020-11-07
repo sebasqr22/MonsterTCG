@@ -44,7 +44,7 @@ public class Client implements Runnable {
 
         //try para prevenir problemas con la creacion del socket
         try{
-            System.out.println("---Creando socket cliente en puerto: " + this.port + " en ip: " + this.ip + "---");
+
             Socket client = new Socket(ip,port);//Create socket
 
             out = new DataOutputStream(client.getOutputStream());//create DataOutputStream

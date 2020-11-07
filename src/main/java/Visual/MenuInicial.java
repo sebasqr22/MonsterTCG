@@ -8,7 +8,9 @@ package Visual;
 
 import Assets.Carta;
 import Assets.CartasTotal;
+import Assets.Movimiento;
 import Estructuras_Datos.CList.CircularList;
+import Estructuras_Datos.DList.DoubleLinkedList;
 import Estructuras_Datos.Node;
 import Estructuras_Datos.Cola.Cola;
 import JsonPackage.Json;
@@ -60,17 +62,20 @@ public class MenuInicial extends JFrame implements Observer {
 
     // variables de jugabilidad
     int miVida = 1000;
-    int miMana = 700;
+    int miMana = 200;
     String miSecreto = "";
     String opSecreto = "";
     int especial = 0;
+    int turno = 1;
 
     //variables del mazo
     CartasTotal cartasTotal = new CartasTotal();
     Cola mazo = new Cola();
     CircularList mano = new CircularList();
+    DoubleLinkedList historial = new DoubleLinkedList();
     Node cartaSelec;
     String rutaC = "img//cartas//";
+
 
     /**
      * Creates new form MenuInicial
@@ -702,6 +707,8 @@ public class MenuInicial extends JFrame implements Observer {
         );
 
         vidaBar.setValue(miVida);
+        vidaOponenteBar.setValue(1000);
+        manaField.setText("200");
         mazoBoton.setIcon(new ImageIcon(this.rutaC +  "back.png"));
 
         pantallas.addTab("tab4", jPanel1);
@@ -1055,11 +1062,10 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void adelanteBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adelanteBotonActionPerformed
         // TODO add your handling code here:
-        this.mano.printList();
+
         if(this.cartaSelec != null) {
             this.cartaSelec = this.mano.getCartaNext();
             setCartaImage();
-            System.out.println("Carta: "+this.cartaSelec.getObject());
 
 
         }
@@ -1069,11 +1075,14 @@ public class MenuInicial extends JFrame implements Observer {
         // TODO add your handling code here:
         if(this.cartaSelec !=  null) {
             if (this.miMana >= this.cartaSelec.getObject().getMana()) {
+
                 String val = this.cartaSelec.getObject().getType() + String.valueOf(this.cartaSelec.getObject().getId());
+
                 if (this.opSecreto.equals(val)){
                     JOptionPane.showMessageDialog(pantallas, "El secreto de tu oponente ha sido activado :/");
                     Mensaje activacion = new Mensaje(null, 0, null, 13, false);
                     EnvioJson(activacion);
+
                     if (val.equals("e3")){
                         JOptionPane.showMessageDialog(pantallas, "Se activo la Juve, pierder 200 de vida...");
                         CambiarVida(200);
@@ -1140,7 +1149,7 @@ public class MenuInicial extends JFrame implements Observer {
                     setTurno(false);
                 }
                 else {
-                    System.out.println("Se eligio carta");
+
                     if (this.poderSupremo == false) {
                         especial = 0;
                         if (this.congelar == 1) {
@@ -1273,6 +1282,7 @@ public class MenuInicial extends JFrame implements Observer {
                     }
 
                     RestarMana(utilizada.getMana());
+
                     if (this.miMana + (this.miMana * 0.25) < 1000) {
                         SumarMana();
                     } else {
@@ -1297,6 +1307,13 @@ public class MenuInicial extends JFrame implements Observer {
                         EnvioJson(envio);
                         setTurno(false);
                     }
+
+                    Movimiento movimiento = new Movimiento(this.turno,this.username,this.miVida,this.miMana,utilizada.getNombre(),
+                            utilizada.getAtaque(),utilizada.getMana());
+                    this.historial.insertLast(movimiento);
+                    this.historial.print();
+                    EnvioJson(movimiento);
+                    this.turno++;
                 }
             } else {
                 JOptionPane.showMessageDialog(pantallas, "No tienes suficiente mana para utilizar esta carta, prueba con otra...");
@@ -1309,12 +1326,10 @@ public class MenuInicial extends JFrame implements Observer {
 
     private void atrasBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atrasBotonActionPerformed
         // TODO add your handling code here:
-        this.mano.printList();
+
         if (this.cartaSelec != null) {
             this.cartaSelec = this.mano.getCartaPrev();
             setCartaImage();
-            System.out.println("Carta: "+this.cartaSelec.getObject());
-
         }
     }//GEN-LAST:event_atrasBotonActionPerformed
 
@@ -1329,6 +1344,15 @@ public class MenuInicial extends JFrame implements Observer {
             EnvioJson(envio);
             setTurno(false);
             tomarCarta();
+
+
+            Movimiento movimiento = new Movimiento(this.turno,this.username,this.miVida,this.miMana,"Tomar Carta",
+                    0,0);
+            this.historial.insertLast(movimiento);
+            this.historial.print();
+            EnvioJson(movimiento);
+            this.turno++;
+
             if (this.miMana + (this.miMana*0.25) < 1000){
                 SumarMana();
             }
@@ -1394,6 +1418,15 @@ public class MenuInicial extends JFrame implements Observer {
                 Mensaje envio = new Mensaje(null, 1, this.username, 5, false);
                 EnvioJson(envio);
                 setTurno(false);
+
+                Movimiento movimiento = new Movimiento(this.turno,this.username,this.miVida,this.miMana,"Pasar turno",
+                        0,0);
+
+                this.historial.insertLast(movimiento);
+                this.historial.print();
+                EnvioJson(movimiento);
+                this.turno++;
+
                 if (this.miMana + (this.miMana*0.25) < 1000){
                     SumarMana();
                 }
@@ -1708,6 +1741,11 @@ public class MenuInicial extends JFrame implements Observer {
                 setTurno(true);
                 this.miSecreto = "";
             }
+            else if (id == 14){
+                Movimiento opturno = LeerJsonMovimiento(mensaje);
+                this.historial.insertLast(opturno);
+                this.turno = opturno.getTurno()+1;
+            }
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -1745,13 +1783,21 @@ public class MenuInicial extends JFrame implements Observer {
         return conectar;
     }
 
+
     public EnvioCarta LeerJsonCarta(JsonNode node) throws JsonProcessingException{
         EnvioCarta card = new EnvioCarta(node.get("nombre").asText(), node.get("ataque").asInt(), node.get("mana").asInt(),
                 node.get("id").asInt(), node.get("tipo").asText(), node.get("idCarta").asInt());
-        System.out.println(card.getNombre() +  card.getAtaque() +  card.getMana() + card.getId() + card.getTipo());
         return card;
     }
 
+
+    public Movimiento LeerJsonMovimiento(JsonNode node) throws JsonProcessingException{
+
+        Movimiento movimiento = new Movimiento(node.get("turno").asInt(),node.get("user").asText(),
+                node.get("vida").asInt(),node.get("mana").asInt(),node.get("carta").asText(),node.get("ataque").asInt(),
+                node.get("manaC").asInt());
+        return movimiento;
+    }
 
     
     public void CambiarVida(int valor){
@@ -1787,7 +1833,11 @@ public class MenuInicial extends JFrame implements Observer {
     }
 
     public void RestarMana(int valor){
-        this.miMana -= valor;
+        if (this.miMana - valor < 0){
+            this.miMana = 0;
+        }else{
+            this.miMana -= valor;
+        }
         manaField.setText(String.valueOf(miMana));
     }
 
@@ -1797,7 +1847,7 @@ public class MenuInicial extends JFrame implements Observer {
     }
 
     public void resetVidaMana(){
-        this.miMana = 700;
+        this.miMana = 200;
         this.miVida = 1000;
         this.vidaOponenteBar.setValue(1000);
         vidaBar.setValue(miVida);
@@ -1808,7 +1858,7 @@ public class MenuInicial extends JFrame implements Observer {
         
         Random random = new Random();
         int index = 0;
-        for (int i = 0; i < 30 ;i++ ){
+        for (int i = 0; i < 20 ;i++ ){
             index = random.nextInt(cartas.getCartastotal().length-1);
             this.mazo.enQueue(cartas.getCartastotal()[index]);
         }
@@ -1820,7 +1870,7 @@ public class MenuInicial extends JFrame implements Observer {
     public void cargarCartas() throws IOException {
 
         this.cartasTotal = Json.initializeCartas();
-        for(int i = 0; i < 23;i++) {
+        for(int i = 0; i < 30;i++) {
             System.out.println(this.cartasTotal.getCartastotal()[i].toString());
         }
         setMazo(this.cartasTotal);
@@ -1831,10 +1881,7 @@ public class MenuInicial extends JFrame implements Observer {
             this.mano.insert(this.mazo.deQueue().getObject());
         }
         this.cartaSelec = this.mano.getRef();
-        System.out.println("--------------");
-        this.mano.printList();
-        System.out.println("--------------");
-        this.mazo.print();
+
     }
 
     public void setCartaImage(){
