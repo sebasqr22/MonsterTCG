@@ -1,0 +1,327 @@
+{
+  "mov" : [ {
+    "turno" : 1,
+    "user" : "David",
+    "vida" : 1000,
+    "mana" : 1000,
+    "carta" : "Covid-19",
+    "ataque" : 100,
+    "manaC" : 50,
+    "id" : 14
+  }, {
+    "turno" : 2,
+    "user" : "Sebastian",
+    "vida" : 900,
+    "mana" : 1000,
+    "carta" : "Albino",
+    "ataque" : 80,
+    "manaC" : 60,
+    "id" : 14
+  }, {
+    "turno" : 3,
+    "user" : "David",
+    "vida" : 920,
+    "mana" : 1000,
+    "carta" : "Covid-19",
+    "ataque" : 100,
+    "manaC" : 50,
+    "id" : 14
+  }, {
+    "turno" : 4,
+    "user" : "Sebastian",
+    "vida" : 800,
+    "mana" : 962,
+    "carta" : "Veneno",
+    "ataque" : 200,
+    "manaC" : 230,
+    "id" : 14
+  }, {
+    "turno" : 5,
+    "user" : "David",
+    "vida" : 720,
+    "mana" : 875,
+    "carta" : "CR7",
+    "ataque" : 240,
+    "manaC" : 300,
+    "id" : 14
+  }, {
+    "turno" : 6,
+    "user" : "Sebastian",
+    "vida" : 560,
+    "mana" : 577,
+    "carta" : "Poder Supremo",
+    "ataque" : 0,
+    "manaC" : 500,
+    "id" : 14
+  }, {
+    "turno" : 7,
+    "user" : "Sebastian",
+    "vida" : 560,
+    "mana" : 621,
+    "carta" : "Zombie",
+    "ataque" : 100,
+    "manaC" : 80,
+    "id" : 14
+  }, {
+    "turno" : 8,
+    "user" : "Sebastian",
+    "vida" : 560,
+    "mana" : 621,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 9,
+    "user" : "David",
+    "vida" : 620,
+    "mana" : 875,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 10,
+    "user" : "Sebastian",
+    "vida" : 560,
+    "mana" : 776,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 11,
+    "user" : "David",
+    "vida" : 620,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 12,
+    "user" : "Sebastian",
+    "vida" : 560,
+    "mana" : 970,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 13,
+    "user" : "David",
+    "vida" : 620,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 14,
+    "user" : "Sebastian",
+    "vida" : 560,
+    "mana" : 1000,
+    "carta" : "Golem",
+    "ataque" : 150,
+    "manaC" : 150,
+    "id" : 14
+  }, {
+    "turno" : 15,
+    "user" : "David",
+    "vida" : 470,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 16,
+    "user" : "Sebastian",
+    "vida" : 560,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 17,
+    "user" : "David",
+    "vida" : 470,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 18,
+    "user" : "Sebastian",
+    "vida" : 560,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 19,
+    "user" : "David",
+    "vida" : 470,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 20,
+    "user" : "Sebastian",
+    "vida" : 560,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 21,
+    "user" : "David",
+    "vida" : 470,
+    "mana" : 937,
+    "carta" : "Kratos",
+    "ataque" : 200,
+    "manaC" : 250,
+    "id" : 14
+  }, {
+    "turno" : 22,
+    "user" : "Sebastian",
+    "vida" : 360,
+    "mana" : 1000,
+    "carta" : "Pasar turno",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 23,
+    "user" : "David",
+    "vida" : 470,
+    "mana" : 1000,
+    "carta" : "El Mago",
+    "ataque" : 120,
+    "manaC" : 100,
+    "id" : 14
+  }, {
+    "turno" : 24,
+    "user" : "Sebastian",
+    "vida" : 240,
+    "mana" : 1000,
+    "carta" : "Rayo",
+    "ataque" : 100,
+    "manaC" : 50,
+    "id" : 14
+  }, {
+    "turno" : 25,
+    "user" : "David",
+    "vida" : 370,
+    "mana" : 962,
+    "carta" : "Veneno",
+    "ataque" : 200,
+    "manaC" : 230,
+    "id" : 14
+  }, {
+    "turno" : 26,
+    "user" : "Sebastian",
+    "vida" : 40,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 27,
+    "user" : "David",
+    "vida" : 370,
+    "mana" : 962,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 28,
+    "user" : "Sebastian",
+    "vida" : 40,
+    "mana" : 1000,
+    "carta" : "Pasar turno",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 29,
+    "user" : "David",
+    "vida" : 370,
+    "mana" : 1000,
+    "carta" : "Bulum Bulum",
+    "ataque" : 0,
+    "manaC" : 200,
+    "id" : 14
+  }, {
+    "turno" : 30,
+    "user" : "Sebastian",
+    "vida" : 40,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 31,
+    "user" : "David",
+    "vida" : 370,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 32,
+    "user" : "Sebastian",
+    "vida" : 40,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 33,
+    "user" : "David",
+    "vida" : 370,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 34,
+    "user" : "Sebastian",
+    "vida" : 40,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 35,
+    "user" : "David",
+    "vida" : 370,
+    "mana" : 1000,
+    "carta" : "Tomar Carta",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  }, {
+    "turno" : 36,
+    "user" : "Sebastian",
+    "vida" : 40,
+    "mana" : 1000,
+    "carta" : "Pasar turno",
+    "ataque" : 0,
+    "manaC" : 0,
+    "id" : 14
+  } ]
+}

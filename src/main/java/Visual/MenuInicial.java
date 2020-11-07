@@ -9,8 +9,10 @@ package Visual;
 import Assets.Carta;
 import Assets.CartasTotal;
 import Assets.Movimiento;
+import Assets.MovimientoTotal;
 import Estructuras_Datos.CList.CircularList;
 import Estructuras_Datos.DList.DoubleLinkedList;
+import Estructuras_Datos.DList.NodeD;
 import Estructuras_Datos.Node;
 import Estructuras_Datos.Cola.Cola;
 import JsonPackage.Json;
@@ -27,7 +29,6 @@ import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
-import javax.print.attribute.standard.MediaName;
 import javax.swing.*;
 
 /**
@@ -62,7 +63,7 @@ public class MenuInicial extends JFrame implements Observer {
 
     // variables de jugabilidad
     int miVida = 1000;
-    int miMana = 200;
+    int miMana = 1000;
     String miSecreto = "";
     String opSecreto = "";
     int especial = 0;
@@ -73,6 +74,8 @@ public class MenuInicial extends JFrame implements Observer {
     Cola mazo = new Cola();
     CircularList mano = new CircularList();
     DoubleLinkedList historial = new DoubleLinkedList();
+    MovimientoTotal movimientosTotal = new MovimientoTotal();
+    NodeD histoselec;
     Node cartaSelec;
     String rutaC = "img//cartas//";
 
@@ -224,6 +227,11 @@ public class MenuInicial extends JFrame implements Observer {
 
         historialBoton_menu.setFont(mazoBoton.getFont());
         historialBoton_menu.setText("Historial de Movimientos ");
+        historialBoton_menu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historialBoton_menuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout MenuInicialLayout = new javax.swing.GroupLayout(MenuInicial);
         MenuInicial.setLayout(MenuInicialLayout);
@@ -613,6 +621,7 @@ public class MenuInicial extends JFrame implements Observer {
 
         manaField.setEditable(false);
         manaField.setFont(ipField_lobby.getFont());
+        manaField.setText(String.valueOf(this.miMana));
 
         vidaOponenteBar.setMaximum(1000);
 
@@ -704,7 +713,6 @@ public class MenuInicial extends JFrame implements Observer {
 
         vidaBar.setValue(miVida);
         vidaOponenteBar.setValue(1000);
-        manaField.setText("200");
         mazoBoton.setIcon(new ImageIcon(this.rutaC +  "back.png"));
 
         pantallas.addTab("tab4", jPanel1);
@@ -713,14 +721,19 @@ public class MenuInicial extends JFrame implements Observer {
         historialPantalla.setForeground(new java.awt.Color(56, 1, 6));
 
         numeroTurnoField.setFont(manaField.getFont());
+        numeroTurnoField.setEnabled(false);
 
         manaField_historial.setFont(nombreField.getFont());
+        manaField_historial.setEnabled(false);
 
         nombreField_historial.setFont(nombreField.getFont());
+        nombreField_historial.setEnabled(false);
 
         vidaField_historial.setFont(numeroTurnoField.getFont());
+        vidaField_historial.setEnabled(false);
 
         movimientoField_historial.setFont(numeroTurnoField.getFont());
+        movimientoField_historial.setEnabled(false);
         movimientoField_historial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 movimientoField_historialActionPerformed(evt);
@@ -728,8 +741,10 @@ public class MenuInicial extends JFrame implements Observer {
         });
 
         ataqueCartaField.setFont(nombreField_historial.getFont());
+        ataqueCartaField.setEnabled(false);
 
         manaCartaField.setFont(nombreField.getFont());
+        manaCartaField.setEnabled(false);
 
         salirMenuBoton_historial.setFont(atrasBoton.getFont());
         salirMenuBoton_historial.setText("Menu Inicial");
@@ -1542,6 +1557,11 @@ public class MenuInicial extends JFrame implements Observer {
      */
     private void movPrevioBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_movPrevioBotonActionPerformed
         // TODO add your handling code here:
+        this.histoselec = this.historial.getSelecPrev();
+        if (this.histoselec == this.historial.getHead()){
+            JOptionPane.showMessageDialog(pantallas,"Estas en el primer turno");
+        }
+        setMovimiento(this.histoselec.getObject());
     }//GEN-LAST:event_movPrevioBotonActionPerformed
 
     /**
@@ -1550,7 +1570,27 @@ public class MenuInicial extends JFrame implements Observer {
      */
     private void movNextBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_movNextBotonActionPerformed
         // TODO add your handling code here:
+
+        this.histoselec = this.historial.getSelecNext();
+        if (this.histoselec == this.historial.getTail()){
+            JOptionPane.showMessageDialog(pantallas,"Estas en el ultimo turno");
+        }
+        setMovimiento(this.histoselec.getObject());
     }//GEN-LAST:event_movNextBotonActionPerformed
+
+    private void historialBoton_menuActionPerformed(java.awt.event.ActionEvent evt){//GEN-FIRST:event_historialBoton_menuActionPerformed
+        // TODO add your handling code here:
+
+        try {
+            empezarMov();
+            setMovimiento(this.histoselec.getObject());
+            pantallas.setSelectedIndex(4);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }//GEN-LAST:event_historialBoton_menuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1745,6 +1785,16 @@ public class MenuInicial extends JFrame implements Observer {
                 resetMazo();
                 resetVidaMana();
                 pantallas.setSelectedIndex(2);
+
+                Movimiento[] listaMov = this.historial.movArray();
+                MovimientoTotal mov = new MovimientoTotal();
+                mov.setMov(listaMov);
+
+                try {
+                    Json.writetoJsonMov(mov);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             else if (id == 7){// ataque de carta
@@ -1930,8 +1980,22 @@ public class MenuInicial extends JFrame implements Observer {
                 } else {
                     setTurno(true);
                 }
+
                 resetVidaMana();
                 pantallas.setSelectedIndex(2);
+
+                Movimiento[] listaMov = this.historial.movArray();
+                MovimientoTotal mov = new MovimientoTotal();
+                mov.setMov(listaMov);
+
+                try {
+                    Json.writetoJsonMov(mov);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+
             }
         }
     }
@@ -1988,7 +2052,7 @@ public class MenuInicial extends JFrame implements Observer {
             index = random.nextInt(cartas.getCartastotal().length-1);
             this.mazo.enQueue(cartas.getCartastotal()[index]);
         }
-        this.mazo.print();
+        //this.mazo.print();
         crearMano();
     }
 
@@ -1999,9 +2063,9 @@ public class MenuInicial extends JFrame implements Observer {
     public void cargarCartas() throws IOException {
 
         this.cartasTotal = Json.initializeCartas();
-        for(int i = 0; i < 30;i++) {
+        /*for(int i = 0; i < 30;i++) {
             System.out.println(this.cartasTotal.getCartastotal()[i].toString());
-        }
+        }*/
         setMazo(this.cartasTotal);
     }
 
@@ -2046,5 +2110,33 @@ public class MenuInicial extends JFrame implements Observer {
         this.mano = new CircularList();
         this.mazo = new Cola();
         setMazo(this.cartasTotal);
+    }
+
+    public void setMovimiento(Movimiento inicial){
+
+        this.numeroTurnoField.setText(String.valueOf(inicial.getTurno()));
+        this.nombreField_historial.setText(inicial.getUser());
+        this.vidaField_historial.setText(String.valueOf(inicial.getVida()));
+        this.manaField_historial.setText(String.valueOf(inicial.getMana()));
+        this.movimientoField_historial.setText(inicial.getCarta());
+        this.ataqueCartaField.setText(String.valueOf(inicial.getAtaque()));
+        this.manaCartaField.setText(String.valueOf(inicial.getManaC()));
+    }
+
+    public void empezarMov() throws IOException {
+
+        this.movimientosTotal = Json.initiaizeMovimientos();
+
+
+        for (int i = 0; i < this.movimientosTotal.getMov().length-1; i++){
+            this.historial.insertLast(this.movimientosTotal.getMov()[i]);
+        }
+
+        this.historial.print();
+        this.histoselec = this.historial.getSelec();
+        Movimiento inicial = this.histoselec.getObject();
+        setMovimiento(inicial);
+
+
     }
 }

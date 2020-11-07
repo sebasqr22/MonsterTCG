@@ -1,7 +1,8 @@
 package JsonPackage;
 
-import Assets.Carta;
+
 import Assets.CartasTotal;
+import Assets.MovimientoTotal;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
 import java.io.IOException;
+
 
 public class Json {
 
@@ -45,6 +47,14 @@ public class Json {
     public static CartasTotal initializeCartas() throws IOException {
 
         return objectMapper.readerFor(CartasTotal.class).readValue(new File("Cartas.json"));
+    }
 
+    public static void writetoJsonMov(MovimientoTotal movimientos) throws IOException {
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File("Historial.json"), movimientos);
+    }
+
+    public static MovimientoTotal initiaizeMovimientos() throws IOException {
+
+        return objectMapper.readerFor(MovimientoTotal.class).readValue(new File("Historial.json"));
     }
 }
