@@ -1355,7 +1355,6 @@ public class MenuInicial extends JFrame implements Observer {
                     Movimiento movimiento = new Movimiento(this.turno,this.username,this.miVida,this.miMana,utilizada.getNombre(),
                             utilizada.getAtaque(),utilizada.getMana());
                     this.historial.insertLast(movimiento);
-                    this.historial.print();
                     EnvioJson(movimiento);
                     this.turno++;
                 }
@@ -1401,7 +1400,7 @@ public class MenuInicial extends JFrame implements Observer {
             Movimiento movimiento = new Movimiento(this.turno,this.username,this.miVida,this.miMana,"Tomar Carta",
                     0,0);
             this.historial.insertLast(movimiento);
-            this.historial.print();
+
             EnvioJson(movimiento);
             this.turno++;
 
@@ -1487,7 +1486,6 @@ public class MenuInicial extends JFrame implements Observer {
                         0,0);
 
                 this.historial.insertLast(movimiento);
-                this.historial.print();
                 EnvioJson(movimiento);
                 this.turno++;
 
@@ -2052,9 +2050,6 @@ public class MenuInicial extends JFrame implements Observer {
     public void cargarCartas() throws IOException {
 
         this.cartasTotal = Json.initializeCartas();
-        for(int i = 0; i < 30;i++) {
-            System.out.println(this.cartasTotal.getCartastotal()[i].toString());
-        }
         setMazo(this.cartasTotal);
     }
 
@@ -2129,7 +2124,6 @@ public class MenuInicial extends JFrame implements Observer {
             this.historial.insertLast(this.movimientosTotal.getMov()[i]);
         }
 
-        this.historial.print();
         this.histoselec = this.historial.getSelec();
         Movimiento inicial = this.histoselec.getObject();
         setMovimiento(inicial);
