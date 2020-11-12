@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  * @see java.lang.Runnable
  *
  */
-public class Client implements Runnable {
+public class Client extends Observable implements Runnable {
     //atributos
     /**
      * port es puerto de cliente y msg el mensaje.
